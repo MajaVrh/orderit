@@ -7,12 +7,19 @@
     </div>
     <div class="desno">
       <div class="sredina">
-        <div class="rasporedButtona">
-          <router-link :to="{name: 'Login'}">
-            <button class="btn" type="submit">Admin</button>
-          </router-link>
-          <router-link :to="{name: 'Konobar'}">
-            <button class="btn" type="submit">Konobar</button>
+        <div class="raspored">
+          <img
+            style="width: 150px; margin: 0 auto 1rem auto"
+            src="@/assets/user.png"
+            alt=""
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="upišite lozinku"
+          />
+           <router-link :to="{name: 'UredjivanjePonude'}">
+            <button class="btn" >Login</button>
           </router-link>
         </div>
       </div>
@@ -22,7 +29,7 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "Login",
 };
 </script>
 
@@ -38,7 +45,7 @@ export default {
   height: 100vh;
 }
 
-.rasporedButtona {
+.raspored {
   display: flex;
   flex-direction: column;
 }
@@ -59,19 +66,36 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   min-height: 100%;
 }
 
 .btn {
   min-width: 15rem;
-  padding: 1.5rem;
-  border-radius: 10px;
+  padding: 0.8rem;
+  border-radius: 30px;
   border: none;
   outline: none;
   background-color: #750c3b;
   color: white;
   margin-top: 1rem;
   font-size: 20px;
+}
+
+input {
+  border-radius: 30px;
+  font-size: 16px;
+  border: 2px solid #750c3b;
+  padding: 0.8rem;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #750c3b;
+}
+
+input::placeholder {
+  font-style: italic;
 }
 
 .btn:hover {
