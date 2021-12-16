@@ -4,6 +4,18 @@
   </div>
 </template>
 
+<script>
+
+
+
+
+export default {
+name: "app"
+}
+
+</script>
+
+
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
 
@@ -37,3 +49,4 @@ height: 100vh;}
   }
 }
 </style>
+

@@ -14,13 +14,14 @@
             alt=""
           />
           <input
+            v-model="password"
             name="password"
             type="password"
             placeholder="upišite lozinku"
           />
-           <router-link :to="{name: 'UredjivanjePonude'}">
-            <button class="btn" >Login</button>
-          </router-link>
+
+          <button @click="login()" class="btn">Login</button>
+          
         </div>
       </div>
     </div>
@@ -28,8 +29,38 @@
 </template>
 
 <script>
+import { auth, signInWithEmailAndPassword } from "@/firebase";
 export default {
   name: "Login",
+  data() {
+    return { email: "admin@gmail.com",
+             password: "" };
+  },
+  methods: {
+    login() {
+      console.log("prijava");
+      
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          this.$router.push({ name: "UredjivanjePonude" });
+          console.log("Prijavljen je korisnik:" ,this.email);
+        
+        })
+        .catch((error) => {
+           
+          const errorCode = error.code;
+          const errorMessage = error.message;
+         if ( errorCode === 'auth/wrong-password' ) return alert("Unijeli ste krivu lozinku!")
+          console.log(error);
+          
+        });
+    },
+    popUp(text) {
+      this.error = text;
+    },
+  },
 };
 </script>
 
@@ -53,7 +84,7 @@ export default {
 .lijevo {
   width: 100%;
   height: 100%;
-  background-color: #750c3b;
+  background-color: #731642;
 }
 
 .desno {
@@ -76,7 +107,7 @@ export default {
   border-radius: 30px;
   border: none;
   outline: none;
-  background-color: #750c3b;
+  background-color: #731642;
   color: white;
   margin-top: 1rem;
   font-size: 20px;
@@ -85,13 +116,13 @@ export default {
 input {
   border-radius: 30px;
   font-size: 16px;
-  border: 2px solid #750c3b;
+  border: 2px solid #731642;
   padding: 0.8rem;
 }
 
 input:focus {
   outline: none;
-  border: 2px solid #750c3b;
+  border: 2px solid #731642;
 }
 
 input::placeholder {
@@ -100,6 +131,6 @@ input::placeholder {
 
 .btn:hover {
   cursor: pointer;
-  background-color: rgba(117, 12, 59, .9);
+  background-color: rgba(117, 12, 59, 0.9);
 }
 </style>

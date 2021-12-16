@@ -3,17 +3,23 @@
     <div class="lijevo">
       <div class="sredina">
         <img src="@/assets/l.png" alt="" />
+
       </div>
+      
     </div>
     <div class="desno">
       <div class="sredina">
-        <div class="rasporedButtona">
-          <router-link :to="{name: 'Login'}">
-            <button class="btn" type="submit">Admin</button>
-          </router-link>
-          <router-link :to="{name: 'OdabirKonobara'}">
-            <button class="btn" type="submit">Konobar</button>
-          </router-link>
+        <div class="rasporedKonobara">
+        <router-link :to="{ name: 'Narudzbe' }">
+  <div class="krug">
+    <img
+      style="width: 80px; margin: 0.8rem auto auto auto"
+      src="@/assets/user.png"
+      alt=""
+    />
+    <p class="naziv">Andrej</p>
+  </div></router-link>
+
         </div>
       </div>
     </div>
@@ -21,9 +27,10 @@
 </template>
 
 <script>
+import Konobar from '@/components/Konobar'
 export default {
-  name: "Home",
- 
+  name: "OdabirKonobara",
+  components: {Konobar}
 };
 </script>
 
@@ -39,7 +46,7 @@ export default {
   height: 100vh;
 }
 
-.rasporedButtona {
+.rasporedKonobara {
   display: flex;
   flex-direction: column;
 }
@@ -73,7 +80,6 @@ export default {
   color: white;
   margin-top: 1rem;
   font-size: 20px;
-    filter: drop-shadow(2px 2px 2px #000000a9)
 }
 
 .btn:hover {
