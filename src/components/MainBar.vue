@@ -1,7 +1,7 @@
 <template>
   <ul>
-    <li v-if="IsLeft" class="left"> <img src="https://picsum.photos/100" alt=""> <router-link to="/">PRVA</router-link></li>
-    <li v-else class="right"> <router-link to="/">PRVA</router-link> <img src="https://picsum.photos/100" alt=""></li>
+    <router-link :to="info.route" v-if="IsLeft" class="left"><li ><img :src="info.image"> <span>{{ info.description }}</span> </li> </router-link>
+    <router-link :to="info.route" v-else class="right"><li ><span>{{ info.description }}</span><img :src="info.image" alt="">  </li> </router-link>
   </ul>
 </template>
 
@@ -10,30 +10,31 @@ export default {
   name: "MainBars",
   props: {
     IsLeft: Boolean,
-
+    info: Object
   },
 };
 </script>
 
-<style>
-ul>li{
+<style scoped>
+ul>a>li{
   display: flex;
   background-color: rgba(0, 0, 0, 0.65);
   padding: 1rem;
-  
   align-items: center;
   margin-top: 1rem;
 }
+
 a{
   text-decoration: none;
   color: white;
   font-family: 'Amatic SC', cursive;
   font-size: 3rem;
 }
-.left>a{
+.left>li>span{
   margin-left: auto;
 }
-.right>img{
+.right>li>img{
   margin-left: auto;
+
 }
 </style>

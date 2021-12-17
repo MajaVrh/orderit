@@ -1,12 +1,14 @@
 <template>
-  <div id="app">
-   <img class="LogoBottom" src="@/assets/MainLogo.png" alt="">
-    <router-view/>
-  </div>
+    <div id="app">
+      <router-view />
+    <img class="bottom" src="@/assets/MainLogo.png" alt="">
+
+    </div>
+
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap%27');
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Marcellus&display=swap");
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -14,15 +16,14 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100%;
+  min-height: 100vh;
 }
-.LogoBottom{
-  right: 28%;
-  bottom: 0;
-  position: fixed;
-  margin-bottom: 3rem;
-  width: 10rem;
-  
+
+html {
+  min-height: 100%;
 }
+
 #nav {
   padding: 30px;
 }
@@ -35,13 +36,20 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
 
-body{
+body {
   background-color: rgb(117, 12, 59);
+  min-height: 100vh;
+}
+
+.bottom {
+  margin-top: 10%;
+  margin-bottom: 5%;
+  height: 8rem;
 }
 
 </style>

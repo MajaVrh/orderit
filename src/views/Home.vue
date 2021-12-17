@@ -1,16 +1,48 @@
 <template>
   <div class="home">
-    <main-bars :IsLeft="true"/>
-    <main-bars :IsLeft="false"/>
+
+    <main-bars
+      v-for="button in buttons"
+      :key="button.image"
+      :IsLeft="buttons.indexOf(button) % 2 == 0"
+      :info="button"
+    />
   </div>
 </template>
 
 <script>
 import MainBars from "@/components/MainBar";
+
 export default {
   name: "Home",
-    components: {
-      MainBars,
-    }
+  components: {
+    MainBars,
+  },
+  data() {
+    return {
+      buttons: [
+        {
+          image: "https://picsum.photos/id/1/100",
+          description: "Pića",
+          route: "drinks",
+        },
+        {
+          image: "https://picsum.photos/id/2/100",
+          description: "Slastice",
+          route: "sweats",
+        },
+        {
+          image: "https://picsum.photos/id/3/100",
+          description: "Special",
+          route: "specials",
+        },
+        {
+          image: "https://picsum.photos/id/4/100",
+          description: "Info",
+          route: "info",
+        },
+      ],
+    };
+  },
 };
 </script>
