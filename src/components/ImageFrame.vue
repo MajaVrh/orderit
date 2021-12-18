@@ -26,6 +26,7 @@ export default {
   padding: 1rem;
   border-radius: 100%;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 img {
 margin: 0 auto;

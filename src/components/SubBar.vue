@@ -1,9 +1,11 @@
 <template>
-  <ul>
-    <router-link to="/"
-      ><li><span>{{ info.description }}</span> <i class="fas fa-chevron-right"></i></li>
+  <div>
+    <router-link :to="info.routes"
+      ><div class="elements">
+        <span>{{ info.description }}</span> <i class="fas fa-chevron-right"></i>
+      </div>
     </router-link>
-  </ul>
+  </div>
 </template>
 
 <script>
@@ -16,13 +18,14 @@ export default {
 </script>
 
 <style scoped>
-ul > a > li {
+.elements {
   display: flex;
   background-color: rgba(0, 0, 0, 0.65);
   padding: 1rem;
 
   align-items: center;
   margin-top: 1rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
 }
 a {
   text-decoration: none;
@@ -30,10 +33,10 @@ a {
   font-family: "Amatic SC", cursive;
   font-size: 3rem;
 }
-li > span {
+.elements > span {
   margin-right: auto;
 }
-li > i {
+.elements > i {
   margin-left: auto;
   font-size: 1.5rem;
 }

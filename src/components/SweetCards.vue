@@ -28,7 +28,7 @@ export default {
   padding: 20px 10px;
   font-family: "Marcellus", serif;
   margin-top: 1rem;
-
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
 }
 
 .card-wrapper > img {

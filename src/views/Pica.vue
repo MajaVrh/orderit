@@ -21,13 +21,14 @@ export default {
   data() {
     return {
       buttons: [
-        { description: "Topli napici", routes: "TopliNapici" },
-        { description: "Bezalkoholna pića", routes: "BezalkoholnaPica" },
-        { description: "Alkoholna pića", routes: "AlkoholnaPica" },
-        { description: "Kokteli", routes: "Kokteli" },
+        { description: "Topli napici", routes: "toplinapitci" },
+        { description: "Bezalkoholna pića", routes: "bezalkoholnapica" },
+        { description: "Alkoholna pića", routes: "alkoholnapica" },
+        { description: "Kokteli", routes: "kokteli" },
       ],
       path: "https://picsum.photos/100",
       title: "Pića",
+
     };
   },
 };

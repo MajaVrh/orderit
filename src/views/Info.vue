@@ -65,10 +65,9 @@ export default {
 .WrapperInfo {
   background-color: rgba(0, 0, 0, 0.65);
   padding: 2rem 1rem;
-
-  margin-top: 2rem;
   font-family: "Marcellus", serif;
   color: white;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
 }
 .title {
   font-size: 30px;
