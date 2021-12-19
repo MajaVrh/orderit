@@ -8,10 +8,10 @@
 <script>
 export default {
   name: "ImageFrame",
-    props: {
+  props: {
     info: String,
     TitleConnect: String,
-    },
+  },
 };
 </script>
 
@@ -29,12 +29,11 @@ export default {
   margin-bottom: 1rem;
 }
 img {
-margin: 0 auto;
+  margin: 0 auto;
   height: 6rem;
   margin-bottom: 10px;
 }
 p {
-
   text-decoration: none;
   color: white;
   font-family: "Amatic SC", cursive;

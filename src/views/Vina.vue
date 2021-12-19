@@ -6,37 +6,42 @@
       :key="proizvod.ime"
       :infocards="proizvod"
     />
-    <order-button/>
+
+    <order-button />
   </div>
 </template>
 
 <script>
 import ImageFrame from "@/components/ImageFrame";
 import PicaCards from "@/components/PicaCards.vue";
-import OrderButton from '../components/OrderButton.vue';
+import OrderButton from "@/components/OrderButton.vue";
+
 export default {
-    
-  name: "TopliNapitci",
+  name: "Vina",
   components: {
     ImageFrame,
     PicaCards,
     OrderButton,
-},
-data() {
+
+  },
+  data() {
     return {
       proizvodi: [
-        { ime: "Caj", cijena: "12.00kn" },
-        { ime: "Espresso", cijena: "9.00kn" },
-        { ime: "Machiato", cijena: "10.00kn" },
-        { ime: "Topla čokolada", cijena: "15.00kn" },
+        { ime: "Rose", cijena: "15.00kn" },
+        { ime: "Malvazija", cijena: "13.00kn" },
+        { ime: "Merlot", cijena: "12.00kn" },
+        { ime: "Teran", cijena: "18.00kn" },
       ],
-      path: "https://picsum.photos/100",
-      title: "Topli napitci",
 
+      path: "https://picsum.photos/100",
+      title: "Alkoholna Pića",
     };
   },
 };
+
+
 </script>
 
 <style>
 </style>
+

@@ -9,6 +9,10 @@ import BezalkoholnaPica from "../views/BezalkoholnaPica.vue";
 import TopliNapitci from "../views/TopliNapitci.vue";
 import Kokteli from "../views/Kokteli.vue";
 import AlkoholnaPica from "../views/AlkoholnaPica.vue";
+import Vina from "../views/Vina.vue";
+import Piva from "../views/Piva.vue";
+import JakaAlkoholnaPica from "../views/JakaAlkoholnaPica.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,12 +43,12 @@ const routes = [
   },
   {
     path: "/bezalkoholnapica",
-    name: "Bezalkoholna Pica",
+    name: "BezalkoholnaPica",
     component: BezalkoholnaPica,
   },
   {
     path: "/toplinapitci",
-    name: "Topli Napitci",
+    name: "TopliNapitci",
     component: TopliNapitci,
   },
   {
@@ -54,9 +58,25 @@ const routes = [
   },
   {
     path: "/alkoholnapica",
-    name: "Alkoholna Pica",
+    name: "AlkoholnaPica",
     component: AlkoholnaPica,
   },
+  {
+    path: "/vina",
+    name: "Vina",
+    component: Vina,
+  },
+  {
+    path: "/piva",
+    name: "Piva",
+    component: Piva,
+  },
+  {
+    path: "/jakaalkoholnapica",
+    name: "Jakaalkoholnapica",
+    component: JakaAlkoholnaPica,
+  },
+  
 ];
 
 const router = new VueRouter({

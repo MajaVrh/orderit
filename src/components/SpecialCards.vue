@@ -3,10 +3,8 @@
     <div class="top-left"><i class="fas fa-info-circle"></i></div>
     <div class="middle">
       <img :src="infospec.slika1" alt="" /> <i class="fas fa-plus"></i
-      ><img :src="infospec.slika2" alt="" /><i
-        class="fas fa-equals"
-      ></i>
-      <p>{{infospec.cijena}}</p>
+      ><img :src="infospec.slika2" alt="" /><i class="fas fa-equals"></i>
+      <p>{{ infospec.cijena }}</p>
     </div>
   </div>
 </template>
@@ -16,9 +14,8 @@ export default {
   name: "SpecialCards",
   props: {
     infospec: Object,
-},
+  },
 };
-
 </script>
 
 <style scoped>
@@ -35,20 +32,21 @@ export default {
   right: 5%;
   font-size: 1.2rem;
 }
-.middle{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.middle>img, .middle>i{
-    margin: 8px;
+.middle > img,
+.middle > i {
+  margin: 8px;
 }
 
-.middle>i{
-    font-size: 12px;
+.middle > i {
+  font-size: 12px;
 }
-.middle>p{
-    font-size: 1.12rem;
-    font-family: "Marcellus", serif;
+.middle > p {
+  font-size: 1.12rem;
+  font-family: "Marcellus", serif;
 }
 </style>

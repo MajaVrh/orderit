@@ -1,11 +1,11 @@
 <template>
   <div class="card-wrapper">
     <div class="wrapper-sweat">
-      <p>{{infoslad.proizvod}}</p>
+      <p>{{ infoslad.proizvod }}</p>
       <i class="fas fa-info-circle wrapper-sweat-item"></i>
     </div>
     <img :src="infoslad.slika" alt="" />
-    <p>{{infoslad.cijena}}</p>
+    <p>{{ infoslad.cijena }}</p>
   </div>
 </template>
 
