@@ -31,11 +31,14 @@ export default {
           proizvod: "Čokoladna torta",
           slika: "https://picsum.photos/id/10/100",
           cijena: "12.00kn",
+          opis: "Torta od čokolade"
+        
         },
         {
           proizvod: "Voćna torta",
           slika: "https://picsum.photos/id/11/100",
           cijena: "14.00kn",
+          opis: "Torta od Jagode, marelice i banana"
         },
       ],
     };

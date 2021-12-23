@@ -24,10 +24,10 @@ export default {
   data() {
     return {
       proizvodi: [
-        { ime: "Margerita", cijena: "25.00kn" },
-        { ime: "Sex on the beach", cijena: "26.00kn" },
-        { ime: "Mohito", cijena: "20.00kn" },
-        { ime: "Hugo", cijena: "23.00kn" },
+        { ime: "Margerita", cijena: "25.00kn", informacije: "0.5l" },
+        { ime: "Sex on the beach", cijena: "26.00kn", informacije: "0.55l" },
+        { ime: "Mohito", cijena: "20.00kn", informacije: "0.5l" },
+        { ime: "Hugo", cijena: "23.00kn", informacije: "0.45l" },
       ],
       path: "https://picsum.photos/100",
       title: "Kokteli",

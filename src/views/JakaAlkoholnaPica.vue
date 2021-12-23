@@ -17,7 +17,7 @@ import PicaCards from "@/components/PicaCards.vue";
 import OrderButton from "@/components/OrderButton.vue";
 
 export default {
-  name: "Jaka alkoholna pića",
+  name: "Jakaalkoholnapića",
   components: {
     ImageFrame,
     PicaCards,
@@ -27,10 +27,10 @@ export default {
   data() {
     return {
       proizvodi: [
-        { ime: "Krušovac", cijena: "15.00kn" },
-        { ime: "Medenica", cijena: "13.00kn" },
-        { ime: "Borovniček", cijena: "12.00kn" },
-        { ime: "Jack Daniels", cijena: "18.00kn" },
+        { ime: "Krušovac", cijena: "15.00kn", informacije: "0.25ml" },
+        { ime: "Medenica", cijena: "13.00kn", informacije: "0.25ml" },
+        { ime: "Borovniček", cijena: "12.00kn", informacije: "0.25ml" },
+        { ime: "Jack Daniels", cijena: "18.00kn", informacije: "0.35ml" },
       ],
 
       path: "https://picsum.photos/100",

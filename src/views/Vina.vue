@@ -27,10 +27,10 @@ export default {
   data() {
     return {
       proizvodi: [
-        { ime: "Rose", cijena: "15.00kn" },
-        { ime: "Malvazija", cijena: "13.00kn" },
-        { ime: "Merlot", cijena: "12.00kn" },
-        { ime: "Teran", cijena: "18.00kn" },
+        { ime: "Rose", cijena: "15.00kn", informacije: "0.3l" },
+        { ime: "Malvazija", cijena: "13.00kn", informacije: "0.3l" },
+        { ime: "Merlot", cijena: "12.00kn", informacije: "0.3l" },
+        { ime: "Teran", cijena: "18.00kn", informacije: "0.3l" },
       ],
 
       path: "https://picsum.photos/100",

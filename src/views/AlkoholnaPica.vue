@@ -13,7 +13,7 @@
 import SubBar from "@/components/SubBar";
 import ImageFrame from "@/components/ImageFrame";
 export default {
-  name: "Alkoholna Pica",
+  name: "AlkoholnaPica",
   components: {
     SubBar,
     ImageFrame,

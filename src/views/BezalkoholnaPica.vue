@@ -24,10 +24,10 @@ export default {
   data() {
     return {
       proizvodi: [
-        { ime: "Mineralna voda", cijena: "9.00kn" },
-        { ime: "Fanta", cijena: "13.00kn" },
-        { ime: "Coca Cola", cijena: "15.00kn" },
-        { ime: "Jucey", cijena: "10.00kn" },
+        { ime: "Mineralna voda", cijena: "9.00kn", informacije: "0.7l" },
+        { ime: "Fanta", cijena: "13.00kn", informacije: "0.7l" },
+        { ime: "Coca Cola", cijena: "15.00kn", informacije: "0.7l" },
+        { ime: "Jucey", cijena: "10.00kn", informacije: "0.5l" },
       ],
       path: "https://picsum.photos/100",
       title: "Bezalkoholna Pića",

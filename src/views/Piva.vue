@@ -27,10 +27,10 @@ export default {
   data() {
     return {
       proizvodi: [
-        { ime: "Ožujsko", cijena: "15.00kn" },
-        { ime: "Karlovačko", cijena: "14.00kn" },
-        { ime: "Nikšičko crno", cijena: "18.00kn" },
-        { ime: "Favorit", cijena: "13.00kn" },
+        { ime: "Ožujsko", cijena: "15.00kn", informacije: "0.75l" },
+        { ime: "Karlovačko", cijena: "14.00kn", informacije: "0.75l" },
+        { ime: "Nikšičko crno", cijena: "18.00kn", informacije: "0.75l" },
+        { ime: "Favorit", cijena: "13.00kn", informacije: "0.75l" },
       ],
 
       path: "https://picsum.photos/100",

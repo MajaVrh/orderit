@@ -28,13 +28,21 @@ export default {
       ponude: [
         {
           id: "1",
-          cijena: "12.00kn",
+          ime1: "macchiato",
+          ime2: "cedevita",
+          cijena: "12kn",
+          proizvod1: "macchiato: 0.4l",
+          proizvod2: "cedevita: 0.7l",
           slika1: "https://picsum.photos/id/1/100",
           slika2: "https://picsum.photos/id/2/100",
         },
         {
           id: "2",
-          cijena: "14.00kn",
+          ime1: "macchiato",
+          ime2: "cheesecake",
+          cijena: "14kn",
+          proizvod1: "macchiato: 0.4l",
+          proizvod2: "cheesecake: torta sa slatkim sirom",
           slika1: "https://picsum.photos/id/3/100",
           slika2: "https://picsum.photos/id/4/100",
         },
