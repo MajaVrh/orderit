@@ -4,10 +4,8 @@
     <div class="sredina">
       <h1 class="naslovStranice">Konobari</h1>
       <div class="raspored">
-        <konobar />
-        <konobar />
-        <konobar />
-        <konobar />
+        <konobar v-for="K in KarticaKonobara" :key="K.id" :id="K.id" :info="K"  />
+
         <dodavanjeZaposlenika />
       </div>
     </div>
@@ -18,9 +16,33 @@
 import Sidebar from "@/components/Sidebar";
 import Konobar from "@/components/Konobar";
 import dodavanjeZaposlenika from "@/components/dodavanjeZaposlenika";
+import { db, collection, query, onSnapshot,   } from "@/firebase";
 
 export default {
   name: "Konobari",
+  data: function () {
+    return {
+      KarticaKonobara: [],
+      ImeKonobara: "",
+      PrezimeKonobara: "",
+    };
+  },
+  mounted() {
+    //DAJE TOČNO TRENUTAK KAD SAM SE DATOTRKA PRIKAŽE NA ERKRANU, on se prikaže kad se home.vue treba prikazati na ekranu
+    this.PrikazKnobara();
+  },
+  methods: {
+    async PrikazKnobara() {
+      const q = query(collection(db, "PopisKonobara"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const PopisKonobara = [];
+        querySnapshot.forEach((doc) => {
+          PopisKonobara.push({ id: doc.id, ...doc.data() });
+        });
+        this.KarticaKonobara = PopisKonobara;
+      });
+    },
+  },
   components: { Sidebar, Konobar, dodavanjeZaposlenika },
 };
 </script>

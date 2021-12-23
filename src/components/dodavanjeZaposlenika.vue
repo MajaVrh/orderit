@@ -15,11 +15,7 @@
 <script>
 export default {
   name: "dodavanjeZaposlenika",
-  methods: {
-    brisanje() {
-      console.log("BRISANJE");
-    },
-  },
+ 
 };
 </script>
 

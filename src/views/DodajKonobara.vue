@@ -4,38 +4,67 @@
     <div class="sredina">
       <h1 class="podnaslov">DODAVANJE KONOBARA</h1>
       <p class="forme">Upišite ime konobara</p>
-         <input
-         class="styleForme"
-            v-model="ImeKonobara"
-            name="Ime korsnika"
-            type="text"
-            placeholder="Upišite ime korisnika"
-          />
-           <p class="forme">Upišite prezime konobara</p>
-         <input
-         class="styleForme"
-            v-model="PrezimeKonobara"
-            name="Prezime korsnika"
-            type="text"
-            placeholder="Upišite prezime korisnika"
-          />
-           <button class="btn">Potvrdi</button>
-          
-   
-      <div class="raspored">
-        
-      </div>
+      <input
+        class="styleForme"
+        v-model="ImeKonobara"
+        name="Ime korsnika"
+        type="text"
+        placeholder="Upišite ime korisnika"
+      />
+      <p class="forme">Upišite prezime konobara</p>
+      <input
+        class="styleForme"
+        v-model="PrezimeKonobara"
+        name="Prezime korsnika"
+        type="text"
+        placeholder="Upišite prezime korisnika"
+      />
+      <button @click="DodajKonobara" class="btn">Potvrdi</button>
+
+      <div class="raspored"></div>
     </div>
   </div>
 </template>
 
 <script>
 import Sidebar from "@/components/Sidebar";
-
+import { db, collection, addDoc } from "@/firebase";
 
 export default {
   name: "Konobari",
-  components: { Sidebar},
+  data: function () {
+    return {
+      ImeKonobara: "",
+      PrezimeKonobara: "",
+    };
+  },
+  methods: {
+    async DodajKonobara() {
+      try {
+        console.log(
+          "DODAVANJE KONOBARA:",
+          this.ImeKonobara,
+          this.PrezimeKonobara
+        );
+        const ImePrezimeKonobara = {
+          ImeKonobara: this.ImeKonobara,
+          PrezimeKonobara: this.PrezimeKonobara,
+        };
+        // Add a new document with a generated id.
+        const docRef = await addDoc(
+          collection(db, "PopisKonobara"),
+          ImePrezimeKonobara
+        );
+        alert("Dodan je konobar");
+        console.log("Document written with ID: ", docRef.id);
+        this.ImeKonobara="",
+        this.PrezimeKonobara=""
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  components: { Sidebar },
 };
 </script>
 
@@ -70,10 +99,8 @@ export default {
   font-size: 40px;
   color: #731642;
   font-weight: bold;
-  margin-bottom:1rem ;
+  margin-bottom: 1rem;
 }
-
-
 
 .styleForme {
   border-radius: 30px;
@@ -81,8 +108,8 @@ export default {
   border: 2px solid #731642;
   padding: 0.7rem;
   margin-bottom: 1rem;
-  margin-top:rem ;}
-
+  margin-top: rem;
+}
 
 .btn {
   min-width: 9rem;
@@ -96,7 +123,8 @@ export default {
   font-size: 20px;
 }
 
-.forme{color: black;
-margin-bottom:0.4rem ;}
-
+.forme {
+  color: black;
+  margin-bottom: 0.4rem;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-<router-link :to="{ name: 'Konobari' }">
+<router-link :to="{ name: link }">
   <div class="krug">
   
 
@@ -9,19 +9,33 @@
       alt=""
     />
     
-    <p class="naziv">Andrej</p>
-    <button @click="brisanje">
-      <i class="fas fa-times-circle ikona"></i>
+    <p class="naziv">{{info.ImeKonobara}} {{info.PrezimeKonobara[0]}}.</p>
+    <button v-if="store.admin" @click="brisanje">
+      <i  class="fas fa-times-circle ikona"></i>
     </button>
   </div></router-link>
 </template>
 
 <script>
 
+import {  doc,
+  deleteDoc, db } from "@/firebase";
+  import store from "@/store/index"
+
+
+
 export default {
-  name: "Konobar",
+   name: "Konobar",
+   props: ["info" ,"id"] ,
+   data(){
+     return{store,
+     link: store.admin ? "Narudzbe" : "Izvjestaj"}
+   },
+  
    methods:{
-    brisanje(){console.log("BRISANJE")}
+     async brisanje(){
+    await deleteDoc(doc(db, "PopisKonobara",  this.id));
+    console.log("BRISANJE")}
   }
 };
 </script>
