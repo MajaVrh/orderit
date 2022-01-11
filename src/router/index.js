@@ -70,12 +70,12 @@ const routes = [
     component: () => import("../views/Konobari.vue"),
     meta: {
       needsUser: true,
-    }, // ovo moras promjeniti MAJO, nemoj se poslije na mene derati da ne radi, s poštovanjem, Valek
+    }, 
   },
   {
     path: "/dodajkonobara",
     name: "DodajKonobara",
-    component: () => import("../views/DodajKonobara.vue"), // ovo moras promjeniti MAJO, nemoj se poslije na mene derati da ne radi, s poštovanjem, Valek
+    component: () => import("../views/DodajKonobara.vue"), 
     meta: {
       needsUser: true,
     },
