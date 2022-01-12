@@ -61,6 +61,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100%;
+
 }
 
 .btn {

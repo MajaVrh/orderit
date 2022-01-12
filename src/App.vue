@@ -18,6 +18,11 @@ name: "app"
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+ @import url(https://fonts.googleapis.com/css2?family=Mandali&display=swap);
+ @import url(https://fonts.googleapis.com/css2?family=Marcellus&display=swap);
+
+ 
+
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

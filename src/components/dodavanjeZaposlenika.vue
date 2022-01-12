@@ -36,7 +36,7 @@ export default {
   font-weight:bold;
   filter: drop-shadow(1px 1px 1px #0000007a);
    box-shadow: 2px 2px 0 rgba(170, 170, 170, 0.733);
-    margin-left: 1rem;
+    margin-right: 1rem;
   
 }
 

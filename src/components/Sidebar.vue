@@ -64,6 +64,7 @@ export default {
   color: white;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  position: fixed;
 
 }
 

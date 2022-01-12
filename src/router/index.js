@@ -26,6 +26,22 @@ const routes = [
     },
   },
   {
+    path: "/uredjivanjeponude/:id",
+    name: "UredivanjePonudeDetail",
+    component: () => import("../views/UredivanjePonudeDetail.vue"),
+    meta: {
+      needsUser: true,
+    },
+  },
+  {
+    path: "/uredjivanjeponude/:id/:idPodkategorije",
+    name: "UredivanjePonudeDetailPotkategorije",
+    component: () => import("../views/UredivanjePonudeDetail.vue"),
+    meta: {
+      needsUser: true,
+    },
+  },
+  {
     path: "/izvjestaj",
     name: "Izvjestaj",
     component: () => import("../views/Izvjestaj.vue"),
@@ -70,12 +86,12 @@ const routes = [
     component: () => import("../views/Konobari.vue"),
     meta: {
       needsUser: true,
-    }, // ovo moras promjeniti MAJO, nemoj se poslije na mene derati da ne radi, s poštovanjem, Valek
+    }, 
   },
   {
     path: "/dodajkonobara",
     name: "DodajKonobara",
-    component: () => import("../views/DodajKonobara.vue"), // ovo moras promjeniti MAJO, nemoj se poslije na mene derati da ne radi, s poštovanjem, Valek
+    component: () => import("../views/DodajKonobara.vue"), 
     meta: {
       needsUser: true,
     },

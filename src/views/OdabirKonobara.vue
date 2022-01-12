@@ -88,7 +88,11 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100%;
-   
+   max-width: 120vh;
+  
+  
+
+
 }
 
 .btn {

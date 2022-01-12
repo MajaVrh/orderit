@@ -10,7 +10,7 @@
     />
     
     <p class="naziv">{{info.ImeKonobara}} {{info.PrezimeKonobara[0]}}.</p>
-    <button v-if="store.admin" @click="brisanje">
+    <button class="ButtonKonobar" v-if="store.admin" @click="brisanje">
       <i  class="fas fa-times-circle ikona"></i>
     </button>
   </div></router-link>
@@ -29,7 +29,7 @@ export default {
    props: ["info" ,"id"] ,
    data(){
      return{store,
-     link: store.admin ? "Narudzbe" : "Izvjestaj"}
+     link: store.admin ? "Konobari" : "Izvjestaj"}
    },
   
    methods:{
@@ -42,7 +42,7 @@ export default {
 
 <style>
 
-button {
+.ButtonKonobar {
   border-radius: 50%;
   z-index: 9999;
   background: none;

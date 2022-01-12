@@ -4,9 +4,9 @@
     <div class="sredina">
       <h1 class="naslovStranice">Konobari</h1>
       <div class="raspored">
+        <dodavanjeZaposlenika />
         <konobar v-for="K in KarticaKonobara" :key="K.id" :id="K.id" :info="K"  />
 
-        <dodavanjeZaposlenika />
       </div>
     </div>
   </div>
@@ -28,13 +28,13 @@ export default {
     };
   },
   mounted() {
-    //DAJE TOČNO TRENUTAK KAD SAM SE DATOTRKA PRIKAŽE NA ERKRANU, on se prikaže kad se home.vue treba prikazati na ekranu
+    //DAJE TOČNO TRENUTAK KAD DA SE DATOTRKA PRIKAŽE NA ERKRANU
     this.PrikazKnobara();
   },
   methods: {
     async PrikazKnobara() {
       const q = query(collection(db, "PopisKonobara"));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      onSnapshot(q, (querySnapshot) => {
         const PopisKonobara = [];
         querySnapshot.forEach((doc) => {
           PopisKonobara.push({ id: doc.id, ...doc.data() });
@@ -47,7 +47,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -58,19 +58,24 @@ export default {
 }
 
 .sredina {
-  display: flex;
+ display: flex;
   flex-direction: column;
   align-items: center;
   margin: 3rem auto;
+  max-width: 140vh;
+  width: 120vh;
+   padding-left: 25%;
 }
 
+
 .raspored {
-  display: flex;
+ display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+
+
 }
 
 .naslovStranice {

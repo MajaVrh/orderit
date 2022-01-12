@@ -83,6 +83,11 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 3rem auto;
+   max-width: 140vh;
+  width: 120vh;
+  
+
+padding-left: 25%;
 }
 
 .raspored {
