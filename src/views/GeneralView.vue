@@ -36,7 +36,9 @@ export default {
         kategorijeArr.push({id: doc.id(), ...doc.data()})
       });
      }
-    //   this.podkategorije = kategorijeArr
+
+     
+      // this.podkategorije = kategorijeArr
 
     //   if(this.podkategorije.length != 0) return
     //   rezultati = await getDoc(db, "ponuda", id)
