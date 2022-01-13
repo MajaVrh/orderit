@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="wrapper" @click="isModalVisible = !isModalVisible; number = 0" >
+    <div class="wrapper" @click="isModalVisible = !isModalVisible" >
       <span>{{ infocards.ime }}</span>
       <div class="right">
         <span>{{ infocards.cijena }}</span>
@@ -13,16 +13,19 @@
         <p class="head">Opis</p>
         <p style="margin-bottom: 10px">{{ infocards.informacije }}</p>
         <p class="head">Količina</p>
-        <div class="increment" style="margin-bottom: 10px"><span @click="() => number-1 < 0 ? number = 0: number--"><i class="fas fa-minus"></i></span><span>{{number}}</span><span @click="() => number++"><i class="fas fa-plus"></i></span></div>
+        <div class="increment" style="margin-bottom: 10px"><span @click="() => number -1 < 0 ? number = 0: number--"><i class="fas fa-minus"></i></span><span>{{number}}</span><span @click="() => number++" id="increment"><i class="fas fa-plus"></i></span></div>
         <p class="head" >Cijena</p>
         <p style="margin-bottom: 10px">{{ infocards.cijena }}</p>
-        <div class="button" @click="logMeHard">Dodaj</div>
+        <div class="button" @click="PushToCart(infocards.ime)">Dodaj</div>
+        <div class="button" style="margin-top: 10px" @click="logMeHard">Ukloni</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   name: "Pića",
   props: {
@@ -31,11 +34,12 @@ export default {
   mounted() {
     document.body.addEventListener("click", this.closeIfModalOn, true);
   },
-
+  computed: {
+    ...mapGetters({number: 'number'}) // "..." <- spread operator- NADODAJE NA ARRAY
+  },
   data() {
     return {
       isModalVisible: false,
-      number: 0,
     };
   },
   methods: {
@@ -46,8 +50,10 @@ export default {
     },
     logMeHard() {
       console.log("Test");
-    }
-    
+    },
+    // PushToCart(ime){
+    //    $store.cart.push( this.number, ime  )
+    // },
   },
 };
 </script>
@@ -129,4 +135,6 @@ export default {
   width: 50%;
   border-radius: 15px;
 }
+
+
 </style>

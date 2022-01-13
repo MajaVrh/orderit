@@ -1,25 +1,25 @@
 <template>
   <div>
-    <router-link :to="info.route" v-if="IsLeft" class="left"
+    <router-link to="/1" v-if="IsLeft" class="left"
       ><div class="elements">
-        <img :src="info.image" /> <span>{{ info.description }}</span>
+        <img :src="imageURL" /> <span>{{ naziv }}</span>
       </div>
     </router-link>
-    <router-link :to="info.route" v-else class="right"
+    <router-link to="/1" v-else class="right"
       ><div class="elements">
-        <span>{{ info.description }}</span
-        ><img :src="info.image" alt="" />
+        <span>{{ naziv }}</span
+        ><img :src="imageURL" alt="" />
       </div>
     </router-link>
   </div>
 </template>
-
 <script>
 export default {
   name: "MainBars",
   props: {
     IsLeft: Boolean,
-    info: Object,
+    imageURL: String,
+    naziv: String,
   },
 };
 </script>

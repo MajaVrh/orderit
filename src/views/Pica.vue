@@ -18,6 +18,7 @@ export default {
     SubBar,
     ImageFrame,
   },
+
   data() {
     return {
       buttons: [
@@ -28,7 +29,6 @@ export default {
       ],
       path: "https://picsum.photos/100",
       title: "Pića",
-
     };
   },
 };

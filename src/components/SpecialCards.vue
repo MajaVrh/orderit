@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="wrapper" @click="isModalVisible = !isModalVisible; number = 0">
+    <div class="wrapper" @click="isModalVisible = !isModalVisible">
       <div class="middle">
         <img :src="infospec.slika1" alt="" /> <i class="fas fa-plus"></i
         ><img :src="infospec.slika2" alt="" /><i class="fas fa-equals"></i>

@@ -12,6 +12,7 @@ import AlkoholnaPica from "../views/AlkoholnaPica.vue";
 import Vina from "../views/Vina.vue";
 import Piva from "../views/Piva.vue";
 import JakaAlkoholnaPica from "../views/JakaAlkoholnaPica.vue";
+import GeneralView from "../views/GeneralView.vue";
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/:id",
+    name: "GeneralView",
+    component: GeneralView,
   },
   {
     path: "/pica",

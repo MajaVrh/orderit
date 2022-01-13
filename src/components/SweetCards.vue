@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card-wrapper" @click="isModalVisible = !isModalVisible; number = 0">
+    <div class="card-wrapper" @click="isModalVisible = !isModalVisible">
       <p class="naslov">{{ infoslad.proizvod }}</p>
       <img :src="infoslad.slika" alt="" />
       <p>{{ infoslad.cijena }}</p>
