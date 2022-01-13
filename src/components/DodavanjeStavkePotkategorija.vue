@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { db, collection, addDoc ,doc} from "@/firebase";
+import { db, collection, addDoc, doc } from "@/firebase";
 export default {
   data() {
     return {
@@ -56,27 +56,43 @@ export default {
       InfoStavka: "",
     };
   },
-  name: "DodavanjeStavke",
+  name: "DodavanjeStavkePotkategorija",
   methods: {
-    async Dodaj() {try{
-      const ID = this.$route.params.id;
-    await addDoc(
-            collection(doc(collection(db, 'Kategorija'),ID), 'Stavka'),
-        {
-          
-          Naziv: this.NoviNazivStavke,
-          Cijena: this.NovaCijenaStavke,
-          Info: this.NoveInfoStavke,
+    async Dodaj() {
+      try {
+        const ID = this.$route.params.id;
+        if (this.InfoStavka == "") {
+          this.InfoStavka = "Nema informacija";
         }
-      );
-      this.Vidljiv = !this.Vidljiv;
-         this.NazivStavke= ""
-      this.CijenaStavke= ""
-      this.InfoStavka= ""
-      console.log("DODANA STAVKA");
-    }catch (error) {
-        console.log(error);}}},}
+        await addDoc(
+          collection(
+            doc(
+              collection(
+                doc(collection(db, "Kategorija"), ID),
+                "Potkategorija"
+              ),
+              this.$route.params.idPodkategorije
+            ),
+            "Stavke"
+          ),
+          {
+            Naziv: this.NazivStavke,
+            Cijena: this.CijenaStavke,
+            Info: this.InfoStavka,
+          }
+        );
 
+        this.Vidljiv = !this.Vidljiv;
+        this.NazivStavke = "";
+        this.CijenaStavke = "";
+        this.InfoStavka = "";
+        console.log("DODANA STAVKA");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+};
 </script>
 <style scoped>
 .Stavka {

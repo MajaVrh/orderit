@@ -6,8 +6,16 @@
       <div class="top">
         <div class="promjena">
           <div
+            class="BrisanjeKategorije ho"
+            v-if="!VidljivBrisanje"
+            @click="VidljivBrisanje = !VidljivBrisanje"
+          >
+            Brisanje kategorije
+          </div>
+
+          <div
             class="BrisanjeKategorije"
-            v-if="!VidljivBrisanje || VidljivBrisanje"
+            v-if="VidljivBrisanje"
             @click="VidljivBrisanje = !VidljivBrisanje"
           >
             Brisanje kategorije
@@ -21,7 +29,7 @@
           </div>
 
           <div
-            class="PromjenaKategorije"
+            class="PromjenaKategorije ho"
             v-if="!VidljivPromjena"
             @click="VidljivPromjena = !VidljivPromjena"
           >
@@ -60,10 +68,20 @@
                 @change="postaviSliku"
               />
             </div>
+
             <div class="t" v-if="Vidljiv">Potvrdi dodavanje slike</div>
-            <button class="ButtonSlike2" v-if="Vidljiv" @click="uploadImage">
-              Potvrdi
-            </button>
+            <div class="ButtoniSlika">
+              <button class="ButtonSlike2" v-if="Vidljiv" @click="uploadImage">
+                Potvrdi
+              </button>
+              <button
+                class="ButtonSlike2"
+                v-if="Vidljiv"
+                @click="Vidljiv = !Vidljiv"
+              >
+                Odustani
+              </button>
+            </div>
           </div>
         </div>
 
@@ -84,7 +102,7 @@
       <div class="Podnaslov">Kategorije</div>
       <div class="raspored">
         <DodavanjePotkategorije />
-        <Kategorija
+        <Potkategorija
           v-for="K in KarticePotkategorija"
           :key="K.id"
           :id="K.id"
@@ -107,7 +125,7 @@
 <script>
 import DodavanjeStavke from "@/components/DodavanjeStavke";
 import Stavka from "@/components/Stavka";
-import Kategorija from "@/components/Kategorija";
+import Potkategorija from "@/components/Potkategorija";
 import Sidebar from "@/components/Sidebar";
 import {
   ref,
@@ -139,16 +157,15 @@ export default {
       VidljivBrisanje: false,
       VidljivPromjena: false,
       NaslovNovi: "",
-  
     };
   },
 
   components: {
     Sidebar,
     DodavanjePotkategorije,
-    Kategorija,
     Stavka,
     DodavanjeStavke,
+    Potkategorija,
   },
   mounted() {
     //DAJE TOČNO TRENUTAK KAD DA SE DATOTRKA PRIKAŽE NA ERKRANU
@@ -160,19 +177,19 @@ export default {
   methods: {
     async PromjenaNazivaPotkategorije() {
       const ID = this.$route.params.id;
-      const PozkategorijaDocRef = doc(collection(db, "Kategorija"), ID)
-      
-try {
-      await updateDoc(PozkategorijaDocRef, {
-       Ime: this.NaslovNovi
-      });
-      this.PrikazNaslova();
-      console.log("PROMJENA NA POTKATEGORIJI");
-    this.VidljivPromjena = !this.VidljivPromjena
-    }catch (error) {
-        console.log("GREŠKA PROMJENE POTKATEGORIJE");
-      }},
+      const PozkategorijaDocRef = doc(collection(db, "Kategorija"), ID);
 
+      try {
+        await updateDoc(PozkategorijaDocRef, {
+          Ime: this.NaslovNovi,
+        });
+        this.PrikazNaslova();
+        console.log("PROMJENA NA POTKATEGORIJI");
+        this.VidljivPromjena = !this.VidljivPromjena;
+      } catch (error) {
+        console.log("GREŠKA PROMJENE POTKATEGORIJE");
+      }
+    },
 
     async BrisanjeKategorije() {
       const ID = this.$route.params.id;
@@ -222,15 +239,12 @@ try {
       );
       onSnapshot(q, (querySnapshot) => {
         const PotkategorijaIme = [];
-    
+
         querySnapshot.forEach((doc) => {
- 
           PotkategorijaIme.push({ id: doc.id, ...doc.data() });
-          console.log(doc.id)
+          console.log(doc.id);
         });
         this.KarticePotkategorija = PotkategorijaIme;
-     
-        
       });
     },
 
@@ -342,12 +356,19 @@ try {
 .ButtonSlike2 {
   background-color: #731642;
   color: #ffffff;
-  border-radius: 7px;
-  border: none;
+
   font-size: 14px;
+
+  border-radius: 7px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border: none;
   font-weight: bold;
   outline: none;
-  padding: 0.5rem 1rem;
+  min-width: 5rem;
+  max-width: 5rem;
 }
 
 .ButtonSlike1 {
@@ -362,8 +383,11 @@ try {
   font-size: 15px;
   font-weight: bold;
   outline: none;
+  cursor: pointer;
 }
-
+.ButtonSlike1:hover {
+  background-color: #7217411f;
+}
 .ButtonSlike {
   width: 0;
   margin-top: 0.5rem;
@@ -379,6 +403,7 @@ try {
   min-width: 9rem;
   max-width: 9rem;
   outline: none;
+  cursor: pointer;
 }
 
 .BrisanjeKategorije {
@@ -391,33 +416,47 @@ try {
   min-width: 9rem;
   max-width: 9rem;
   outline: none;
+  cursor: pointer;
+}
+.ho:hover {
+  background-color: #aa6b88e3;
 }
 
 .promjena {
   display: flex;
   flex-direction: column;
   font-weight: bold;
-  margin: 0 1rem 0 1rem 0;
-
-  gap: 1.25rem;
+  align-items: center;
+  gap: 1.3rem;
 }
 
 .PotvrdiBrisanje {
   background-color: #ffffff;
   color: #731642;
-  margin-bottom: 0.3rem;
+
   border-radius: 7px;
   margin-top: 0.5rem;
-  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
   border: none;
   font-weight: bold;
   outline: none;
+  min-width: 5rem;
+  max-width: 5rem;
+}
+
+.PotvrdiBrisanje:hover {
+  background-color: #ffffffd5;
 }
 
 .top {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  justify-content: center;
+
+  padding-left: 1rem;
 }
 
 .t {
@@ -449,5 +488,29 @@ try {
   border: 1.5px solid #731642;
   padding: 0.2rem;
   width: 8rem;
+}
+
+.ButtoniSlika {
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+}
+
+i {
+  cursor: pointer;
+}
+.ButtonSlike2:hover {
+  cursor: pointer;
+  background-color: #aa6b88f3;
+  color: #ffffff;
+}
+
+.PotvrdiBrisanje:hover {
+  background-color: #ffffffcc;
+}
+
+.potvrdi:hover {
+  cursor: pointer;
+  background-color: #aa6b88e3;
 }
 </style>

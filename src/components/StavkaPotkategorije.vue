@@ -56,8 +56,6 @@
       </button>
     
       </div>
-   
-     
     </div>
   </div>
 </template>
@@ -74,19 +72,21 @@ export default {
       NoveInfoStavke: this.Stavke.Info
     };
   },
-  name: "Stavka",
+  name: "StavkaPotkategorije",
   props: ["Stavke", "idStavka"],
   methods: 
   {    async UrediStavku() {
      const ID = this.$route.params.id;
-       const StavkaDocRef = doc(collection(doc(collection(db, 'Kategorija'),ID),"Stavka"),this.idStavka)
+       const StavkaDocRef =        doc(
+        collection(doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), 
+        "Potkategorija"),this.$route.params.idPodkategorije),"Stavke"), this.idStavka)
       
            
       await updateDoc(StavkaDocRef
       ,
         {
-          Naziv: this.NoviNazivStavke,
-          Cijena: this.NovaCijenaStavke,
+          Naziv: this.NovaCijenaStavke,
+          Cijena: this.NoviNazivStavke,
           Info: this.NoveInfoStavke,
         }
       );
@@ -96,7 +96,9 @@ export default {
     async brisanjeStavke() {
       const ID = this.$route.params.id;
       await deleteDoc(
-        doc(collection(doc(db, "Kategorija", ID), "Stavka"), this.idStavka)
+        doc(
+        collection(doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), 
+        "Potkategorija"),this.$route.params.idPodkategorije),"Stavke"), this.idStavka)
       );
       console.log("BRISANJE STAVKE");
     },

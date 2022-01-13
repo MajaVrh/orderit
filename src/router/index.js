@@ -36,7 +36,7 @@ const routes = [
   {
     path: "/uredjivanjeponude/:id/:idPodkategorije",
     name: "UredivanjePonudeDetailPotkategorije",
-    component: () => import("../views/UredivanjePonudeDetail.vue"),
+    component: () => import("../views/UredivanjePonudeDetailPotkategorije.vue"),
     meta: {
       needsUser: true,
     },

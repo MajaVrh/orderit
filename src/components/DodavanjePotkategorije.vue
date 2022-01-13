@@ -118,4 +118,16 @@ padding: 0.5rem 1rem 0.5rem 1rem;
   
 }
 
+.PotvrdiBrisanje:hover {
+  background-color: #ffffffcc;
+  
+  
+}
+.potvrdi:hover {
+  cursor: pointer;
+   background-color: #aa6b88e3;
+
+  
+}
+
 </style>
