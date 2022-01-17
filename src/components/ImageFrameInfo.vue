@@ -1,18 +1,13 @@
 <template>
   <div class="wrapper">
-    <img v-if="imageURL" :src="imageURL" />
-    <p v-if="ime">{{ ime }}</p>
+    <img  src="@/assets/kafic.png"/>
+    <p>Info</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ImageFrame",
-  props: {
-    imageURL: String,
-    imageURLinfo: String,
-    ime: String,
-  },
+  name: "ImageFrameInfo",
 };
 
 

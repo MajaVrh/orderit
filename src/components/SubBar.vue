@@ -1,8 +1,8 @@
 <template>
   <div>
-    <router-link :to="info.routes"
+    <router-link v-if="katID" :to="{name: 'Ponuda', params: {id: id, katID: katID}}"
       ><div class="elements">
-        <span>{{ info.description }}</span> <i class="fas fa-chevron-right"></i>
+        <span>{{ ime }}</span> <i class="fas fa-chevron-right"></i>
       </div>
     </router-link>
   </div>
@@ -12,7 +12,9 @@
 export default {
   name: "SubBar",
   props: {
-    info: Object,
+    ime: String,
+    id: String,
+    katID: String,
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <router-link class="tipka" to="/">Vaša naruđba</router-link>
+  <router-link class="tipka" :to="{name: 'Cart'}">Vaša naruđba</router-link>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <router-link to="/1" v-if="IsLeft" class="left"
+    <router-link :to="!isInfo ? {name:'GeneralView', params : {id: id}} : {name: 'Info'}" v-if="IsLeft" class="left"
       ><div class="elements">
         <img :src="imageURL" /> <span>{{ naziv }}</span>
       </div>
     </router-link>
-    <router-link to="/1" v-else class="right"
+    <router-link :to="!isInfo ? {name:'GeneralView', params : {id: id}} : {name: 'Info'}" v-else class="right"
       ><div class="elements">
         <span>{{ naziv }}</span
         ><img :src="imageURL" alt="" />
@@ -17,11 +17,14 @@
 export default {
   name: "MainBars",
   props: {
+    id: String,
     IsLeft: Boolean,
     imageURL: String,
     naziv: String,
+    isInfo: Boolean,
   },
 };
+
 </script>
 
 <style scoped>
@@ -45,5 +48,9 @@ a {
 }
 .right > .elements > img {
   margin-left: auto;
+}
+img{
+  width: 8rem;
+  height: 8rem;
 }
 </style>

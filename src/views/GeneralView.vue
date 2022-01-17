@@ -1,94 +1,75 @@
 <template>
-  <div v-if="podkategorije">
-    <image-frame :info="path" :TitleConnect="title" />
+  <div v-if="podkategorije.length > 0">
+    <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" />
     <sub-bar
-      v-for="button in buttons"
-      :key="button.description"
-      :info="button"
+      v-for="podkategorija in podkategorije"
+      :key="podkategorija.id"
+      :ime="podkategorija.Ime"
+      :id="podkategorija.id"
+      :katID="kategorija && kategorija.id"
     />
   </div>
   <div v-else>
-    <!-- Tu ako nema podkategorije direktno prikazati ponudu -->
+    <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" />
+    <pica-cards v-for="ponuda in ponude" :key="ponuda.id" :id="ponuda.id" :ime="ponuda.Naziv" :description="ponuda.Info" :cijena="ponuda.Cijena"/>
   </div>
 </template>
 
 <script>
 import SubBar from "@/components/SubBar";
 import ImageFrame from "@/components/ImageFrame";
-import { db } from "@/firebase"
+import { db, doc, getDoc, getDocs, collection, onSnapshot } from "@/firebase";
+import PicaCards from '../components/PicaCards.vue';
 
 export default {
   name: "GeneralView",
   components: {
     SubBar,
     ImageFrame,
+    PicaCards,
   },
   created() {
     this.fetchFirebaseData();
+    this.fetchKategorijaData()
   },
   methods: {
-     async fetchFirebaseData() {
-      const id = this.$route.params.id
-       let rezultati = await getDoc(db, "kategorije", id)
-       let kategorijeArr = []
-       let ponudaArr = []
-       rezultati.forEach(doc => {
-        kategorijeArr.push({id: doc.id(), ...doc.data()})
-      });
-     }
+    async fetchKategorijaData() {
+      const id = this.$route.params.id;
+      const kategorija = await getDoc(doc(db, "Kategorija", id));
+      this.kategorija = kategorija.data()
+      this.kategorija.id = kategorija.id
+    },
+    async fetchFirebaseData() {
+      const id = this.$route.params.id;
+      const potkategorija = await getDocs(collection(doc(collection(db, 'Kategorija'), id), 'Potkategorija'))
+      let newArr = []
+      potkategorija.forEach(doc => {
+        newArr.push({ id: doc.id,... doc.data()})
+      })
+      this.podkategorije = newArr;
+      await this.PonudaExist();
 
-     
-      // this.podkategorije = kategorijeArr
-
-    //   if(this.podkategorije.length != 0) return
-    //   rezultati = await getDoc(db, "ponuda", id)
-
-    //   rezultati.forEach(doc => {
-    //     ponudaArr.push({id: doc.id(), ...doc.data()})
-    //   });
-    //   this.ponuda = ponudaArr
-    // }
+    },
+    async PonudaExist(){
+      const id = this.$route.params.id;
+      if(this.podkategorije.length > 0) return;
+      const Stavka = await getDocs(collection(doc(collection(db, 'Kategorija'), id), 'Stavka'))
+      let newArr = []
+      Stavka.forEach(doc => {
+        newArr.push({ id: doc.id,... doc.data()})
+      })
+      this.ponude = newArr;
+    }
+  
   },
 
   data() {
     return {
-      podkategorije: [
-        {
-          id: 1,
-          naziv: "Alkholna pića",
-        },
-        {
-          id: 2,
-          naziv: "Bezalkoholna pića",
-        },
-        {
-          id: 3,
-          naziv: "Topli napitci",
-        },
-        {
-          id: 4,
-          naziv: "Kokteli",
-        },
-      ],
-      ponuda: [
-        {
-          id: 1,
-          ponuda: "Kava + Cedevita",
-          cijena: 10,
-        },
-        {
-          id: 2,
-          ponuda: "Kava + Cedevita",
-          cijena: 10,
-        },
-        {
-          id: 3,
-          ponuda: "Kava + Cedevita",
-          cijena: 10,
-        },
-      ],
-    };
-  },
+      podkategorije: [],
+      kategorija: null,
+      ponude: []
+     };
+   },
 };
 </script>
 

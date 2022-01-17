@@ -7,12 +7,12 @@
         <i class="fas fa-map-marker-alt"></i>
         <p>Lokacija</p>
       </div>
-      <p>{{ information.lokacija }}</p>
+      <p>{{ adr }}</p>
       <div class="align">
         <i class="fas fa-phone"></i>
         <p>Kontakt</p>
       </div>
-      <p>{{ information.kontakt }}</p>
+      <p>{{ br }}</p>
       <div class="align">
         <i class="fas fa-clock"></i>
         <p>RADNO VRIJEME</p>
@@ -20,14 +20,26 @@
 
       <div class="wrapper-info">
         <div class="left">
-          <span>PON - PET:</span>
+          <span>PON:</span>
+          <span>UTO:</span>
+          <span>SRI:</span>
+          <span>CET:</span>
+          <span>PET:</span>
           <span>SUB:</span>
           <span>NED:</span>
+
         </div>
 
         <div class="right">
-          <p class="align-time" v-for="time in times" :key="time.dan">
-            {{ time.pocetak }} - {{ time.kraj }}
+          <p class="align-time">
+            {{pon}} <br>
+            {{uto}} <br>
+            {{sri}} <br>
+            {{cet}} <br>
+            {{pet}} <br>
+            {{sub}} <br>
+            {{ned}} 
+             
           </p>
         </div>
       </div>
@@ -43,20 +55,53 @@ export default {
   components: {
     ImageFrame,
   },
+  created(){
+    this.UcitavanjeRadnogVremena();
+    this.UcitavanjeKontakta();
+    this.UcitavanjeAdrese();
+    },
+   methods: {
+    async UcitavanjeRadnogVremena() {
+      onSnapshot(doc(db, "Info", "radnoVrijeme"), (doc) => {
+        this.pon = doc.data().ponedjeljak;
+        this.uto = doc.data().utorak;
+        this.sri = doc.data().srijeda;
+        this.cet = doc.data().cetvrtak;
+        this.pet = doc.data().petak;
+        this.sub = doc.data().subota;
+        this.ned = doc.data().nedjelja;
+        console.log("Current data: ", doc.data());
+      });
+    },
+    async UcitavanjeKontakta() {
+      onSnapshot(doc(db, "Info", "broj"), (doc) => {
+        this.br = doc.data().broj;
+
+        console.log("Current data: ", doc.data());
+      });
+    },
+
+      async UcitavanjeAdrese() {
+      onSnapshot(doc(db, "Info", "adresa"), (doc) => {
+        this.adr = doc.data().adresa;
+
+        console.log("Current data: ", doc.data());
+      });
+    },
+   },
   data() {
     return {
-      path: "https://picsum.photos/100",
-      title: "Info",
-      times: [
-        { dan: "PON-PET", pocetak: "8:00", kraj: "23:00" },
-        { dan: "SUB", pocetak: "8:00", kraj: "01:00" },
-        { dan: "NED", pocetak: "8:00", kraj: "20:00" },
-      ],
-      information: {
-        lokacija: "Rovinjska ul. 14 52100, Pula",
-        kontakt: "091 852 1234",
-      },
+      pon: "",
+      uto: "",
+      sri: "",
+      cet: "",
+      pet: "",
+      sub: "",
+      ned: "",
+      br: "",
+      adr: "",
     };
+    
   },
 };
 </script>

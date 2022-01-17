@@ -1,48 +1,54 @@
 <template>
   <div>
     <div class="wrapper" @click="isModalVisible = !isModalVisible" >
-      <span>{{ infocards.ime }}</span>
+      <span>{{ ime }}</span>
       <div class="right">
-        <span>{{ infocards.cijena }}</span>
+        <span>{{ cijena }}</span>
       </div>
     </div>
 
     <div class="modal" v-if="isModalVisible">
       <div class="modal-contant" @click="isModalVisible = !isModalVisible">
-        <p class="naslov" style="margin-bottom: 10px">{{ infocards.ime }}</p>
+        <p class="naslov" style="margin-bottom: 10px">{{ ime }}</p>
         <p class="head">Opis</p>
-        <p style="margin-bottom: 10px">{{ infocards.informacije }}</p>
+        <p style="margin-bottom: 10px">{{ description }}</p>
         <p class="head">Količina</p>
-        <div class="increment" style="margin-bottom: 10px"><span @click="() => number -1 < 0 ? number = 0: number--"><i class="fas fa-minus"></i></span><span>{{number}}</span><span @click="() => number++" id="increment"><i class="fas fa-plus"></i></span></div>
+        <div class="increment" style="margin-bottom: 10px"><span @click="() => amount - 1 < 0 ? amount = 0: amount--"><i class="fas fa-minus"></i></span><span>{{amount}}</span><span @click="() => amount++" id="increment"><i class="fas fa-plus"></i></span></div>
         <p class="head" >Cijena</p>
-        <p style="margin-bottom: 10px">{{ infocards.cijena }}</p>
-        <div class="button" @click="PushToCart(infocards.ime)">Dodaj</div>
-        <div class="button" style="margin-top: 10px" @click="logMeHard">Ukloni</div>
+        <p style="margin-bottom: 10px">{{ cijena }}</p>
+        <div class="button" @click="cartAdd()">Dodaj</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: "Pića",
   props: {
-    infocards: Object,
+    id: String,
+    ime: String,
+    description: String,
+    cijena: String,
   },
   mounted() {
     document.body.addEventListener("click", this.closeIfModalOn, true);
   },
-  computed: {
-    ...mapGetters({number: 'number'}) // "..." <- spread operator- NADODAJE NA ARRAY
-  },
   data() {
     return {
       isModalVisible: false,
+      amount: 0,
+      item: {
+        id: this.id,
+        ime: this.ime,
+        cijena: this.cijena
+      }
     };
   },
   methods: {
+    ...mapActions({addItemsToCart: 'addItemsToCart'}),
     closeIfModalOn() {
       if (this.isModalVisible) {
         this.isModalVisible = false;
@@ -51,9 +57,9 @@ export default {
     logMeHard() {
       console.log("Test");
     },
-    // PushToCart(ime){
-    //    $store.cart.push( this.number, ime  )
-    // },
+    cartAdd() {
+      this.addItemsToCart({item: this.item, amount: this.amount})
+    }
   },
 };
 </script>

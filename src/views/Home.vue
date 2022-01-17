@@ -1,67 +1,61 @@
 <template>
-  <div class="home">
+  <div class="home" v-if="table">
     <main-bars
       v-for="kategorija in kategorije"
-      :key="kategorija.image"
+      :key="kategorija.id"
+      :id="kategorija.id"
       :IsLeft="kategorije.indexOf(kategorija) % 2 == 0"
       :imageURL="kategorija.imageURL"
-      :naziv="kategorija.naziv"
+      :naziv="kategorija.Ime"
     />
-    <main-bars naziv="Info" imageURL="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLTD-EEs8bxwuZtNSWPEROeaAu3FvGnlGQ6BhxGc4fuuphh9jJz1OWtJQII7BMUlrCHA&usqp=CAU" :isLeft="kategorije.lenght+1 % 2 == 0"/>
+    <!-- <main-bars
+      naziv="Info"
+      imageURL="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLTD-EEs8bxwuZtNSWPEROeaAu3FvGnlGQ6BhxGc4fuuphh9jJz1OWtJQII7BMUlrCHA&usqp=CAU"
+      :isLeft="kategorije.lenght + (1 % 2) == 0"
+      :isInfo="true"
+      id="info"
+    /> -->
+  </div>
+  <div style="color:white; font-size:2rem;" v-else>
+    Stol ne postoji.
   </div>
 </template>
 
 <script>
 import MainBars from "@/components/MainBar";
+import { db, collection, query, onSnapshot, getDocs  } from "@/firebase";
+import { mapGetters } from 'vuex'
 
 export default {
   name: "Home",
   components: {
     MainBars,
   },
+  created() {
+    this.PrikazKategorija();
+  },
+  computed: {
+    ...mapGetters({table: 'getTable'})
+  },
+  methods: {
+
+    async PrikazKategorija() {
+      const q = query(collection(db, "Kategorija"));
+      onSnapshot(q, (querySnapshot) => {
+        const KategorijaIme = [];
+        querySnapshot.forEach((doc) => {
+          KategorijaIme.push({ id: doc.id, ...doc.data() });
+        });
+        this.kategorije = KategorijaIme;
+      });
+    },
+
+  },
+
   data() {
     return {
-      kategorije: 
-      [
-        {
-          id: 1,
-          naziv: "Pića",
-          imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLTD-EEs8bxwuZtNSWPEROeaAu3FvGnlGQ6BhxGc4fuuphh9jJz1OWtJQII7BMUlrCHA&usqp=CAU"
-        },
-        {
-          id: 2,
-          naziv: "Slastice",
-          imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLTD-EEs8bxwuZtNSWPEROeaAu3FvGnlGQ6BhxGc4fuuphh9jJz1OWtJQII7BMUlrCHA&usqp=CAU"
-        },
-        {
-          id: 3,
-          naziv: "Special",
-          imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLTD-EEs8bxwuZtNSWPEROeaAu3FvGnlGQ6BhxGc4fuuphh9jJz1OWtJQII7BMUlrCHA&usqp=CAU"
-        },
-      ]
-
-      // buttons: [
-      //   {
-      //     image: "https://picsum.photos/id/1/100",
-      //     description: "Pića",
-      //     route: "pica",
-      //   },
-      //   {
-      //     image: "https://picsum.photos/id/2/100",
-      //     description: "Slastice",
-      //     route: "slastice",
-      //   },
-      //   {
-      //     image: "https://picsum.photos/id/3/100",
-      //     description: "Special",
-      //     route: "speciali",
-      //   },
-      //   {
-      //     image: "https://picsum.photos/id/4/100",
-      //     description: "Info",
-      //     route: "info",
-      //   },
-      // ],
+      kategorije: [],
+      
     };
   },
 };
