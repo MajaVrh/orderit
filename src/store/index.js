@@ -8,6 +8,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     cart: [],
+    ukupnaCijena: 0,
     tableID: ''
   },
   getters: {
@@ -20,10 +21,19 @@ const store = new Vuex.Store({
     getCartSize(state) {
       return state.cart.length
     },
+    getTotalPrice(state) {
+      return state.ukupnaCijena
+    }
   },
   mutations: {
     setTable(state, payload) {
       state.tableID = payload;
+    },
+    addPrice(state, payload) {
+      state.ukupnaCijena += payload;
+    },
+    removePrice(state, payload) {
+      state.ukupnaCijena -= payload;
     },
     setItemsInCart(state, payload) {
       const existingItem = state.cart.find(item => item.id == payload.item.id)
@@ -41,8 +51,9 @@ const store = new Vuex.Store({
       if(payload.amount <= 0) {
         state.cart = state.cart.filter(item => item.id != payload.item.id)
       }else {
-        existingItem.amount = payload.amount
-        state.cart[existingItem] = existingItem
+        let newItem = existingItem;
+        newItem.amount = payload.amount
+        state.cart[newItem] = newItem
       }
     }
   },

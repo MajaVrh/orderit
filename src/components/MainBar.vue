@@ -1,11 +1,11 @@
 <template>
   <div>
-    <router-link :to="!isInfo ? {name:'GeneralView', params : {id: id}} : {name: 'Info'}" v-if="IsLeft" class="left"
+    <router-link :to="{name:'GeneralView', params : {id: id}}" v-if="IsLeft" class="left"
       ><div class="elements">
         <img :src="imageURL" /> <span>{{ naziv }}</span>
       </div>
     </router-link>
-    <router-link :to="!isInfo ? {name:'GeneralView', params : {id: id}} : {name: 'Info'}" v-else class="right"
+    <router-link :to="{name:'GeneralView', params : {id: id}}" v-else class="right"
       ><div class="elements">
         <span>{{ naziv }}</span
         ><img :src="imageURL" alt="" />

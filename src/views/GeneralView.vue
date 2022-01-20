@@ -1,5 +1,9 @@
 <template>
-  <div v-if="podkategorije.length > 0">
+<div>
+  <div v-if="$route.params.id == 'info'">
+    <info/>
+  </div>
+  <div v-else-if="podkategorije.length > 0">
     <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" />
     <sub-bar
       v-for="podkategorija in podkategorije"
@@ -13,6 +17,8 @@
     <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" />
     <pica-cards v-for="ponuda in ponude" :key="ponuda.id" :id="ponuda.id" :ime="ponuda.Naziv" :description="ponuda.Info" :cijena="ponuda.Cijena"/>
   </div>
+  <order-button v-if="OrderShow"/>
+ </div>
 </template>
 
 <script>
@@ -20,6 +26,8 @@ import SubBar from "@/components/SubBar";
 import ImageFrame from "@/components/ImageFrame";
 import { db, doc, getDoc, getDocs, collection, onSnapshot } from "@/firebase";
 import PicaCards from '../components/PicaCards.vue';
+import OrderButton from '../components/OrderButton.vue';
+import info from '../components/Info.vue'
 
 export default {
   name: "GeneralView",
@@ -27,6 +35,8 @@ export default {
     SubBar,
     ImageFrame,
     PicaCards,
+    OrderButton,
+    info
   },
   created() {
     this.fetchFirebaseData();
@@ -52,7 +62,10 @@ export default {
     },
     async PonudaExist(){
       const id = this.$route.params.id;
-      if(this.podkategorije.length > 0) return;
+      if(this.podkategorije.length > 0){
+        this.OrderShow = 0;
+        return;
+      }
       const Stavka = await getDocs(collection(doc(collection(db, 'Kategorija'), id), 'Stavka'))
       let newArr = []
       Stavka.forEach(doc => {
@@ -67,7 +80,8 @@ export default {
     return {
       podkategorije: [],
       kategorija: null,
-      ponude: []
+      ponude: [],
+      OrderShow: 1,
      };
    },
 };

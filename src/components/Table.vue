@@ -21,14 +21,14 @@ export default {
         ...mapMutations({setTable: 'setTable'}),
         async setUserTable() {
             const tableData = await getDoc(doc(db, 'Stolovi', this.tableID));
-            const table = tableData.id;
-            if(this.tableID != table) {
+            const table = {id: tableData.id,...tableData.data()}
+            if(this.tableID != table.id) {
                 this.setTable('');
                 this.loading = false
                 this.$router.replace('/');
                 return;
             };
-            this.setTable(this.tableID);
+            this.setTable(table);
             this.loading = false
             this.$router.replace('/');
         }

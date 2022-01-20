@@ -3,7 +3,7 @@
     <div class="wrapper" @click="isModalVisible = !isModalVisible" >
       <span>{{ ime }}</span>
       <div class="right">
-        <span>{{ cijena }}</span>
+        <span>{{ cijena }} kn</span>
       </div>
     </div>
 
@@ -15,15 +15,15 @@
         <p class="head">Količina</p>
         <div class="increment" style="margin-bottom: 10px"><span @click="() => amount - 1 < 0 ? amount = 0: amount--"><i class="fas fa-minus"></i></span><span>{{amount}}</span><span @click="() => amount++" id="increment"><i class="fas fa-plus"></i></span></div>
         <p class="head" >Cijena</p>
-        <p style="margin-bottom: 10px">{{ cijena }}</p>
-        <div class="button" @click="cartAdd()">Dodaj</div>
+        <p style="margin-bottom: 10px">{{ cijena }} kn</p>
+        <div class="button" @click="cartAdd(), isModalVisible = !isModalVisible">Dodaj</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import {mapMutations, mapActions} from 'vuex'
 
 export default {
   name: "Pića",
@@ -43,12 +43,13 @@ export default {
       item: {
         id: this.id,
         ime: this.ime,
-        cijena: this.cijena
+        cijena: Number(this.cijena)
       }
     };
   },
   methods: {
     ...mapActions({addItemsToCart: 'addItemsToCart'}),
+    ...mapMutations({addPrice: 'addPrice'}),
     closeIfModalOn() {
       if (this.isModalVisible) {
         this.isModalVisible = false;
@@ -59,6 +60,8 @@ export default {
     },
     cartAdd() {
       this.addItemsToCart({item: this.item, amount: this.amount})
+      const ukupno = this.item.cijena * this.amount
+      this.addPrice(ukupno)
     }
   },
 };
@@ -141,6 +144,9 @@ export default {
   width: 50%;
   border-radius: 15px;
 }
+
+
+
 
 
 </style>
