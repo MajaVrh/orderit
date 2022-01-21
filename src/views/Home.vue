@@ -8,7 +8,8 @@
       :imageURL="kategorija.imageURL"
       :naziv="kategorija.Ime"
     />
-    <info-bar :IsLeft="(kategorije.length + 2)  % 2 == 0"/>
+    <info-bar :IsLeft="kategorije.length % 2 == 0"/>
+
   </div>
   <div class="notLoading" v-else>
     <p> Stol ne postoji. </p>
@@ -20,7 +21,7 @@
 import MainBars from "@/components/MainBar";
 import InfoBar from "@/components/infoBar";
 import { db, collection, query, onSnapshot} from "@/firebase";
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: "Home",
@@ -29,13 +30,14 @@ export default {
     InfoBar,
   },
   created() {
+    
     this.PrikazKategorija();
   },
   computed: {
     ...mapGetters({table: 'getTable'})
   },
   methods: {
-
+    ...mapMutations({setTable: 'setTable'}),
     async PrikazKategorija() {
       const q = query(collection(db, "Kategorija"));
       onSnapshot(q, (querySnapshot) => {

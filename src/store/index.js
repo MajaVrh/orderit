@@ -9,7 +9,7 @@ const store = new Vuex.Store({
   state: {
     cart: [],
     ukupnaCijena: 0,
-    tableID: ''
+    tableID: null
   },
   getters: {
     getTable(state) {
@@ -26,8 +26,13 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    resetStore(state) {
+      state.tableID = {};
+      state.cart.length = 0;
+      state.ukupnaCijena = 0
+    },
     setTable(state, payload) {
-      state.tableID = payload;
+      state.tableID = payload
     },
     addPrice(state, payload) {
       state.ukupnaCijena += payload;

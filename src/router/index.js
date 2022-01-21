@@ -6,10 +6,12 @@ import Ponuda from "../views/Ponuda.vue";
 import Zahvale from "../views/Thx.vue";
 import Cart from "../views/Cart.vue";
 import Info from "../views/Info.vue";
+import PageNotFound from "../views/PageNotFound.vue";
 import Table from "../components/Table.vue";
 import store from '@/store'
 
 Vue.use(VueRouter);
+
 
 const routes = [
   {
@@ -87,6 +89,7 @@ const routes = [
     name: "Table",
     component: Table,
   },
+  {path: '*', name:'PageNotFound', component: PageNotFound},
 ];
 
 const router = new VueRouter({

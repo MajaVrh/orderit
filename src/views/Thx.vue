@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
     
 created(){
@@ -18,8 +18,11 @@ created(){
     setTimeout(() => {this.redirect()}, 2000)
 },
 methods: {
+    ...mapMutations({resetStore: 'resetStore'}),
     redirect(){
-        this.$router.push({path: '/new_order/getTable'})
+        const idStol = this.stol.id;
+        this.resetStore();
+        this.$router.push({path: `/new_order/${idStol}`})
     }
 },
 };

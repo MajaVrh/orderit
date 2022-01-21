@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="loading"><img src="MainLogo.png" alt=""></div>
+  <div v-if="loading" class="loading"><img src="@/assets/MainLogo.png" alt=""></div>
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
             const tableData = await getDoc(doc(db, 'Stolovi', this.tableID));
             const table = {id: tableData.id,...tableData.data()}
             if(this.tableID != table.id) {
-                this.setTable('');
+                this.setTable({});
                 this.loading = false
                 this.$router.replace('/');
                 return;
@@ -36,10 +36,17 @@ export default {
 }
 </script>
 
-<style scoped>
-.loading > img{
+<style scoped lang="scss">
+.loading{
+    img{
     width: 10rem;
     animation: rotation 1s infinite linear;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
 }
 @keyframes rotation {
     from {

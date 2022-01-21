@@ -41,10 +41,15 @@ export default {
   },
   methods: {
     async fetchKategorijaData() {
-      const id = this.$route.params.id;
-      const kategorija = await getDoc(doc(db, "Kategorija", id));
-      this.kategorija = kategorija.data()
-      this.kategorija.id = kategorija.id
+      try {
+        const id = this.$route.params.id;
+        const kategorija = await getDoc(doc(db, "Kategorija", id));
+        this.kategorija = kategorija.data()
+        this.kategorija.id = kategorija.id
+      } catch (error) {
+        this.$router.push({name: 'PageNotFound'})
+
+      }
     },
     async fetchFirebaseData() {
       const id = this.$route.params.id;

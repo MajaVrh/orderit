@@ -18,7 +18,7 @@
       <p></p>
       <p>{{ukupnaCijena}} kn</p>
     </div>
-    <div class="tipka" @click="newOrder">Potvrdi narudžbu</div>
+    <div :class="!isOrderProcessing ? 'tipka' : 'tipka-disabled'" @click="!isOrderProcessing ? newOrder() : 'function:void(0)'">{{!isOrderProcessing ? "Potvrdi narudžbu" : "Kreiranje narudžbe"}}</div>
   </div>
 </template>
 
@@ -33,6 +33,11 @@ export default {
   components: {
     CartItem,
   },
+  data() {
+    return {
+      isOrderProcessing: false,
+    }
+  },
   computed: {
     ...mapGetters({ proizvodi: "getCart", ukupnaCijena: 'getTotalPrice', stol: 'getTable' }),
   },
@@ -40,22 +45,29 @@ export default {
   methods: {
     ...mapActions({ setItemToCart: "setItemToCart" }),
     async newOrder() {
-      const newOrder = await addDoc(collection(db, 'narudzbe'), {
-        ukupnaCijena: this.ukupnaCijena,
-        oznakaStola: this.stol.oznaka,
-        createdAt: Date.now()
-      })
-      
-      const orderRef = await doc(collection(db, 'Narudzbe'), newOrder.id)
-      const stavkaRef = await collection(orderRef, 'Stavke')
-      this.proizvodi.forEach(async proizvod => {
-        await addDoc(stavkaRef, {
-          ime: proizvod.ime,
-          cijena: proizvod.cijena,
-          kolicina: proizvod.amount
+      try {
+        this.isOrderProcessing = true
+        const newOrder = await addDoc(collection(db, 'Narudzbe'), {
+          ukupnaCijena: this.ukupnaCijena,
+          oznakaStola: this.stol.oznaka,
+          jePlaceno: false,
+          createdAt: Date.now()
+          
         })
-      })
-      this.$router.push({ name: "zahvale"})
+
+        const orderRef = await doc(collection(db, 'Narudzbe'), newOrder.id)
+        const stavkaRef = await collection(orderRef, 'Stavke')
+        this.proizvodi.forEach(proizvod => {
+          addDoc(stavkaRef, {
+            ime: proizvod.ime,
+            cijena: proizvod.cijena,
+            kolicina: proizvod.amount
+          })
+        })
+        this.$router.push({ name: "zahvale"})
+      } catch (error) {
+        console.log(error)
+      }
 
     }
   },
@@ -92,6 +104,18 @@ export default {
   display: flex;
   justify-content: center;
   background-color: white;
+  margin: 2rem 5rem 0rem 5rem;
+  border-radius: 50px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
+  color: black;
+  font-family: "Marcellus", serif;
+  font-size: 1.2rem;
+  padding: 10px;
+}
+.tipka-disabled {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(104, 104, 104);
   margin: 2rem 5rem 0rem 5rem;
   border-radius: 50px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
