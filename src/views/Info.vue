@@ -1,6 +1,6 @@
 <template>
   <div>
-    <image-frame :info="path" :TitleConnect="title" />
+    <image-frame-info />
     <div class="WrapperInfo">
       <p class="title">Central Perk Coffe Shop</p>
       <div class="align">
@@ -48,12 +48,13 @@
 </template>
 
 <script>
-import ImageFrame from "@/components/ImageFrame.vue";
+import { db, doc, getDoc, getDocs, collection, onSnapshot } from "@/firebase";
+import ImageFrameInfo from '../components/ImageFrameInfo.vue';
 
 export default {
   name: "Info",
   components: {
-    ImageFrame,
+    ImageFrameInfo,
   },
   created(){
     this.UcitavanjeRadnogVremena();

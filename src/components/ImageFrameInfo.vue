@@ -28,7 +28,7 @@ export default {
 }
 img {
   margin: 0 auto;
-  height: 6rem;
+  height: 5rem;
   margin-bottom: 10px;
 }
 p {

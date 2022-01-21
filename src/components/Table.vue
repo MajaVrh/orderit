@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading">LOADING...</div>
+  <div v-if="loading" class="loading"><img src="MainLogo.png" alt=""></div>
 </template>
 
 <script>
@@ -36,6 +36,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.loading > img{
+    width: 10rem;
+    animation: rotation 1s infinite linear;
+}
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
 
+}
+    
 </style>

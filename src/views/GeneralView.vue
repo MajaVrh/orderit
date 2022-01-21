@@ -1,9 +1,6 @@
 <template>
 <div>
-  <div v-if="$route.params.id == 'info'">
-    <info/>
-  </div>
-  <div v-else-if="podkategorije.length > 0">
+  <div v-if="podkategorije.length > 0">
     <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" />
     <sub-bar
       v-for="podkategorija in podkategorije"
@@ -27,7 +24,7 @@ import ImageFrame from "@/components/ImageFrame";
 import { db, doc, getDoc, getDocs, collection, onSnapshot } from "@/firebase";
 import PicaCards from '../components/PicaCards.vue';
 import OrderButton from '../components/OrderButton.vue';
-import info from '../components/Info.vue'
+import info from './Info.vue'
 
 export default {
   name: "GeneralView",

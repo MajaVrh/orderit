@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import GeneralView from "../views/GeneralView.vue";
 import Ponuda from "../views/Ponuda.vue";
 import Cart from "../views/Cart.vue";
+import Info from "../views/Info.vue";
 import Table from "../components/Table.vue";
 import store from '@/store'
 
@@ -45,6 +46,19 @@ const routes = [
     path: "/narudzba",
     name: "Cart",
     component: Cart,
+    beforeEnter: (to, from, next) => {
+      const tableExists = store.getters['getTable']
+      if(tableExists) {
+        next();
+      }else {
+        next({name: 'Home'})
+      }
+    }
+  },
+  {
+    path: "/info",
+    name: "Info",
+    component: Info,
     beforeEnter: (to, from, next) => {
       const tableExists = store.getters['getTable']
       if(tableExists) {

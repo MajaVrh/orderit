@@ -8,28 +8,25 @@
       :imageURL="kategorija.imageURL"
       :naziv="kategorija.Ime"
     />
-    <!-- <main-bars
-      naziv="Info"
-      imageURL="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyLTD-EEs8bxwuZtNSWPEROeaAu3FvGnlGQ6BhxGc4fuuphh9jJz1OWtJQII7BMUlrCHA&usqp=CAU"
-      :isLeft="kategorije.lenght + (1 % 2) == 0"
-      :isInfo="true"
-      id="info"
-    /> -->
+    <info-bar :IsLeft="(kategorije.length + 2)  % 2 == 0"/>
   </div>
-  <div style="color:white; font-size:2rem;" v-else>
-    Stol ne postoji.
+  <div class="notLoading" v-else>
+    <p> Stol ne postoji. </p>
+    <img src="@/assets/notpass.jpg" alt="">
   </div>
 </template>
 
 <script>
 import MainBars from "@/components/MainBar";
-import { db, collection, query, onSnapshot, getDocs  } from "@/firebase";
+import InfoBar from "@/components/infoBar";
+import { db, collection, query, onSnapshot} from "@/firebase";
 import { mapGetters } from 'vuex'
 
 export default {
   name: "Home",
   components: {
     MainBars,
+    InfoBar,
   },
   created() {
     this.PrikazKategorija();
@@ -47,10 +44,13 @@ export default {
           KategorijaIme.push({ id: doc.id, ...doc.data() });
         });
         this.kategorije = KategorijaIme;
+        this.katLen = this.kategorije.length;
       });
     },
-
+   
+  
   },
+   
 
   data() {
     return {
@@ -60,3 +60,27 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .notLoading>p{
+    color: white;
+    font-size: 5rem;
+    font-family: "Amatic SC", cursive;
+    margin-top: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+  }
+  .notLoading{
+    display: grid;
+    height: 100%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .notLoading>img{
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+    border: white 4px solid;
+  }
+</style>
