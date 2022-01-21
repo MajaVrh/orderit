@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import GeneralView from "../views/GeneralView.vue";
 import Ponuda from "../views/Ponuda.vue";
+import Zahvale from "../views/Thx.vue";
 import Cart from "../views/Cart.vue";
 import Info from "../views/Info.vue";
 import Table from "../components/Table.vue";
@@ -59,6 +60,19 @@ const routes = [
     path: "/info",
     name: "Info",
     component: Info,
+    beforeEnter: (to, from, next) => {
+      const tableExists = store.getters['getTable']
+      if(tableExists) {
+        next();
+      }else {
+        next({name: 'Home'})
+      }
+    }
+  },
+  {
+    path: "/zahvale",
+    name: "zahvale",
+    component: Zahvale,
     beforeEnter: (to, from, next) => {
       const tableExists = store.getters['getTable']
       if(tableExists) {

@@ -34,6 +34,7 @@ export default {
   align-items: center;
   margin-top: 1rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
+  height: 8rem;
 }
 
 a {
@@ -49,7 +50,8 @@ a {
   margin-left: auto;
 }
 img{
-  width: 8rem;
   height: 8rem;
+  width: 8rem;
+
 }
 </style>

@@ -18,8 +18,7 @@
       <p></p>
       <p>{{ukupnaCijena}} kn</p>
     </div>
-    <div v-if="!potvrdeno" class="tipka" @click="creteOrder">Potvrdi narudžbu</div>
-    <div v-else class="tipka">Potvrdena narudžba</div>
+    <div class="tipka" @click="newOrder">Potvrdi narudžbu</div>
   </div>
 </template>
 
@@ -31,25 +30,16 @@ import {addDoc, collection, doc, db} from '@/firebase'
 
 export default {
   name: "Cart",
-  data() {
-    return {
-      potvrdeno: false
-    }
-  },
   components: {
     CartItem,
   },
   computed: {
     ...mapGetters({ proizvodi: "getCart", ukupnaCijena: 'getTotalPrice', stol: 'getTable' }),
   },
-  mounted() {
-    if (this.proizvodi) {
-      console.log(this.proizvodi);
-    }
-  },
+  
   methods: {
     ...mapActions({ setItemToCart: "setItemToCart" }),
-    async creteOrder() {
+    async newOrder() {
       const newOrder = await addDoc(collection(db, 'narudzbe'), {
         ukupnaCijena: this.ukupnaCijena,
         oznakaStola: this.stol.oznaka,
@@ -58,14 +48,15 @@ export default {
       
       const orderRef = await doc(collection(db, 'Narudzbe'), newOrder.id)
       const stavkaRef = await collection(orderRef, 'Stavke')
-      this.proizvodi.forEach(proizvod => {
-        addDoc(stavkaRef, {
+      this.proizvodi.forEach(async proizvod => {
+        await addDoc(stavkaRef, {
           ime: proizvod.ime,
           cijena: proizvod.cijena,
           kolicina: proizvod.amount
         })
       })
-      this.potvrdeno = true;
+      this.$router.push({ name: "zahvale"})
+
     }
   },
 };

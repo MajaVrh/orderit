@@ -71,14 +71,12 @@ export default {
         this.pet = doc.data().petak;
         this.sub = doc.data().subota;
         this.ned = doc.data().nedjelja;
-        console.log("Current data: ", doc.data());
       });
     },
     async UcitavanjeKontakta() {
       onSnapshot(doc(db, "Info", "broj"), (doc) => {
         this.br = doc.data().broj;
 
-        console.log("Current data: ", doc.data());
       });
     },
 
@@ -86,7 +84,6 @@ export default {
       onSnapshot(doc(db, "Info", "adresa"), (doc) => {
         this.adr = doc.data().adresa;
 
-        console.log("Current data: ", doc.data());
       });
     },
    },

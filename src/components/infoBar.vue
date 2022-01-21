@@ -34,6 +34,7 @@ name: "InfoBars",
   align-items: center;
   margin-top: 1rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
+  height: 8rem;
 }
 
 a {
@@ -49,9 +50,9 @@ a {
   margin-left: auto;
 }
 img{
+  width:  12rem;
 
-  width:  16rem;
-  height: 8rem;
+  
 
 }
 
