@@ -55,9 +55,6 @@ export default {
         this.isModalVisible = false;
       }
     },
-    logMeHard() {
-      console.log("Test");
-    },
     cartAdd() {
       this.addItemsToCart({item: this.item, amount: this.amount})
       const ukupno = this.item.cijena * this.amount

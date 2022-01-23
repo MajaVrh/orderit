@@ -48,7 +48,6 @@ export default {
           newArr.push({id: doc.id,... doc.data()})
         })
         this.proizvodi = newArr;
-        console.log(newArr)
     }
   },
 
