@@ -2,7 +2,7 @@
   <div class="container">
     <sidebar />
     <div class="sredina">
-      <h1 class="naslovStranice">Konobari</h1>
+      <h1 class="naslovStranice">KONOBARI</h1>
       <div class="raspored">
         <dodavanjeZaposlenika />
         <konobar v-for="K in KarticaKonobara" :key="K.id" :id="K.id" :info="K"  />
@@ -74,6 +74,7 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
 
 
 }

@@ -85,8 +85,8 @@ export default {
       await updateDoc(StavkaDocRef
       ,
         {
-          Naziv: this.NovaCijenaStavke,
-          Cijena: this.NoviNazivStavke,
+          Naziv: this.NoviNazivStavke,
+          Cijena: this.NovaCijenaStavke,
           Info: this.NoveInfoStavke,
         }
       );

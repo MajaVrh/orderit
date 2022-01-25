@@ -2,6 +2,7 @@
   <div class="container">
     <sidebar />
     <div class="sredina">
+            <div class="PozicijaNatrag"> <router-link :to="{ name: 'Konobari' }"><i class="fas fa-arrow-circle-left natrag"></i> </router-link></div>
       <h1 class="podnaslov">DODAVANJE KONOBARA</h1>
       <p class="forme">Upišite ime konobara</p>
       <input
@@ -105,6 +106,7 @@ padding-left: 25%;
   color: #731642;
   font-weight: bold;
   margin-bottom: 1rem;
+  margin-top: 6rem;
 }
 
 .styleForme {
@@ -131,5 +133,25 @@ padding-left: 25%;
 .forme {
   color: black;
   margin-bottom: 0.4rem;
+}
+.natrag{color:#731642;
+
+font-size: 40px;
+margin-left: -4rem;
+margin-top: 50vh;
+
+height: 100%;
+position: fixed;}
+
+.PozicijaNatrag{margin-top: -3rem;
+display: flex;
+justify-content: flex-start;
+align-items: flex-start;
+width: 100%;
+background-color: yellow;}
+
+@media only screen and (max-width: 1400px) {
+.natrag{
+margin-left: 2rem;}
 }
 </style>

@@ -8,12 +8,20 @@
       
     </div>
     <div class="desno">
+      
       <div class="sredina">
+          <router-link :to="{ name: 'Home' }"><i class="fas fa-arrow-circle-left natrag"></i> </router-link>
         <div class="rasporedKonobara">
           <konobar v-for="K in KarticaKonobara" :key="K.id" :id="K.id" :info="K"  />
         </div>
+        
+        
       </div>
+   
+      
+      
     </div>
+  
   </div>
 </template>
 
@@ -68,19 +76,22 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   flex-grow: 1;
+ 
 }
 
 .lijevo {
-  width: 100%;
+  width: 50%;
   height: 100%;
   background-color: #731642;
+  position: fixed;
 }
 
 .desno {
-  width: 100%;
+  width: 50%;
   height: 100%;
   background-color: white;
-
+padding: 3rem;
+margin-left: 50%;
 }
 
 .sredina {
@@ -111,4 +122,11 @@ export default {
   cursor: pointer;
   background-color: rgba(117, 12, 59, .9);
 }
+
+.natrag{color:#731642;
+font-size: 40px;
+margin-left:-1rem;
+justify-content: center;
+margin-top: -4.5rem;
+position: fixed;}
 </style>

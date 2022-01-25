@@ -64,9 +64,9 @@ export default {
             collection(doc(collection(db, 'Kategorija'),ID), 'Stavka'),
         {
           
-          Naziv: this.NoviNazivStavke,
-          Cijena: this.NovaCijenaStavke,
-          Info: this.NoveInfoStavke,
+          Naziv: this.NazivStavke,
+          Cijena: this.CijenaStavke,
+          Info: this.InfoStavka,
         }
       );
       this.Vidljiv = !this.Vidljiv;
