@@ -22,8 +22,8 @@ export default {
         async setUserTable() {
             const tableData = await getDoc(doc(db, 'Stolovi', this.tableID));
             const table = {id: tableData.id,...tableData.data()}
-            if(this.tableID != table.id) {
-                this.setTable({});
+            if(!tableData.data()) {
+                this.setTable(null);
                 this.loading = false
                 this.$router.replace('/');
                 return;

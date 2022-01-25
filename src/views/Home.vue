@@ -30,7 +30,6 @@ export default {
     InfoBar,
   },
   created() {
-    
     this.PrikazKategorija();
   },
   computed: {
