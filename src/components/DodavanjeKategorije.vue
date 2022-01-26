@@ -3,6 +3,7 @@
     <button class="gumb1" v-if="!Vidljiv" @click="Vidljiv = !Vidljiv">
       <div class="Dodaj" v-if="!Vidljiv"><i class="fas fa-plus"></i> Dodaj</div>
     </button>
+    
 
     <button class="gumb2" v-if="Vidljiv">
       <input
@@ -12,19 +13,18 @@
         placeholder="   Ime kategorije"
      
         type="text"
+       
       />
-      <button
-        class="potvrdiKategoriju"
-        v-if="Vidljiv"
-        @click="DodajGlavnuKategoriju"
-      >
-        Potvrdi
-      </button>
+      <div   v-if="Vidljiv"
+        @click="DodajGlavnuKategoriju">
+         <potvrdi /></div>
+            <i class="fas fa-times odustani" @click="Vidljiv=!Vidljiv"></i>
     </button>
   </div>
 </template>
 
 <script>
+import potvrdi from './potvrdi.vue';
 import { db, collection, addDoc } from "@/firebase";
 export default {
   data() {
@@ -34,6 +34,7 @@ export default {
     };
   },
   name: "DodavanjeKategorije",
+  components: { potvrdi},
   methods: {
     async DodajGlavnuKategoriju() {
       try {
@@ -81,7 +82,7 @@ export default {
   background-color: #731642;
   color: #ffffff;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   padding: 1rem;
   min-width: 11.4rem;
   max-height: 6.5rem;
@@ -103,16 +104,6 @@ export default {
   border: #721741cb;
   color: #ffffff !important;
 }
-.potvrdiKategoriju {
-  background-color: #ffffff;
-  color: #731642;
-  border-radius: 7px;
-  margin-top: 1rem;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  border: none;
-  font-weight: bold;
-  outline: none;
-}
 
 .UpisiKategoriju {
   border-radius: 7px;
@@ -120,6 +111,7 @@ export default {
   border: 1.5px solid #731642;
   padding: 0.2rem;
   width: 8rem;
+   margin-bottom: 0.5rem;
 }
 
 .fa-plus {
@@ -127,4 +119,7 @@ export default {
   color: #ffffff;
 
 }
+
+
+.odustani{margin-top: 0.2rem;}
 </style>

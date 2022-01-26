@@ -9,27 +9,26 @@
      
 <input  class="InputDodaj"  placeholder="Ime stola" v-model="OznakaStola" type="text">
  
- <div class="poravnanje">
+
  <button
         class="potvrdi"
        
         v-if="Vidljiv"
         @click="DodajStol"
       > Potvrdi</button>
-       <button
-        class="potvrdi"
-       
-        v-if="Vidljiv"
-        @click="Vidljiv=!Vidljiv"
-      > Odustani</button>
+      <i class="fas fa-times" @click="Vidljiv=!Vidljiv"></i>
+    
       </div>
     </div>
-    </div>
+
 </template>
 
 <script>
+
 import { db, collection, addDoc } from "@/firebase";
+
 export default {
+ 
   name: "dodavanjeStola",
   data(){return{OznakaStola:"",
   Vidljiv:false}},
@@ -42,7 +41,7 @@ export default {
           this.OznakaStola,
        
         );
-        const oznaka = ""
+        
           
         // Add a new document with a generated id.
         const docRef = await addDoc(
@@ -112,33 +111,37 @@ z-index: 999;}
 flex-direction: column;
 justify-content: center;
 align-items: center;
-gap: 0.2rem;
+
 }
 
 .InputDodaj{  margin: 0.3rem;
-  width: 88%;
+  width: 80%;
+  height: 1.4rem;
   border-radius: 7px;
   font-size: 14px;
   border: 1.5px solid #731642;
-  padding: 0.2rem;}
+  padding: 0.2rem;
+  margin-top: 1rem;}
+  
 
-.poravnanje{display: flex;
-flex-direction: row;
-gap: 0.5rem;}
+
 
   .potvrdi {
-    font-size: 12px;
-    background-color: #ffffff;
+  background-color: #ffffff;
   color: #731642;
-border-radius: 7px;
-  margin-top: 0.3rem;
-padding-top: 0.5rem;
-padding-bottom: 0.5rem;
+  border-radius: 7px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom:0.5rem ;
+  padding-top: 0.5rem;
   border: none;
   font-weight: bold;
+
   outline: none;
-  min-width: 4rem;
-  max-width: 4rem;
+   max-width: 5rem;
+   min-width: 5rem;
+  max-height: 1.8rem;
+  min-height: 1.8rem;
 }
 
 .potvrdi:hover {

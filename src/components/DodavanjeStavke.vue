@@ -30,15 +30,11 @@
 
         <div class="buttonipotvrdi">
         
-         <button class="potvrdi jedan" v-if="Vidljiv"  @click="Dodaj" >
-        Potvrdi
-      </button>
-
-       
-         <button class="potvrdi dva" v-if="Vidljiv"  @click="Vidljiv=!Vidljiv" >
-        Odustani
-      </button>
-    
+         <div @click="Dodaj">
+         <potvrdi /></div>
+ <div  @click="Vidljiv=!Vidljiv">
+         <odustani /></div>
+     
       </div>
 
     </div>
@@ -46,8 +42,12 @@
 </template>
 
 <script>
+import potvrdi from './potvrdi.vue';
+import odustani from './odustani.vue';
 import { db, collection, addDoc ,doc} from "@/firebase";
+
 export default {
+  components: { potvrdi, odustani },
   data() {
     return {
       Vidljiv: false,
@@ -162,24 +162,5 @@ export default {
 flex-direction: row;
 justify-content: center;
 gap: 0.3rem}
-.potvrdi {
-  background-color: #ffffff;
-  color: #731642;
-border-radius: 7px;
-  margin-top: 0.3rem;
-padding-top: 0.5rem;
-padding-bottom: 0.5rem;
-  border: none;
-  font-weight: bold;
-  outline: none;
-  min-width: 5.5rem;
-  max-width: 5.5rem;
 
-}
-.potvrdi:hover {
-  cursor: pointer;
-  background-color: #aa6b88e3;
-  color: #ffffff;
-  
-}
 </style>
