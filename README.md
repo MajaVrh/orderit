@@ -8,11 +8,13 @@ Ova web aplikacija trebala bi sadržavati meni iz kojega možemo naruciti artikl
 
 ### Prototip aplikacije
 
-Figma: [figma link](https://www.figma.com/proto/dCX4ztBn9gTB55hdc1HTHN/Untitled?page-id=0%3A1&node-id=7%3A7&viewport=270%2C48%2C0.21&scaling=scale-down&starting-point-node-id=2%3A2)
+Figma web: [figma web link](https://www.figma.com/proto/dCX4ztBn9gTB55hdc1HTHN/Untitled?page-id=86%3A1160&node-id=99%3A1494&viewport=270%2C48%2C0.02&scaling=min-zoom&starting-point-node-id=92%3A1092)
+Figma mobile: [figma mobile link](https://www.figma.com/proto/dCX4ztBn9gTB55hdc1HTHN/Untitled?page-id=0%3A1&node-id=7%3A7&viewport=270%2C48%2C0.21&scaling=scale-down&starting-point-node-id=2%3A2)
 
 ### Javni link na aplikaciju
 
 Web: WIP
+Mobile: Preko QR koda
 
 ### Organizacija
 
