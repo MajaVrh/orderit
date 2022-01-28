@@ -3,7 +3,7 @@
   <div class="krug">
   
 
-      <qrcode-vue  class="QR" :value="this.linkStola"   :size="90" level="Q" foreground="#731642" />
+     <qr-code   class="QR" :text="this.linkStola"   :size="110" level="Q" color="#731642" > </qr-code>
     
     <p class="naziv">{{Stol.oznaka}}</p>
     <button class="ButtonKonobar" v-if="store.admin" @click="brisanje">
@@ -13,7 +13,9 @@
 </template>
 
 <script>
- import QrcodeVue from 'qrcode.vue'
+import Vue from 'vue'
+import VueQRCodeComponent from 'vue-qrcode-component'
+Vue.component('qr-code', VueQRCodeComponent)
 import {  doc,
   deleteDoc, db } from "@/firebase";
   import store from "@/store/index"
@@ -30,7 +32,7 @@ export default {
      link: store.admin ? "Konobari" : "Izvjestaj"}
    },
    props:["Stol","id"],
-  components:{QrcodeVue},
+ 
   mounted(){this.spojiLink()},
    methods:{
      async brisanje(){
@@ -61,6 +63,8 @@ export default {
 }
 
 .QR{margin-top: 1.3rem;
+margin: auto;
+padding-top:1rem ;
 }
 
 i{
@@ -74,7 +78,8 @@ i{
   cursor:pointer;
 }
 
-.krug {
+.krug { 
+display: flex;
   height: 11rem;
   width: 11rem;
   border-radius: 100%;
@@ -84,6 +89,9 @@ i{
    filter: drop-shadow(1px 1px 1px #00000054);
    box-shadow: 2px 2px 5px rgba(170, 170, 170, 0.733);
   margin-right: 1rem; 
+  justify-content: center;
+
+  flex-direction: column;
  
  
 
@@ -91,11 +99,7 @@ i{
 
 i{z-index: 999;}
 
-img {
- margin: 1rem;
 
- 
-}
 
 .naziv{color: #731642;
 

@@ -4,7 +4,7 @@
     <div class="sredina">
       <h1 class="naslovStranice">NARUDŽBE</h1>
       <div class="raspored">
-        <KarticaNarudzbe  v-for="KN in Narudzba" :key="KN.id" :NarudzbaStola="KN" />
+        <KarticaNarudzbe v-for="KN in Narudzba" :key="KN.id" :NarudzbaStola="KN" />
        
     
 
@@ -33,7 +33,8 @@ export default {
       onSnapshot(q, (querySnapshot) => {
         const CitajNarudzbu = [];
         querySnapshot.forEach((doc) => {
-          CitajNarudzbu.push({ id: doc.id, ...doc.data() });
+          if(!doc.data().jePlaceno){ CitajNarudzbu.push({ id: doc.id, ...doc.data() });}
+         
         });
         this.Narudzba = CitajNarudzbu;
         console.log(this.Narudzba)

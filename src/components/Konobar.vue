@@ -1,5 +1,5 @@
 <template>
-<router-link :to="{ name: link }">
+<button class="noStyle" @click="odaberiKonbobara" :to="{ name: link }">
   <div class="krug">
   
 
@@ -13,7 +13,7 @@
     <button class="ButtonKonobar" v-if="store.admin" @click="brisanje">
       <i  class="fas fa-times-circle ikona"></i>
     </button>
-  </div></router-link>
+  </div></button>
 </template>
 
 <script>
@@ -21,6 +21,7 @@
 import {  doc,
   deleteDoc, db } from "@/firebase";
   import store from "@/store/index"
+  import { mapMutations } from 'vuex'
 
 
 
@@ -33,6 +34,12 @@ export default {
    },
   
    methods:{
+     ...mapMutations({postaviKonobara: "setKonobar"}), //setkonobar je u index.js-u (store)
+     odaberiKonbobara() {
+       console.log("RadiM")
+       this.postaviKonobara(`${this.info.ImeKonobara} ${this.info.PrezimeKonobara[0]}`) //info preko propsa
+       this.$router.replace({name: this.link})
+     },
      async brisanje(){
     await deleteDoc(doc(db, "PopisKonobara",  this.id));
     console.log("BRISANJE")}
@@ -65,6 +72,16 @@ i{
   cursor:pointer;
 }
 
+.noStyle {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
 .krug {
   height: 8.8rem;
   width: 8.8rem;
@@ -82,11 +99,7 @@ i{
 
 i{z-index: 999;}
 
-img {
- margin: 1rem;
 
- 
-}
 
 .naziv{color: #731642;
 

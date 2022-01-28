@@ -45,11 +45,7 @@ i {
   z-index: 999;
 }
 
-img {
-  margin: 1rem;
-  
- 
-}
+
 
 a {
   text-decoration: none;

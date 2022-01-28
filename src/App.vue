@@ -5,12 +5,21 @@
 </template>
 
 <script>
-
+import {mapMutations} from 'vuex'
 
 
 
 export default {
-name: "app"
+name: "app",
+mounted() {
+  const konobar = localStorage.getItem("konobar")
+  if(konobar) {
+    this.postaviKonobara(konobar)
+  }
+},
+methods: {
+  ...mapMutations({postaviKonobara: "setKonobar"})
+}
 }
 
 </script>
