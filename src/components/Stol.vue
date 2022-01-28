@@ -3,7 +3,7 @@
   <div class="krug">
   
 
-      <qrcode-vue  class="QR" value="https://www.facebook.com/profile.php?id=100008881964251"   size="90" level="Q" foreground="#731642" />
+      <qrcode-vue  class="QR" :value="this.linkStola"   :size="90" level="Q" foreground="#731642" />
     
     <p class="naziv">{{Stol.oznaka}}</p>
     <button class="ButtonKonobar" v-if="store.admin" @click="brisanje">
@@ -26,17 +26,22 @@ export default {
    data(){
      return{store,
       OznakaStola :"",
+      linkStola:"",
      link: store.admin ? "Konobari" : "Izvjestaj"}
    },
    props:["Stol","id"],
   components:{QrcodeVue},
+  mounted(){this.spojiLink()},
    methods:{
      async brisanje(){
     await deleteDoc(doc(db, "Stolovi",  this.id));
     console.log("BRISANJE")},
 
-  }
-};
+    spojiLink(){this.linkStola="https://m-orderit.netlify.app/new_order/"+this.id
+    console.log(this.linkStola)
+
+  },
+}}
 </script>
 
 <style scoped>

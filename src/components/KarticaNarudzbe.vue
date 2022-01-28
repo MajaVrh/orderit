@@ -1,10 +1,10 @@
 <template>
   <div class="kartica">
-    <h2>{{NarudzbaStola.oznakaStola}}</h2>
+    <h2>{{ NarudzbaStola.oznakaStola }}</h2>
     <div class="linija"></div>
     <div class="poravnanjeL">
-      <div class="marg">Šifra: {{NarudzbaStola.id}}</div>
-      <div class="marg">Datum narudžbe: {{datum}}</div>
+      <div class="marg">Šifra: {{ NarudzbaStola.id }}</div>
+      <div class="marg">Vrijeme narudžbe: {{ datum }}</div>
     </div>
     <div class="stupci">
       <div class="Naz"><b> Naziv </b></div>
@@ -13,56 +13,19 @@
     </div>
 
     <div class="scr">
-      <div class="linija2"></div>
-      <div class="stavka">
-        <div class="Naziv">Kola</div>
-        <div class="Kolicina">5</div>
-        <div class="Cijena">10.00 kn</div>
-      </div>
-      <div class="linija2"></div>
-      <div class="stavka">
-        <div class="Naziv">Ananas</div>
-        <div class="Kolicina">1</div>
-        <div class="Cijena">11.00 kn</div>
-      </div>
-      <div class="linija2"></div>
-      <div class="stavka">
-        <div class="Naziv">Ananas</div>
-        <div class="Kolicina">1</div>
-        <div class="Cijena">11.00 kn</div>
-      </div>
-      <div class="linija2"></div>
-      <div class="stavka">
-        <div class="Naziv">Ananas</div>
-        <div class="Kolicina">1</div>
-        <div class="Cijena">11.00 kn</div>
-      </div>
-      <div class="linija2"></div>
-      <div class="stavka">
-        <div class="Naziv">Ananas</div>
-        <div class="Kolicina">1</div>
-        <div class="Cijena">11.00 kn</div>
-      </div>
-      <div class="linija2"></div>
-      <div class="stavka">
-        <div class="Naziv">Ananas</div>
-        <div class="Kolicina">1</div>
-        <div class="Cijena">11.00 kn</div>
-      </div>
-      <div class="linija2"></div>
-      <div class="stavka">
-        <div class="Naziv">Kola</div>
-        <div class="Kolicina">5</div>
-        <div class="Cijena">10.00 kn</div>
-      </div>
-      <div class="linija2"></div>
+ 
+       <StavkaNarudzbe v-for="StavkaR in StavkeRacuna" :key="StavkaR.id" :Naziv="StavkaR.ime" :Kolicina="StavkaR.kolicina" :Cijena="StavkaR.cijena"/>
+        
     </div>
-    <div class="linija"></div>
     
+    <div class="linija"></div>
+
     <div class="stavka">
       <div class="Ukupno"><b> Ukupno </b></div>
 
-      <div class="UkupnaCijena"><b> {{NarudzbaStola.ukupnaCijena}} kn</b></div>
+      <div class="UkupnaCijena">
+        <b> {{ NarudzbaStola.ukupnaCijena }} kn</b>
+      </div>
     </div>
     <div class="buttonRacun">
       <button class="IzdajRacun">Izdaj račun</button>
@@ -70,18 +33,41 @@
   </div>
 </template>
 <script>
-
+import { db, collection, query, onSnapshot, doc  } from "@/firebase";
+import moment from "moment";
+import StavkaNarudzbe from './StavkaNarudzba.vue'
 export default {
   name: "KarticaNarudzbe",
-  computed:{},
-  props: ["NarudzbaStola"],
+  components: {StavkaNarudzbe,},
+props:["NarudzbaStola"],
+
   data() {
-    return {datum: '',};
+    return { datum: "", StavkeRacuna: [] };
   },
-  mounted() { this.datum = this.printDate();},
-  methods: {printDate () {
-            return new Date().toLocaleDateString();
-          },},
+
+  mounted() {
+    this.postedFromNow(), this.prikaziStavkeRacuna();
+  },
+  methods: {
+    postedFromNow() {
+      this.datum = moment(this.NarudzbaStola.createdAt).format("DD.MM.YYYY hh:mm");
+    },
+     async prikaziStavkeRacuna() {
+      const q = query(collection(doc(collection(db, "Narudzbe"), this.NarudzbaStola.id),"Stavke"));
+      try{
+      onSnapshot(q, (querySnapshot) => {
+        const CitajStavke = [];
+        querySnapshot.forEach((doc) => {
+          CitajStavke.push({ id: doc.id, ...doc.data() });
+        });
+        this.StavkeRacuna = CitajStavke;
+        console.log("Stavke racuna:" ,this.StavkeRacuna)
+      });}catch (error) {
+        console.log("Učitavanje stavki računa nije uspijelo");
+      }
+    },
+   
+  },
 };
 </script>
 
