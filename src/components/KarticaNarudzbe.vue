@@ -155,6 +155,7 @@ export default {
     },
     async generateReport() {
       this.$refs.html2Pdf.generatePdf();    
+          
           await updateDoc(doc(db, "Narudzbe",this.NarudzbaStola.id ), {
           jePlaceno:true
         });

@@ -8,8 +8,8 @@
       <h1 class="naslovStranice">{{ Naslov }}</h1>
       <div class="top">
        <div class="promjena">
-          <div
-            class="BrisanjeKategorije ho"
+             <div
+            class="Prvo ho"
             v-if="!VidljivBrisanje"
             @click="VidljivBrisanje = !VidljivBrisanje"
           >
@@ -17,29 +17,34 @@
           </div>
 
           <div
-            class="BrisanjeKategorije"
+            class="Drugo"
             v-if="VidljivBrisanje"
-            @click="VidljivBrisanje = !VidljivBrisanje"
+       
           >
-            Brisanje kategorije
-            <button
-              class="PotvrdiBrisanje"
-              v-if="VidljivBrisanje"
-              @click="BrisanjeKategorije"
-            >
-              Potvrdi
-            </button>
+           Obriši trenutnu kategoriju  
+
+            <div class="red">
+              <div v-if="VidljivBrisanje" @click="BrisanjePotkategorije">
+                <potvrdi />
+              </div>
+              <div
+                v-if="VidljivBrisanje"
+                @click="VidljivBrisanje = !VidljivBrisanje"
+              >
+                <odustani />
+              </div>
+            </div>
           </div>
 
           <div
-            class="PromjenaKategorije ho"
+            class="Prvo ho"
             v-if="!VidljivPromjena"
             @click="VidljivPromjena = !VidljivPromjena"
           >
             Promjena naziva
           </div>
 
-          <div class="PromjenaKategorije" v-if="VidljivPromjena">
+          <div class="Drugo" v-if="VidljivPromjena">
             Promjena naziva
             <input
               class="UpisiNaslov"
@@ -47,13 +52,19 @@
               placeholder=" Ime potkategorije"
               type="text"
             />
-            <button
-              class="PromjenaNaziva PotvrdiBrisanje"
-              v-if="VidljivPromjena"
-              @click="PromjenaNazivaPotkategorije"
-            >
-              Potvrdi
-            </button>
+
+  <div class="red">
+              <div v-if="VidljivPromjena" @click="PromjenaNazivaPotkategorije">
+                <potvrdi />
+              </div>
+              <div
+                v-if="VidljivPromjena"
+                @click="VidljivPromjena = !VidljivPromjena"
+              >
+                <odustani />
+              </div>
+            </div>
+           
           </div>
 
           <div class="SlikaDodaj">
@@ -142,6 +153,8 @@ import {
 } from "@/firebase";
 import DodavanjePotkategorije from "@/components/DodavanjePotkategorije";
 import { v4 as uuid } from "uuid";
+import potvrdi from "@/components/potvrdi";
+import odustani from "@/components/odustani";
 
 export default {
   data() {
@@ -164,7 +177,9 @@ export default {
     DodavanjePotkategorije,
     StavkaPotkategorije,
     DodavanjeStavkePotkategorija,
-    Potkategorija
+    Potkategorija,
+    potvrdi,
+    odustani
   },
   mounted() {
     //DAJE TOČNO TRENUTAK KAD DA SE DATOTRKA PRIKAŽE NA ERKRANU
@@ -334,7 +349,7 @@ try {
 
 .slikaKategorija {
   width: 11rem;
-  height: 9rem;
+  height: 11rem;
   margin-right: 1rem;
   margin-left: 1rem;
   border: 4px solid #731642;
@@ -344,9 +359,7 @@ try {
 .ButtonSlike2 {
   background-color: #731642;
   color: #ffffff;
-
   font-size: 14px;
-
   border-radius: 7px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -365,9 +378,10 @@ try {
   color: #731642;
   border: 3px solid #731642;
   border-radius: 10px;
-  padding: 0.5rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
+    padding-left: 2.4rem;
+  padding-right: 2.4rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
   font-size: 15px;
   font-weight: bold;
   outline: none;
@@ -378,33 +392,42 @@ try {
 }
 .ButtonSlike {
   width: 0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
-.PromjenaKategorije {
+
+.Prvo {
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #731642;
   color: #ffffff;
   border-radius: 7px;
-  padding: 0.6rem;
+  padding: 1rem;
   border: none;
-  font-size: 15px;
-  min-width: 9rem;
   max-width: 9rem;
+  min-width: 9rem;
   outline: none;
   cursor: pointer;
 }
 
-.BrisanjeKategorije {
+.Drugo  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #731642;
   color: #ffffff;
   border-radius: 7px;
-  padding: 0.6rem;
+  max-width: 13rem;
+  min-width: 13rem;
   border: none;
   font-size: 15px;
-  min-width: 9rem;
-  max-width: 9rem;
+  padding: 1rem;
+  gap:0.5rem;
   outline: none;
   cursor: pointer;
+  padding-bottom: 1.2rem;
+  padding-top: 1.2rem;
 }
 .ho:hover {
   background-color: #aa6b88e3;
@@ -418,25 +441,6 @@ try {
   gap: 1.3rem;
 }
 
-.PotvrdiBrisanje {
-  background-color: #ffffff;
-  color: #731642;
-
-  border-radius: 7px;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
-  border: none;
-  font-weight: bold;
-  outline: none;
-  min-width: 5rem;
-  max-width: 5rem;
-}
-
-.PotvrdiBrisanje:hover {
-  background-color: #ffffffd5;
-}
 
 .top {
   display: flex;
@@ -452,11 +456,18 @@ try {
   margin-bottom: 0.5rem;
 }
 
+
+.red {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .SlikaX {
   color: #731642;
   position: absolute;
   margin-left: -2.6rem;
-  padding-top: 8rem;
+  padding-top: 10rem;
   z-index: 999;
   font-size: 18px;
   border-radius: 100%;
@@ -475,7 +486,7 @@ try {
   font-size: 13px;
   border: 1.5px solid #731642;
   padding: 0.2rem;
-  width: 8rem;
+   width:92%;
 }
 
 .ButtoniSlika {
@@ -493,9 +504,6 @@ i {
   color: #ffffff;
 }
 
-.PotvrdiBrisanje:hover {
-  background-color: #ffffffcc;
-}
 
 .potvrdi:hover {
   cursor: pointer;
@@ -504,11 +512,9 @@ i {
 
 
 .natrag{color:#731642;
-
 font-size: 40px;
 margin-left: -4rem;
 margin-top: 50vh;
-
 height: 100%;
 position: fixed;}
 

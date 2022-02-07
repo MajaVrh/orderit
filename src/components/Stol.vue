@@ -1,15 +1,19 @@
 <template>
-
+ <router-link :to="{name:'StolDetail', params : {id: id ,ImeStola:Stol.oznaka, linkStola:linkStola}}">
   <div class="krug">
-  
+   
+    
+
 
      <qr-code   class="QR" :text="this.linkStola"   :size="110" level="Q" color="#731642" > </qr-code>
     
     <p class="naziv">{{Stol.oznaka}}</p>
     <button class="ButtonKonobar" v-if="store.admin" @click="brisanje">
-      <i  class="fas fa-times-circle ikona"></i>
+     
     </button>
+   
   </div>
+     </router-link>
 </template>
 
 <script>
@@ -43,6 +47,8 @@ export default {
     console.log(this.linkStola)
 
   },
+
+
 }}
 </script>
 
@@ -74,7 +80,7 @@ i{
 }
 
 .ikona:hover {
-  
+
   cursor:pointer;
 }
 
@@ -105,8 +111,24 @@ i{z-index: 999;}
 
   font-size: 16px;
     font-weight: bold;
-    
+    margin-bottom: 0.5rem
     }
 
     a{  text-decoration: none;}
+
+    .krug:hover {
+  cursor: pointer;
+
+border: 4.8px solid #731641;
+
+  
+  
+  
+}
+
+
+
+
+
+  
 </style>

@@ -3,12 +3,11 @@
     <sidebar />
     <div class="sredina">
       <h1 class="naslovStranice">NARUDŽBE</h1>
-      <div class="raspored">
+      <div class="raspored" v-if="Narudzba.length > 0">
         <KarticaNarudzbe v-for="KN in Narudzba" :key="KN.id" :NarudzbaStola="KN" />
-       
-    
-
-      
+      </div>
+      <div v-else>
+          Nema novih narudžbi😜
       </div>
     </div>
   </div>

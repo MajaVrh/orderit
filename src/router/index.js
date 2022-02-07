@@ -55,6 +55,14 @@ const routes = [
     },
   },
   {
+    path: "/stolovi/:id",
+    name: "StolDetail",
+    component: () => import("../views/StolDetail.vue"),
+    meta: {
+      needsUser: true,
+    },
+  },
+  {
     path: "/narudzbe",
     name: "Narudzbe",
     component: () => import("../views/Narudzbe.vue"),

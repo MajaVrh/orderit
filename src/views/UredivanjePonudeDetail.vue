@@ -2,12 +2,16 @@
   <div class="container">
     <sidebar />
     <div class="sredina">
-        <div class="PozicijaNatrag"> <router-link :to="{ name: 'UredjivanjePonude' }"><i class="fas fa-arrow-circle-left natrag"></i> </router-link></div>
+      <div class="PozicijaNatrag">
+        <router-link :to="{ name: 'UredjivanjePonude' }"
+          ><i class="fas fa-arrow-circle-left natrag"></i>
+        </router-link>
+      </div>
       <h1 class="naslovStranice">{{ Naslov }}</h1>
       <div class="top">
         <div class="promjena">
           <div
-            class="BrisanjeKategorije ho"
+            class="Prvo ho"
             v-if="!VidljivBrisanje"
             @click="VidljivBrisanje = !VidljivBrisanje"
           >
@@ -15,29 +19,34 @@
           </div>
 
           <div
-            class="BrisanjeKategorije"
+            class="Drugo"
             v-if="VidljivBrisanje"
-            @click="VidljivBrisanje = !VidljivBrisanje"
+       
           >
-            Brisanje kategorije
-            <button
-              class="PotvrdiBrisanje"
-              v-if="VidljivBrisanje"
-              @click="BrisanjeKategorije"
-            >
-              Potvrdi
-            </button>
+           Obriši trenutnu kategoriju  
+
+            <div class="red">
+              <div v-if="VidljivBrisanje" @click="BrisanjeKategorije">
+                <potvrdi />
+              </div>
+              <div
+                v-if="VidljivBrisanje"
+                @click="VidljivBrisanje = !VidljivBrisanje"
+              >
+                <odustani />
+              </div>
+            </div>
           </div>
 
           <div
-            class="PromjenaKategorije ho"
+            class="Prvo ho"
             v-if="!VidljivPromjena"
             @click="VidljivPromjena = !VidljivPromjena"
           >
             Promjena naziva
           </div>
 
-          <div class="PromjenaKategorije" v-if="VidljivPromjena">
+          <div class="Drugo" v-if="VidljivPromjena">
             Promjena naziva
             <input
               class="UpisiNaslov"
@@ -45,13 +54,19 @@
               placeholder=" Ime potkategorije"
               type="text"
             />
-            <button
-              class="PromjenaNaziva PotvrdiBrisanje"
-              v-if="VidljivPromjena"
-              @click="PromjenaNazivaPotkategorije"
-            >
-              Potvrdi
-            </button>
+
+  <div class="red">
+              <div v-if="VidljivPromjena" @click="PromjenaNazivaPotkategorije">
+                <potvrdi />
+              </div>
+              <div
+                v-if="VidljivPromjena"
+                @click="VidljivPromjena = !VidljivPromjena"
+              >
+                <odustani />
+              </div>
+            </div>
+           
           </div>
 
           <div class="SlikaDodaj">
@@ -70,7 +85,7 @@
               />
             </div>
 
-            <div class="t" v-if="Vidljiv">Potvrdi dodavanje slike</div>
+            <div class="t" v-if="Vidljiv">Potvrdite dodavanje slike</div>
             <div class="ButtoniSlika">
               <button class="ButtonSlike2" v-if="Vidljiv" @click="uploadImage">
                 Potvrdi
@@ -144,6 +159,8 @@ import {
   deleteObject,
 } from "@/firebase";
 import DodavanjePotkategorije from "@/components/DodavanjePotkategorije";
+import potvrdi from "@/components/potvrdi";
+import odustani from "@/components/odustani";
 import { v4 as uuid } from "uuid";
 
 export default {
@@ -167,6 +184,8 @@ export default {
     Stavka,
     DodavanjeStavke,
     Potkategorija,
+    potvrdi,
+    odustani,
   },
   mounted() {
     //DAJE TOČNO TRENUTAK KAD DA SE DATOTRKA PRIKAŽE NA ERKRANU
@@ -269,11 +288,11 @@ export default {
 
       if (docSnap.exists()) {
         this.Naslov = docSnap.data().Ime;
-        console.log("Document data:", docSnap.data());
+        console.log( docSnap.data());
         this.NaslovNovi = this.Naslov;
       } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log("Nema rezultata!");
       }
     },
 
@@ -348,7 +367,7 @@ export default {
 
 .slikaKategorija {
   width: 11rem;
-  height: 9rem;
+  height: 11rem;
   margin-right: 1rem;
   margin-left: 1rem;
   border: 4px solid #731642;
@@ -358,9 +377,7 @@ export default {
 .ButtonSlike2 {
   background-color: #731642;
   color: #ffffff;
-
   font-size: 14px;
-
   border-radius: 7px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -374,51 +391,59 @@ export default {
 }
 
 .ButtonSlike1 {
-  width: 0px;
   background-color: #ffffff;
   color: #731642;
   border: 3px solid #731642;
   border-radius: 10px;
-  padding: 0.5rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
   font-size: 15px;
   font-weight: bold;
   outline: none;
   cursor: pointer;
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
 }
 .ButtonSlike1:hover {
   background-color: #7217411f;
 }
 .ButtonSlike {
   width: 0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
-.PromjenaKategorije {
+.Prvo {
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #731642;
   color: #ffffff;
   border-radius: 7px;
-  padding: 0.6rem;
+  padding: 1rem;
   border: none;
-  font-size: 15px;
-  min-width: 9rem;
   max-width: 9rem;
+  min-width: 9rem;
   outline: none;
   cursor: pointer;
 }
 
-.BrisanjeKategorije {
+.Drugo  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #731642;
   color: #ffffff;
   border-radius: 7px;
-  padding: 0.6rem;
+  max-width: 13rem;
+  min-width: 13rem;
   border: none;
   font-size: 15px;
-  min-width: 9rem;
-  max-width: 9rem;
+  padding: 1rem;
+  gap:0.5rem;
   outline: none;
   cursor: pointer;
+  padding-bottom: 1.2rem;
+  padding-top: 1.2rem;
 }
 .ho:hover {
   background-color: #aa6b88e3;
@@ -429,27 +454,7 @@ export default {
   flex-direction: column;
   font-weight: bold;
   align-items: center;
-  gap: 1.3rem;
-}
-
-.PotvrdiBrisanje {
-  background-color: #ffffff;
-  color: #731642;
-
-  border-radius: 7px;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
-  border: none;
-  font-weight: bold;
-  outline: none;
-  min-width: 5rem;
-  max-width: 5rem;
-}
-
-.PotvrdiBrisanje:hover {
-  background-color: #ffffffd5;
+  gap: 1rem;
 }
 
 .top {
@@ -457,7 +462,6 @@ export default {
   flex-direction: row;
   gap: 1rem;
   justify-content: center;
-
   padding-left: 1rem;
 }
 
@@ -470,7 +474,7 @@ export default {
   color: #731642;
   position: absolute;
   margin-left: -2.6rem;
-  padding-top: 8rem;
+  padding-top: 10rem;
   z-index: 999;
   font-size: 18px;
   border-radius: 100%;
@@ -484,12 +488,11 @@ export default {
 }
 
 .UpisiNaslov {
-  margin-top: 0.5rem;
   border-radius: 7px;
   font-size: 13px;
   border: 1.5px solid #731642;
-  padding: 0.2rem;
-  width: 8rem;
+  padding: 0.3rem;
+  width:92%;
 }
 
 .ButtoniSlika {
@@ -507,33 +510,37 @@ i {
   color: #ffffff;
 }
 
-.PotvrdiBrisanje:hover {
-  background-color: #ffffffcc;
+
+
+.red {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.potvrdi:hover {
-  cursor: pointer;
-  background-color: #aa6b88e3;
+.natrag {
+  color: #731642;
+
+  font-size: 40px;
+  margin-left: -4rem;
+  margin-top: 50vh;
+
+  height: 100%;
+  position: fixed;
 }
 
-.natrag{color:#731642;
-
-font-size: 40px;
-margin-left: -4rem;
-margin-top: 50vh;
-
-height: 100%;
-position: fixed;}
-
-.PozicijaNatrag{margin-top: -3rem;
-display: flex;
-justify-content: flex-start;
-align-items: flex-start;
-width: 100%;
-background-color: yellow;}
+.PozicijaNatrag {
+  margin-top: -3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  background-color: yellow;
+}
 
 @media only screen and (max-width: 1400px) {
-.natrag{
-margin-left: 2rem;}
+  .natrag {
+    margin-left: 2rem;
+  }
 }
 </style>

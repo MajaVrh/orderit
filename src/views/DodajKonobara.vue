@@ -110,24 +110,25 @@ padding-left: 25%;
 }
 
 .styleForme {
-  border-radius: 30px;
+  border-radius: 45px;
   font-size: 16px;
   border: 2px solid #731642;
-  padding: 0.7rem;
-  margin-bottom: 1rem;
-  margin-top: rem;
+  padding: 0.5rem;
+  margin-bottom: 0.6rem;
+  
+  
 }
 
 .btn {
-  min-width: 9rem;
-  padding: 0.7rem;
+   padding: 0.6rem;
+ min-width: 7rem;
   border-radius: 30px;
   border: none;
   outline: none;
   background-color: #731642;
   color: white;
-  margin-top: 1rem;
-  font-size: 20px;
+
+  font-size:16px;
 }
 
 .forme {
@@ -148,7 +149,7 @@ display: flex;
 justify-content: flex-start;
 align-items: flex-start;
 width: 100%;
-background-color: yellow;}
+}
 
 @media only screen and (max-width: 1400px) {
 .natrag{
