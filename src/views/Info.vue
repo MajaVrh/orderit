@@ -312,16 +312,23 @@ h2 {
 }
 
 .btn2 {
-  min-width: 13rem;
-  padding: 0.5rem;
+  min-width: 10rem;
+  padding: 0.6rem;
   border-radius: 30px;
   border: none;
   outline: none;
   background-color: #731642;
   color: white;
   margin-top: 1rem;
-  font-size: 18px;
+  font-size: 15px;
 }
+
+.btn2:hover {
+  cursor: pointer;
+  background-color: #721741d5;
+  color: #ffffff;
+}
+
 
 .RadnoVrijeme {
   margin-bottom: 0.5rem;

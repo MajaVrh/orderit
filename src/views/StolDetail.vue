@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <sidebar />
+    <router-link :to="{ name: 'Stolovi' }">  <Natrag /> </router-link>
     <div class="sredina">
-        <div class="PozicijaNatrag"> <router-link :to="{ name: 'Stolovi' }"><i class="fas fa-arrow-circle-left natrag"></i> </router-link></div>
+       
       <h1 class="naslovStranice">{{ OznakaStola }}</h1>
 
       <div class="raspored">
@@ -77,11 +78,12 @@ import Vue from "vue";
 import VueQRCodeComponent from "vue-qrcode-component";
 Vue.component("qr-code", VueQRCodeComponent);
 import Sidebar from "@/components/Sidebar";
+import Natrag from "@/components/Natrag";
 import { doc, db, collection, updateDoc, getDoc, deleteDoc } from "@/firebase";
 
 export default {
   name: "Stolovi",
-  components: { Sidebar, VueHtml2pdf },
+  components: { Sidebar, VueHtml2pdf, Natrag },
   data() {
     return { Vidljiv: false, OznakaStola: "", NazivStola: "" };
   },
@@ -208,36 +210,17 @@ export default {
 
 .btn2:hover {
   cursor: pointer;
-  background-color: #aa6b88e3;
+  background-color: #721741d5;
   color: #ffffff;
 }
 
 .QRpdf {
-  padding-top: 5rem;
-  padding-left: 18rem;
+  padding-top: 4.5rem;
+  padding-left: 17.5rem;
   .naslovStranice {
     margin-bottom: 1rem;
     padding-left: 6rem;
   }
 }
-.natrag{color:#731642;
 
-font-size: 40px;
-margin-left: -4rem;
-margin-top: 50vh;
-
-height: 100%;
-position: fixed;}
-
-.PozicijaNatrag{margin-top: -3rem;
-display: flex;
-justify-content: flex-start;
-align-items: flex-start;
-width: 100%;
-}
-
-@media only screen and (max-width: 1400px) {
-.natrag{
-margin-left: 2rem;}
-}
 </style>

@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <sidebar />
+    <router-link :to="{ name: 'UredjivanjePonude' }"
+          ><Natrag/>
+        </router-link>
     <div class="sredina">
       <div class="PozicijaNatrag">
-        <router-link :to="{ name: 'UredjivanjePonude' }"
-          ><i class="fas fa-arrow-circle-left natrag"></i>
-        </router-link>
+        
       </div>
       <h1 class="naslovStranice">{{ Naslov }}</h1>
       <div class="top">
@@ -143,6 +144,7 @@ import DodavanjeStavke from "@/components/DodavanjeStavke";
 import Stavka from "@/components/Stavka";
 import Potkategorija from "@/components/Potkategorija";
 import Sidebar from "@/components/Sidebar";
+import Natrag from "@/components/Natrag";
 import {
   ref,
   storage,
@@ -186,6 +188,7 @@ export default {
     Potkategorija,
     potvrdi,
     odustani,
+    Natrag,
   },
   mounted() {
     //DAJE TOČNO TRENUTAK KAD DA SE DATOTRKA PRIKAŽE NA ERKRANU
@@ -446,7 +449,7 @@ export default {
   padding-top: 1.2rem;
 }
 .ho:hover {
-  background-color: #aa6b88e3;
+  background-color: #721741d5;
 }
 
 .promjena {
@@ -518,29 +521,4 @@ i {
   gap: 0.5rem;
 }
 
-.natrag {
-  color: #731642;
-
-  font-size: 40px;
-  margin-left: -4rem;
-  margin-top: 50vh;
-
-  height: 100%;
-  position: fixed;
-}
-
-.PozicijaNatrag {
-  margin-top: -3rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  background-color: yellow;
-}
-
-@media only screen and (max-width: 1400px) {
-  .natrag {
-    margin-left: 2rem;
-  }
-}
 </style>

@@ -2,9 +2,9 @@
   <div class="container">
     
     <sidebar />
-    
+    <router-link :to="{ name: 'UredivanjePonudeDetail' }"><Natrag/></router-link>
     <div class="sredina">
-      <div class="PozicijaNatrag"> <router-link :to="{ name: 'UredivanjePonudeDetail' }"><i class="fas fa-arrow-circle-left natrag"></i> </router-link></div>
+      
       <h1 class="naslovStranice">{{ Naslov }}</h1>
       <div class="top">
        <div class="promjena">
@@ -155,7 +155,7 @@ import DodavanjePotkategorije from "@/components/DodavanjePotkategorije";
 import { v4 as uuid } from "uuid";
 import potvrdi from "@/components/potvrdi";
 import odustani from "@/components/odustani";
-
+import Natrag from "@/components/Natrag";
 export default {
   data() {
     return {
@@ -179,7 +179,8 @@ export default {
     DodavanjeStavkePotkategorija,
     Potkategorija,
     potvrdi,
-    odustani
+    odustani,
+    Natrag
   },
   mounted() {
     //DAJE TOČNO TRENUTAK KAD DA SE DATOTRKA PRIKAŽE NA ERKRANU
@@ -430,7 +431,7 @@ try {
   padding-top: 1.2rem;
 }
 .ho:hover {
-  background-color: #aa6b88e3;
+  background-color: #721741d5;
 }
 
 .promjena {
@@ -507,26 +508,7 @@ i {
 
 .potvrdi:hover {
   cursor: pointer;
-  background-color: #aa6b88e3;
+  background-color: #721741d5;
 }
 
-
-.natrag{color:#731642;
-font-size: 40px;
-margin-left: -4rem;
-margin-top: 50vh;
-height: 100%;
-position: fixed;}
-
-.PozicijaNatrag{margin-top: -3rem;
-display: flex;
-justify-content: flex-start;
-align-items: flex-start;
-width: 100%;
-background-color: yellow;}
-
-@media only screen and (max-width: 1400px) {
-.natrag{
-margin-left: 2rem;}
-}
 </style>

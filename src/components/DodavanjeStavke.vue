@@ -103,7 +103,7 @@ export default {
 
 .ButtonDodajVidljiv:hover {
   cursor: pointer;
-  background-color: #aa6b88e3;
+  background-color: #8d375f;
   opacity: 50;
   border: #721741cb;
   color: #ffffff !important;
@@ -139,7 +139,7 @@ export default {
 
 .potvrdiStavku:hover {
   cursor: pointer;
-  background-color: #aa6b88e3;
+  background-color: #721741d5;
   color: #ffffff;
 }
 

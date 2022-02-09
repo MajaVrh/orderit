@@ -8,11 +8,12 @@
       
     </div>
     <div class="desno">
-      
+      <div class="natrag"> <router-link :to="{ name: 'Home' }"> <Natrag /></router-link></div>
       <div class="sredina">
-          <router-link :to="{ name: 'Home' }"><i class="fas fa-arrow-circle-left natrag"></i> </router-link>
+    
         <div class="rasporedKonobara">
-          <konobar v-for="K in KarticaKonobara" :key="K.id" :id="K.id" :info="K"  />
+               
+          <konobar class="konob" v-for="K in KarticaKonobara" :key="K.id" :id="K.id" :info="K"  />
         </div>
         
         
@@ -27,6 +28,8 @@
 
 <script>
 import Konobar from '@/components/Konobar'
+import Natrag from '@/components/Natrag'
+
 import { db, collection, query, onSnapshot,   } from "@/firebase";
 export default {
   name: "OdabirKonobara",
@@ -53,7 +56,7 @@ export default {
       });
     },
   },
-  components: {Konobar}
+  components: {Konobar, Natrag}
 };
 </script>
 
@@ -76,6 +79,9 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   flex-grow: 1;
+height: 100%;
+
+padding: 4rem;
  
 }
 
@@ -89,9 +95,9 @@ export default {
 .desno {
   width: 50%;
   height: 100%;
-  background-color: white;
-padding: 3rem;
-margin-left: 50%;
+  background-color: rgb(255, 255, 255);
+
+padding-left: 50%;
 }
 
 .sredina {
@@ -123,10 +129,7 @@ margin-left: 50%;
   background-color: rgba(117, 12, 59, .9);
 }
 
-.natrag{color:#731642;
-font-size: 40px;
-margin-left:-1rem;
-justify-content: center;
-margin-top: -4.5rem;
-position: fixed;}
+.natrag{margin-left: -56%;}
+
+
 </style>

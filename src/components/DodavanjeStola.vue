@@ -133,8 +133,11 @@ a {
 
 .krug:hover {
   cursor: pointer;
-   background-color: #aa6b88e3;
+   background-color: #721741d5;
   color: #ffffff;
-  border-color:#aa6b88e3 ;
+
+  
+
+ 
 }
 </style>

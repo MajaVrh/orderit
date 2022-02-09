@@ -72,9 +72,9 @@ export default {
 
 .gumb1:hover {
   cursor: pointer;
-  background-color: #721741cb;
+  background-color: #721741d5;
   opacity: 50;
-  border: #721741cb;
+  border: #721741d5;
   color: #ffffff !important;
 }
 

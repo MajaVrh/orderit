@@ -110,8 +110,15 @@ export default {
   background-color: #731642;
   color: white;
   margin-top: 1rem;
-  font-size: 20px;
+  font-size: 18px;
+  
 }
+
+.btn:hover{  cursor: pointer;
+ background-color: #721741d5;
+  
+  border: #721741d5;
+  color: #ffffff !important;}
 
 input {
   border-radius: 30px;

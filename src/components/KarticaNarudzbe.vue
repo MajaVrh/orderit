@@ -267,7 +267,7 @@ export default {
   margin-top: 1.5rem;
 }
 .IzdajRacun:hover {
-  background-color: #aa6b88e3;
+  background-color: #721741d5;
   color: #ffffff;
 }
 .buttonRacun {
@@ -293,7 +293,7 @@ div.scr {
 }
 
 .scr::-webkit-scrollbar-track {
-  background: #aa6b88e3;
+  background: #721741d5;
   border-radius: 10px;
 }
 

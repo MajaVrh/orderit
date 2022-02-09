@@ -192,7 +192,7 @@ padding-bottom: 0.5rem;
 
 .potvrdi:hover {
   cursor: pointer;
-  background-color: #aa6b88e3;
+  background-color: #721741d5;
   color: #ffffff;
   
 }

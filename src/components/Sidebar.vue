@@ -15,7 +15,7 @@
     </ul>
     <ul class="dole">
       <li v-if="store.admin"> <a href="#" @click="logout()"><i class="fas fa-sign-out-alt"></i>  </a></li>
-       <li v-if="!store.admin"><router-link :to="{ name: 'Home' }"><i class="fas fa-arrow-circle-left"></i> </router-link></li>
+       <li v-if="!store.admin"><router-link :to="{ name: 'Home' }"><i class="fas fa-arrow-circle-left odjava"></i> </router-link></li>
 
       <img
         style="width: 310px; margin: 2rem auto 2rem auto"
@@ -86,6 +86,10 @@ a {
   }
 }
 
+a:hover{cursor: pointer;
+
+}
+
 .naslov {
   font-family: "Amatic SC", cursive;
   font-size: 35px;
@@ -102,7 +106,10 @@ justify-content: center;}
 i{color: #ffffff;
 font-size: 2rem;
 
+
 }
+
+
 
 
 </style>

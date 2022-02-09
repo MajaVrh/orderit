@@ -78,7 +78,10 @@ export default {
 }
 
 .btn:hover {
-  cursor: pointer;
-  background-color: rgba(117, 12, 59, .9);
+   cursor: pointer;
+ background-color: #721741d5;
+  
+  border: #721741d5;
+  color: #ffffff !important;
 }
 </style>

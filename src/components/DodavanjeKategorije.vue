@@ -90,6 +90,7 @@ export default {
   min-height: 6.5rem;
   display: flex;
   flex-direction: column;
+ 
 
   /*text-shadow: 1px 1px #7e7e7ea6;
     box-shadow: 1px 1px #7e7e7ea6; */
@@ -99,9 +100,9 @@ export default {
 
 .gumb1:hover {
   cursor: pointer;
- background-color: #aa6b88e3;
+ background-color: #721741d5;
   
-  border: #721741cb;
+  border: #721741d5;
   color: #ffffff !important;
 }
 
