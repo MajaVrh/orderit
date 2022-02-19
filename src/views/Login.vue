@@ -5,9 +5,11 @@
         <img src="@/assets/l.png" alt="" />
       </div>
     </div>
-    <div class="desno">
+    <div class="desno">     <div class="natrag"> <router-link :to="{ name: 'Home' }"> <Natrag /></router-link></div>
       <div class="sredina">
+    
         <div class="raspored">
+       
           <img
             style="width: 150px; margin: 0 auto 1rem auto"
             src="@/assets/user.png"
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import Natrag from "@/components/Natrag";
 import { auth, signInWithEmailAndPassword } from "@/firebase";
 export default {
   name: "Login",
@@ -36,6 +39,7 @@ export default {
     return { email: "admin@gmail.com",
              password: "" };
   },
+  components:{Natrag},
   methods: {
     login() {
       console.log("prijava");
@@ -138,6 +142,9 @@ input::placeholder {
 
 .btn:hover {
   cursor: pointer;
-  background-color: rgba(117, 12, 59, 0.9);
+  background-color: #721741d5;
 }
+.natrag{margin-left: -56%;}
+
+
 </style>

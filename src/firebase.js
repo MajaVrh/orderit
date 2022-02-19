@@ -16,6 +16,7 @@ import {
   setDoc,
   updateDoc,
   getDoc,
+  getDocs
 } from "firebase/firestore";
 import {
   getStorage,
@@ -60,6 +61,7 @@ export {
   storage,
   updateDoc,
   getDoc,
+  getDocs,
   getDownloadURL,
   deleteObject,
 };

@@ -22,7 +22,7 @@
         v-model="CijenaStavke"
         v-if="Vidljiv"
         placeholder="Cijena stavke"
-        type="text"
+        type="number"
       />
 
       <textarea
@@ -181,5 +181,17 @@ export default {
 flex-direction: row;
 justify-content: center;
 gap: 0.3rem}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 </style>

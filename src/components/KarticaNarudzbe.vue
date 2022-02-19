@@ -104,6 +104,7 @@
 </template>
 
 <script>
+
 import VueHtml2pdf from "vue-html2pdf";
 
 import { db, collection, query, onSnapshot, doc, updateDoc } from "@/firebase";
@@ -123,7 +124,7 @@ export default {
     ...mapGetters({konobar: "konobar"}), // konobarL-naziv  ----- getter hvata podatke iz index.js-a ( store ), string predstavlja ime funckije u store-u
   },
   mounted() {
-    this.postedFromNow(), this.prikaziStavkeRacuna();
+    this.postedFromNow(),  this.prikaziStavkeNarudzbe();
     console.log(this.konobar)
   },
   methods: {
@@ -133,7 +134,7 @@ export default {
       );
     
     },
-    async prikaziStavkeRacuna() {
+    async prikaziStavkeNarudzbe() {
       const q = query(
         collection(
           doc(collection(db, "Narudzbe"), this.NarudzbaStola.id),
@@ -155,12 +156,15 @@ export default {
     },
     async generateReport() {
       this.$refs.html2Pdf.generatePdf();    
-          
+          //tu je pozovemo
+        
           await updateDoc(doc(db, "Narudzbe",this.NarudzbaStola.id ), {
+            
           jePlaceno:true
         });
     },
 
+ 
   },
 };
 </script>
@@ -267,7 +271,8 @@ export default {
   margin-top: 1.5rem;
 }
 .IzdajRacun:hover {
-  background-color: #721741d5;
+  background-color: #aa6b88e3;
+    cursor: pointer;
   color: #ffffff;
 }
 .buttonRacun {

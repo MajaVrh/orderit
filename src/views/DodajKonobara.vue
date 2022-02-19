@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <sidebar />
+           <div class="PozicijaNatrag"> <router-link :to="{ name: 'Konobari' }"><Natrag/> </router-link></div>
     <div class="sredina">
-            <div class="PozicijaNatrag"> <router-link :to="{ name: 'Konobari' }"><i class="fas fa-arrow-circle-left natrag"></i> </router-link></div>
+     
       <h1 class="podnaslov">DODAVANJE KONOBARA</h1>
       <p class="forme">Upišite ime konobara</p>
       <input
@@ -29,6 +30,7 @@
 
 <script>
 import Sidebar from "@/components/Sidebar";
+import Natrag from "@/components/Natrag";
 import { db, collection, addDoc } from "@/firebase";
 
 export default {
@@ -65,7 +67,7 @@ export default {
       }
     },
   },
-  components: { Sidebar },
+  components: { Sidebar, Natrag },
 };
 </script>
 
@@ -135,24 +137,11 @@ padding-left: 25%;
   color: black;
   margin-bottom: 0.4rem;
 }
-.natrag{color:#731642;
 
-font-size: 40px;
-margin-left: -4rem;
-margin-top: 50vh;
-
-height: 100%;
-position: fixed;}
-
-.PozicijaNatrag{margin-top: -3rem;
-display: flex;
-justify-content: flex-start;
-align-items: flex-start;
-width: 100%;
+.btn:hover {
+  cursor: pointer;
+  background-color: #721741d5;
 }
 
-@media only screen and (max-width: 1400px) {
-.natrag{
-margin-left: 2rem;}
-}
+
 </style>

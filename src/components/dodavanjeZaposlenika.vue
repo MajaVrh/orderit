@@ -50,5 +50,11 @@ i {
 a {
   text-decoration: none;
 }
+.dodavanje:hover {
+  cursor: pointer;
+   background-color: #721741d5;
+   border: 3.5px solid #72174100 ;
+  color: #ffffff;}
+  
 
 </style>
