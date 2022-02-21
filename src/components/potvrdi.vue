@@ -28,8 +28,8 @@ padding-bottom:0.5rem ;
   outline: none;
   max-width: 5rem;
    min-width: 5rem;
-  max-height: 1.8rem;
-  min-height: 1.8rem;
+  max-height: 1.6rem;
+  min-height: 1.6rem;
   margin-bottom: 0.2rem;
 }
 

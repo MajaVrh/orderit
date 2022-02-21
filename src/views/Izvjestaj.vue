@@ -5,22 +5,44 @@
       <h1 class="naslovStranice">IZVJEŠTAJ</h1>
       <div class="raspored">
         <div class="red">
+            <div v-if="!Vidljiv" @click="Vidljiv=!Vidljiv"  class="IzvjestajGumb">Polog kase</div>
+              <div v-if="Vidljiv"  class="IzvjestajGumb GumbPolog">Polog u kasi: 
+                      <input
+        class="UpisiPolog"
+        v-model="Polog"
+        placeholder="Iznos pologa"
+        v-if="Vidljiv"
+        type="number"
+      />
+      <div class="sredinaGumba" @click="Vidljiv=!Vidljiv"><potvrdi/></div>
+              </div>
           <div class="IzvjestajGumb">Zatvaranje radnog dana</div>
           <div class="IzvjestajGumb">Pregled izvještaja</div>
         </div>
-     
+
         <div class="tablica">
           <div class="PrviRed">
-          <div class="celija najmanji">#</div>
-          <div class="celija">Naziv artikla</div>
-          <div class="celija manji">Količina</div>
-          <div class="celija manji">Cijena</div>
-          <div class="celija manji">Ukupno</div>
+            <div class="celija">Naziv artikla</div>
+            <div class="celija manji">Količina</div>
+            <div class="celija manji">Cijena</div>
+            <div class="celija manji">Ukupno</div>
           </div>
-          <RedakTablice v-for="S in NarudzbaIDstavke"  :key="S.id"
-            :InfoNarudzbe="S"
-          />
-          
+
+          <RedakTablice />
+          <div class="ZadnjiRed">Izvještaj dana: {{ datum }}</div>
+        </div>
+
+        <div class="tablicaUkupno">
+          <div class="PrviRedUkupno">
+            <div class="stupac celija">Polog</div>
+            <div class="stupac celija">Plaćeno gotovinom</div>
+            <div class="stupac celija">U kasi</div>
+          </div>
+          <div class="DrugiRedUkupno">
+            <div class="stupac celija">{{Polog}} kn</div>
+            <div class="stupac celija">{{kasa}}</div>
+            <div class="stupac celija">{{Polog+kasa}}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -28,44 +50,41 @@
 </template>
 
 <script>
+import potvrdi from "@/components/potvrdi";
 import Sidebar from "@/components/Sidebar";
 import RedakTablice from "@/components/RedakTablice";
-import { db, collection, query, onSnapshot} from "@/firebase";
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: "Izvjestaj",
-  components: { Sidebar,RedakTablice},
-    data(){
-return{
-  NarudzbaIDstavke: [],
-}
-},
+  components: { Sidebar, RedakTablice ,potvrdi},
+  data() {
+    return {
+      NarudzbaIDstavke: [],
+      datum: "",
+      Vidljiv:false,
+      Polog:0,
+      uKasi:0
+    };
+  },
 
-mounted(){
-  this.DohvatiNarudzbe() 
-},
-  
-methods:{
- 
-
-
-
-      async DohvatiNarudzbe() {
-      const q = query(collection(db, "Narudzbe"));
-      try{
-      onSnapshot(q, (querySnapshot) => {
-        const CitajID= [];
-        querySnapshot.forEach((doc) => {
-          if(doc.data().jePlaceno){ CitajID.push({ id: doc.id, ...doc.data() });}
-         
-        });
-        this.NarudzbaIDstavke = CitajID;
-        console.log(this.stavke)
-      });}catch (error) {
-        console.log("Učitavanje narudžba nije uspijelo");
-      }
+  async mounted() {
+    this.DohvatiDatum();   await this.dohvatiStavke(); 
+  },
+ computed: {
+    ...mapGetters({kasa: 'kasa'}) // => this.izvjestaj
+  },
+  methods: {
+    async DohvatiDatum() {
+      let dateObj = new Date();
+      let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+      let day = String(dateObj.getDate()).padStart(2, "0");
+      let year = dateObj.getFullYear();
+      this.datum = day + "." + month + "." + year + ".";
+     
     },
-
-}
+     ...mapActions({dohvatiStavke: 'dohvatiStavke'}),
+  },
+    zbroji(){}
 };
 </script>
 
@@ -100,9 +119,8 @@ methods:{
   margin-left: 3rem;
   margin-right: 3rem;
   gap: 2rem;
-    
-  width: 90%;
 
+  width: 90%;
 }
 
 .naslovStranice {
@@ -133,12 +151,12 @@ methods:{
   background-color: #721741d5;
 }
 
-.tablica {
-  height: 100%;
+.tablica,
+.tablicaUkupno {
   min-width: 17.5rem;
   width: 100%;
-
-  background-color:#ceabbb;
+  color: white;
+  background-color: #731642;
   border-radius: 10px;
 }
 
@@ -148,36 +166,91 @@ methods:{
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  
 }
 
-.PrviRed{background-color: #731642;
-color: white;
-width: 100%;
-height: 2rem;
-border-top-left-radius: 10px;
-border-top-right-radius : 10px;
-display: grid;
-grid-template-columns: 0.2fr 1fr 0.4fr 0.4fr 0.4fr;
-justify-content: center;
-align-items: center;
+.PrviRed {
+  background-color: #731642;
+  color: white;
+  width: 100%;
+  min-height: 2rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr;
+  justify-content: center;
+  align-items: center;
   border-bottom: 1px rgb(255, 255, 255) solid;
 }
 
-.celija{
+.ZadnjiRed {
+  padding-top: 0.4rem;
+  font-size: 1px;
+  height: 1.7rem;
+  font-size: 16px;
+}
+
+.celija {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  border-left:1px rgb(255, 255, 255) solid;
   grid-gap: 1px;
-  margin: 0;}
+  margin: 0;
+}
 
-  .siri{min-width: 13rem !important;}
-  .manji{min-width: 5rem !important;}
-  .najmanji{min-width: 2rem !important;}
+.siri {
+  min-width: 13rem !important;
+}
+.manji {
+  min-width: 5rem !important;
+}
+.najmanji {
+  min-width: 2rem !important;
+}
 
+.DrugiRedUkupno {
+  background-color: #b9889d;
+  color: #ffffff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  min-height: 2rem;
+  justify-content: center;
+  align-items: center;
+}
 
+.PrviRedUkupno {
+  display: flex;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  min-height: 2rem;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px rgb(255, 255, 255) solid;
+}
 
+.UpisiPolog{ margin: 0.3rem;
+  margin: 0.3rem;
+  width: 88%;
+  border-radius: 7px;
+  font-size: 14px;
+  border: 1.5px solid #731642;
+  padding: 0.2rem;}
+  .sredinaGumba{display:flex;
+  justify-content: center;}
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 </style>

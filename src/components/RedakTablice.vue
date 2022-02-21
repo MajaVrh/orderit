@@ -1,73 +1,53 @@
 <template>
-  <div class="redak">
-    <div class="stupac najmanji">1</div>
-    <div class="stupac srednji">{{ StavkeID.ime }}</div>
-    <div class="stupac manji">{{ stavke.kolicina }}</div>
-    <div class="stupac manji">{{ StavkeID.cijena }}</div>
-    <div class="stupac manji">24 kn</div>
+  <div>
+    <div  v-for="P in izvjestaj" :key="P.naziv"  class="redak">
+
+      <div class="stupac srednji">{{ P.naziv }}</div>
+      <div class="stupac manji">{{P.kolicina}} kom</div>
+      <div class="stupac manji">{{ P.cijenaArtikla }} kn</div>
+      <div class="stupac manji">{{ P.ukupnaCijena }} kn</div>
+    </div>
+    
   </div>
+  
 </template>
 
 <script>
-import { db, collection, query, getDocs, doc } from "@/firebase";
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: "RedakTablice",
   props: ["InfoNarudzbe"],
   data() {
     return {
-      stavke: [],
-      StavkeID: [],
     };
   },
 
-  mounted() {
-    this.DohvatiStavke();
+  async mounted() {
+    await this.dohvatiStavke(); 
+  },
+  computed: {
+    ...mapGetters({izvjestaj: 'izvjestaj'}) // => this.izvjestaj
   },
   methods: {
-
-
-    async DohvatiStavke() {
-      const q = query(
-        collection(
-          doc(collection(db, "Narudzbe"), this.InfoNarudzbe.id),
-          "Stavke"
-        )
-      );
-      const docSnap = await getDocs(q);
-      let newArr = [];
-      docSnap.forEach((element) => {
-        newArr.push({ id: element.id, ...element.data() });
-      });
-
-      this.StavkeID = newArr;
-      console.log(this.StavkeID);
-      this.Filtriraj()
-      
-    },
-
-    Filtriraj(){
-      this.StavkeID.forEach(element => {console.log("Uskoro gotovi----> valda")
-        
-      });
-      }
+    ...mapActions({dohvatiStavke: 'dohvatiStavke'}),
   },
 };
 </script>
 
-<style>
+<style scoped>
 .redak {
   width: 100%;
   height: 1.8rem;
   background-color: #b9889d;
   display: grid;
-  grid-template-columns: 0.2fr 1fr 0.4fr 0.4fr 0.4fr;
+  grid-template-columns:  1fr 0.5fr 0.5fr 0.5fr;
   justify-content: center;
   align-items: center;
   border-bottom: 1px rgb(255, 255, 255) solid;
   color: white;
 }
 .stupac {
-  border-left: 1px rgb(255, 255, 255) solid;
+
 
   grid-gap: 1px;
   width: 100%;
@@ -84,7 +64,5 @@ export default {
 .manji {
   min-width: 5rem !important;
 }
-.najmanji {
-  min-width: 2rem !important;
-}
+
 </style>
