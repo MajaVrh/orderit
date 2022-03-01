@@ -47,6 +47,14 @@ const routes = [
     component: () => import("../views/Izvjestaj.vue"),
   },
   {
+    path: "/izvjestaji",
+    name: "Izvjestaji",
+    component: () => import("../views/Izvjestaji.vue"),
+    meta: {
+      needsUser: true,
+    },
+  },
+  {
     path: "/stolovi",
     name: "Stolovi",
     component: () => import("../views/Stolovi.vue"),

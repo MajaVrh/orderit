@@ -1,6 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { db, collection, query, getDocs, doc } from "@/firebase";
+import {
+  db,
+  collection,
+  query,
+  getDocs,
+  doc,
+  getDoc,
+  addDoc,
+  onSnapshot,
+  deleteDoc,
+} from "@/firebase";
 
 Vue.use(Vuex);
 
@@ -10,6 +20,7 @@ export default new Vuex.Store({
     konobar: "",
     izvjestaj: {},
     kasa: 0,
+    Pohrana: {},
   },
   mutations: {
     // state- objekt gore // payload - šaljemo u funkciju
@@ -20,7 +31,9 @@ export default new Vuex.Store({
     setIzvjestaj(state, payload) {
       state.izvjestaj = payload;
     },
-    setKasa(state,payload){state.kasa=payload}
+    setKasa(state, payload) {
+      state.kasa = payload;
+    },
   },
   getters: {
     konobar(state) {
@@ -29,7 +42,9 @@ export default new Vuex.Store({
     izvjestaj(state) {
       return state.izvjestaj;
     },
-    kasa(state){return state.kasa;}
+    kasa(state) {
+      return state.kasa;
+    },
   },
   actions: {
     async dohvatiStavke(context) {
@@ -47,19 +62,20 @@ export default new Vuex.Store({
           stavke.forEach((stavka) => {
             PohranaArr.push({ id: stavka.id, ...stavka.data() });
           });
+
+          deleteDoc(doc(collection(db, "Narudzbe"), elem.id));
         }
       });
-      console.log("PohranaArr --", PohranaArr);
 
       setTimeout(() => {
         let dictionary = {};
-let k=0
+        let k = 0;
         PohranaArr.forEach((elem) => {
           if (dictionary[elem.ime]) {
             dictionary[elem.ime].kolicina += elem.kolicina;
             dictionary[elem.ime].ukupnaCijena =
               dictionary[elem.ime].kolicina * elem.cijena;
-            k +=  elem.kolicina * elem.cijena;
+            k += elem.kolicina * elem.cijena;
           } else {
             dictionary[elem.ime] = {
               naziv: elem.ime,
@@ -67,12 +83,42 @@ let k=0
               cijenaArtikla: elem.cijena,
               ukupnaCijena: elem.cijena * elem.kolicina,
             };
-            k +=  dictionary[elem.ime].kolicina * elem.cijena;;
+            k += dictionary[elem.ime].kolicina * elem.cijena;
           }
         });
+        this.Pohrana = dictionary;
         context.commit("setKasa", k);
+        this.kasa = k;
         context.commit("setIzvjestaj", dictionary);
       }, 1000);
+    },
+    async SpremiDan() {
+      try {
+        let P = this.Pohrana;
+        
+        
+        onSnapshot(doc(db, "Polog", "PologKase"), async (docElem) => {
+          const izvjRef = await addDoc(collection(db, "Izvjestaj"), {
+            time: Date.now(),
+            polog: docElem.data().PologKase,
+          })
+          const izvjDoc = await getDoc(izvjRef)
+          for (var elem in P) {
+            addDoc(collection(doc(db, 'Izvjestaj', izvjDoc.id), 'Stavke'), {
+              naziv: P[elem].naziv,
+              kolicina: P[elem].kolicina,
+              cijenaArtikla: P[elem].cijenaArtikla,
+              ukupnaCijena: P[elem].ukupnaCijena,
+              kasa: this.kasa * 1 + docElem.data().PologKase * 1,
+            })
+          }
+
+          console.log("SPEREMI DAN");
+        });
+      } catch (error) {
+       
+        console.log(error);
+      }
     },
   },
   modules: {},
