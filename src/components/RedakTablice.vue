@@ -16,7 +16,7 @@
 import {mapGetters, mapActions} from 'vuex'
 export default {
   name: "RedakTablice",
-  props: ["InfoNarudzbe"],
+  
   data() {
     return {
     };

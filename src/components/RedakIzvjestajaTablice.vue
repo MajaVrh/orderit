@@ -2,10 +2,10 @@
   <div>
     <div   class="redak">
 
-      <div class="stupac srednji">{{  }}</div>
-      <div class="stupac manji">{{}} kom</div>
-      <div class="stupac manji">{{  }} kn</div>
-      <div class="stupac manji">{{ }} kn</div>
+     <div class="stupac celija">{{stavkeIzvjestaja.naziv}}</div>
+              <div class="stupac celija">{{stavkeIzvjestaja.kolicina}}</div>
+              <div class="stupac celija">{{stavkeIzvjestaja.cijenaArtikla}}</div>
+              <div class="stupac celija">{{stavkeIzvjestaja.ukupnaCijena}}</div>
     </div>
     
   </div>
@@ -16,7 +16,7 @@
 
 export default {
   name: "RedakIzvjestajaTablice",
-  props: [""],
+  props: ["stavkeIzvjestaja"],
   data() {
     return {
     };

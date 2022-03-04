@@ -10,6 +10,8 @@ import {
   addDoc,
   onSnapshot,
   deleteDoc,
+  arrayUnion,
+  updateDoc
 } from "@/firebase";
 
 Vue.use(Vuex);
@@ -102,15 +104,18 @@ export default new Vuex.Store({
             time: Date.now(),
             polog: docElem.data().PologKase,
           })
-          const izvjDoc = await getDoc(izvjRef)
           for (var elem in P) {
-            addDoc(collection(doc(db, 'Izvjestaj', izvjDoc.id), 'Stavke'), {
+            let element = {
               naziv: P[elem].naziv,
               kolicina: P[elem].kolicina,
               cijenaArtikla: P[elem].cijenaArtikla,
               ukupnaCijena: P[elem].ukupnaCijena,
               kasa: this.kasa * 1 + docElem.data().PologKase * 1,
+            }
+            updateDoc(izvjRef, {
+              stavke: arrayUnion(element)
             })
+            
           }
 
           console.log("SPEREMI DAN");

@@ -109,10 +109,12 @@ import { db,doc, onSnapshot,updateDoc } from "@/firebase";
 import potvrdi from "@/components/potvrdi";
 import Sidebar from "@/components/Sidebar";
 import RedakTablice from "@/components/RedakTablice";
+
+
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Izvjestaj",
-  components: { Sidebar, RedakTablice, potvrdi, VueHtml2pdf },
+  components: { Sidebar, RedakTablice, potvrdi, VueHtml2pdf,  },
   data() {
     return {
       NarudzbaIDstavke: [],

@@ -1,6 +1,7 @@
 <template>
 <div class="container">
     <sidebar />
+        <router-link :to="{ name: 'Izvjestaj' }"><Natrag/></router-link>
     <div class="sredina">
       <h1 class="naslovStranice">PREGLED IZVJEŠTAJA</h1>
       <div class="raspored">
@@ -11,8 +12,16 @@
             <div class="celija manji">Cijena</div>
             <div class="celija manji">Ukupno</div>
           </div>
-
-          <div class="ZadnjiRed">Izvještaj dana: {{  }}</div>
+          <div v-for="izvjestaj in izvjestaji" :key="izvjestaj.id" >
+          <div>
+            
+           <RedakIzvjestajaTablice v-for="stavka in izvjestaj.stavke" :key="stavka.naziv" :stavkeIzvjestaja="stavka"/>
+      
+        
+          </div>
+        
+   </div>
+    <div class="ZadnjiRed">Izvještaj dana: {{datum}}</div> 
         </div>
 
 
@@ -25,9 +34,9 @@
             <div class="stupac celija">U kasi</div>
           </div>
           <div class="DrugiRedUkupno">
-            <div class="stupac celija">{{  }} kn</div>
-            <div class="stupac celija">{{  }}</div>
-            <div class="stupac celija">{{  }}</div>
+            <div class="stupac celija">{{polog2  }} kn</div>
+            <div class="stupac celija">{{  StanjeBlagajne}}</div>
+            <div class="stupac celija">{{ StanjeBlagajne*1+polog2*1 }}</div>
           </div>
         </div>
 
@@ -35,47 +44,65 @@
 
       </div>
     </div>
+    
   </div>
 </template>
 
 <script>
 import Sidebar from "@/components/Sidebar";
-import { getDocs, doc as pomocni, collection, db } from '@/firebase'
- 
+import { getDocs, collection, db  } from '@/firebase'
+import RedakIzvjestajaTablice from "@/components/RedakIzvjestajaTablice";
+ import Natrag from "@/components/Natrag";
 export default {
     name: 'Izvjestaji',
     async mounted() {
         await this.getIzvjestaje();
-        console.log("Izvjestaji", this.izvjestaji)
+     
     },
     data() { return {
-        izvjestaji: []
+        izvjestaji: [],
+        polog2:0,
+        time2:Number,
+        StanjeBlagajne:0,
+        datum:Number
+  
     }},
 
-    components:{Sidebar},
+    components:{Sidebar, RedakIzvjestajaTablice, Natrag},
     methods: {
 
       FiltrirajDatum(){},
+      
+           async DohvatiDatum() {
+      let dateObj = new Date(this.time2);
+      let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+      let day = String(dateObj.getDate()).padStart(2, "0");
+      let year = dateObj.getFullYear();
+      this.datum = day + "." + month + "." + year + ".";
+    },
 
         async getIzvjestaje() {
             
             const querySnapshot = await getDocs(collection(db, "Izvjestaj"));
             let newArr = []
-            let idIzvjestaja = 0
+  
             querySnapshot.forEach( async (doc) => {
-                idIzvjestaja = doc.id
-                const querySnapshotStavke = await getDocs(collection(pomocni(db, 'Izvjestaj', idIzvjestaja), 'Stavke'))
-                
-                newArr[doc.id] = []
-                querySnapshotStavke.forEach((docA) => {
-                    newArr[doc.id].push({id: doc.id, time: doc.data().time, polog:doc.data().polog, ...docA.data() }) 
-                    
-                })
+              let stavke = doc.data()?.stavke     
+              if(stavke) {
+                newArr.push(doc.id,doc.data())
+                this.polog2=doc.data().polog
+                this.time2=doc.data().time
+                stavke.forEach( async (doc) => {this.StanjeBlagajne+=doc.ukupnaCijena})
+              }
               
-            });
+              
+               
+              }
+            );
             this.izvjestaji = newArr
-     
-        }
+            this.DohvatiDatum()
+        },
+
     }
 }
 </script>
