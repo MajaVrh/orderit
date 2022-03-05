@@ -5,7 +5,11 @@
       <h1 class="naslovStranice">IZVJEŠTAJ</h1>
       <div class="raspored">
         <div class="red">
-          <div v-if="!Vidljiv" @click="Vidljiv = !Vidljiv" class="IzvjestajGumb">
+          <div
+            v-if="!Vidljiv"
+            @click="Vidljiv = !Vidljiv"
+            class="IzvjestajGumb"
+          >
             Polog kase
           </div>
           <div v-if="Vidljiv" class="IzvjestajGumb2 GumbPolog">
@@ -18,10 +22,12 @@
             />
             <div class="sredinaGumba" @click="PostaviPolog()"><potvrdi /></div>
           </div>
-          <div  @click="SpremiDan(), generateReport() " class="IzvjestajGumb">Zatvaranje radnog dana</div>
-           <router-link :to="{ name: 'Izvjestaji' }"><div class="IzvjestajGumb">Pregled izvještaja</div></router-link>
-          
-   
+          <div @click="SpremiDan(), generateReport()" class="IzvjestajGumb">
+            Zatvaranje radnog dana
+          </div>
+          <router-link :to="{ name: 'Izvjestaji' }"
+            ><div class="IzvjestajGumb">Pregled izvještaja</div></router-link
+          >
         </div>
 
         <div class="tablica">
@@ -36,9 +42,6 @@
           <div class="ZadnjiRed">Izvještaj dana: {{ datum }}</div>
         </div>
 
-
-
-
         <div class="tablicaUkupno">
           <div class="PrviRedUkupno">
             <div class="stupac celija">Polog</div>
@@ -52,7 +55,7 @@
           </div>
         </div>
 
-         <VueHtml2pdf
+        <VueHtml2pdf
           :show-layout="false"
           :float-layout="true"
           :enable-download="true"
@@ -68,34 +71,31 @@
         >
           <section slot="pdf-content" class="pdf">
             <!-- PDF Content Here -->
-           
-        <div class="tablica">
-          <div class="PrviRed">
-            <div class="celija">Naziv artikla</div>
-            <div class="celija manji">Količina</div>
-            <div class="celija manji">Cijena</div>
-            <div class="celija manji">Ukupno</div>
-          </div>
 
-          <RedakTablice />
-          <div class="ZadnjiRed">Izvještaj dana: {{ datum }}</div>
-        </div>
+            <div class="tablica">
+              <div class="PrviRed">
+                <div class="celija">Naziv artikla</div>
+                <div class="celija manji">Količina</div>
+                <div class="celija manji">Cijena</div>
+                <div class="celija manji">Ukupno</div>
+              </div>
 
+              <RedakTablice />
+              <div class="ZadnjiRed">Izvještaj dana: {{ datum }}</div>
+            </div>
 
-
-
-        <div class="tablicaUkupno">
-          <div class="PrviRedUkupno">
-            <div class="stupac celija">Polog</div>
-            <div class="stupac celija">Plaćeno gotovinom</div>
-            <div class="stupac celija">U kasi</div>
-          </div>
-          <div class="DrugiRedUkupno">
-            <div class="stupac celija">{{ Polog }} kn</div>
-            <div class="stupac celija">{{ kasa }}</div>
-            <div class="stupac celija">{{ uKasi }}</div>
-          </div>
-        </div>
+            <div class="tablicaUkupno">
+              <div class="PrviRedUkupno">
+                <div class="stupac celija">Polog</div>
+                <div class="stupac celija">Plaćeno gotovinom</div>
+                <div class="stupac celija">U kasi</div>
+              </div>
+              <div class="DrugiRedUkupno">
+                <div class="stupac celija">{{ Polog }} kn</div>
+                <div class="stupac celija">{{ kasa }}</div>
+                <div class="stupac celija">{{ uKasi }}</div>
+              </div>
+            </div>
           </section>
         </VueHtml2pdf>
       </div>
@@ -105,16 +105,15 @@
 
 <script>
 import VueHtml2pdf from "vue-html2pdf";
-import { db,doc, onSnapshot,updateDoc } from "@/firebase";
+import { db, doc, onSnapshot, updateDoc } from "@/firebase";
 import potvrdi from "@/components/potvrdi";
 import Sidebar from "@/components/Sidebar";
 import RedakTablice from "@/components/RedakTablice";
 
-
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Izvjestaj",
-  components: { Sidebar, RedakTablice, potvrdi, VueHtml2pdf,  },
+  components: { Sidebar, RedakTablice, potvrdi, VueHtml2pdf },
   data() {
     return {
       NarudzbaIDstavke: [],
@@ -123,7 +122,6 @@ export default {
       Polog: 0,
       uKasi: 0,
       OtvoriDan: false,
-
     };
   },
 
@@ -131,20 +129,17 @@ export default {
     this.DohvatiDatum();
     await this.dohvatiStavke();
     this.UcitajPolog();
-
-  
   },
   computed: {
     ...mapGetters({ kasa: "kasa" }), // => this.izvjestaj
   },
   methods: {
-  async generateReport() {
+    async generateReport() {
       this.$refs.html2Pdf.generatePdf();
       setTimeout(() => {
         this.$router.go(0);
-      }, 1000)
+      }, 1000);
     },
-
 
     async DohvatiDatum() {
       let dateObj = new Date();
@@ -153,32 +148,27 @@ export default {
       let year = dateObj.getFullYear();
       this.datum = day + "." + month + "." + year + ".";
     },
-    ...mapActions({ dohvatiStavke: "dohvatiStavke" ,SpremiDan:"SpremiDan"}),
+    ...mapActions({ dohvatiStavke: "dohvatiStavke", SpremiDan: "SpremiDan" }),
 
     async PostaviPolog() {
       try {
         // Add a new document with a generated id.
-        const docRef = doc(db, "Polog","PologKase");
-        await updateDoc(docRef, { PologKase: this.Polog })
+        const docRef = doc(db, "Polog", "PologKase");
+        await updateDoc(docRef, { PologKase: this.Polog });
         this.Vidljiv = !this.Vidljiv;
       } catch (error) {
         console.log(error);
       }
     },
-      async UcitajPolog() {
+    async UcitajPolog() {
       onSnapshot(doc(db, "Polog", "PologKase"), (doc) => {
         this.Polog = doc.data().PologKase;
-        
-      setTimeout(() => {
-this.uKasi=this.Polog*1+this.kasa*1
-}, 1000);
-     
+
+        setTimeout(() => {
+          this.uKasi = this.Polog * 1 + this.kasa * 1;
+        }, 1000);
       });
-
-      
     },
-
-   
   },
 };
 </script>
@@ -242,11 +232,11 @@ this.uKasi=this.Polog*1+this.kasa*1
   outline: none;
   cursor: pointer;
   gap: 0.2rem;
-   
- 
 }
 
-a{  text-decoration: none;}
+a {
+  text-decoration: none;
+}
 
 .IzvjestajGumb:hover {
   background-color: #721741d5;
@@ -310,6 +300,15 @@ a{  text-decoration: none;}
   min-width: 2rem !important;
 }
 
+.PrviRedUkupno {
+  display: flex;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  min-height: 2rem;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px rgb(255, 255, 255) solid;
+}
 .DrugiRedUkupno {
   background-color: #b9889d;
   color: #ffffff;
@@ -321,16 +320,6 @@ a{  text-decoration: none;}
   min-height: 2rem;
   justify-content: center;
   align-items: center;
-}
-
-.PrviRedUkupno {
-  display: flex;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
-  min-height: 2rem;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px rgb(255, 255, 255) solid;
 }
 
 .UpisiPolog {
@@ -364,21 +353,20 @@ input[type="number"] {
 }
 
 .pdf {
-
   padding-top: 5rem;
   margin: auto;
-display: flex;
-justify-content: center !important;
-flex-direction: column;
-align-items: center;
-width: 80%;
-.ZadnjiRed{display: flex;
-justify-content: center;
-
-}
-  .tablica , .tablicaUkupno{
+  display: flex;
+  justify-content: center !important;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  .ZadnjiRed {
+    display: flex;
+    justify-content: center;
+  }
+  .tablica,
+  .tablicaUkupno {
     margin-bottom: 1rem;
-  
   }
 }
 </style>

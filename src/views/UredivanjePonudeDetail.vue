@@ -380,7 +380,7 @@ export default {
 .ButtonSlike2 {
   background-color: #731642;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 15px;
   border-radius: 7px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -398,12 +398,12 @@ export default {
   color: #731642;
   border: 3px solid #731642;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
   outline: none;
   cursor: pointer;
-  padding-left: 2.4rem;
-  padding-right: 2.4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   padding-top: 0.9rem;
   padding-bottom: 0.9rem;
 }

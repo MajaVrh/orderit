@@ -320,6 +320,7 @@ h2 {
   background-color: #731642;
   color: white;
   margin-top: 1rem;
+  
   font-size: 15px;
 }
 

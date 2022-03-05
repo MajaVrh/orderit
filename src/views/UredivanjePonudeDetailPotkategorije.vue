@@ -374,19 +374,18 @@ try {
 }
 
 .ButtonSlike1 {
-  width: 0px;
-  background-color: #ffffff;
+background-color: #ffffff;
   color: #731642;
   border: 3px solid #731642;
   border-radius: 10px;
-    padding-left: 2.4rem;
-  padding-right: 2.4rem;
-  padding-top: 0.9rem;
-  padding-bottom: 0.9rem;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
   outline: none;
   cursor: pointer;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
 }
 .ButtonSlike1:hover {
   background-color: #7217411f;

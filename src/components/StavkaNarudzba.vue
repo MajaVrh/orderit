@@ -4,7 +4,7 @@
     <div class="stavka">
       <div class="Naziv">{{ Naziv }}</div>
       <div class="Kolicina">{{Kolicina}}</div>
-      <div class="Cijena">{{Cijena}}</div>
+      <div class="Cijena">{{Cijena}} kn</div>
     </div>
   </div>
 </template>

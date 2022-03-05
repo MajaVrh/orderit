@@ -1,79 +1,47 @@
 <template>
-<div class="container">
+  <div class="container">
     <sidebar />
-        <router-link :to="{ name: 'Izvjestaj' }"><Natrag/></router-link>
+    <router-link :to="{ name: 'Izvjestaj' }"><Natrag /></router-link>
     <div class="sredina">
       <h1 class="naslovStranice">PREGLED IZVJEŠTAJA</h1>
       <div class="raspored">
-          <div class="tablica">
-          <div class="PrviRed">
-            <div class="celija">Naziv artikla</div>
-            <div class="celija manji">Količina</div>
-            <div class="celija manji">Cijena</div>
-            <div class="celija manji">Ukupno</div>
-          </div>
-          <div v-for="izvjestaj in izvjestaji" :key="izvjestaj.id" >
-          <div>
-            
-           <RedakIzvjestajaTablice v-for="stavka in izvjestaj.stavke" :key="stavka.naziv" :stavkeIzvjestaja="stavka"/>
-      
-        
-          </div>
-        
-   </div>
-    <div class="ZadnjiRed">Izvještaj dana: {{datum}}</div> 
+        <div class="tablica" v-for="izvjestaj in izvjestaji" :key="izvjestaj.id">
+              <RedakIzvjestajaTablice :stavke="izvjestaj.stavke" :datum="izvjestaj.time" :polog="izvjestaj.polog"/>
         </div>
 
-
-
-
-        <div class="tablicaUkupno">
-          <div class="PrviRedUkupno">
-            <div class="stupac celija">Polog</div>
-            <div class="stupac celija">Plaćeno gotovinom</div>
-            <div class="stupac celija">U kasi</div>
-          </div>
-          <div class="DrugiRedUkupno">
-            <div class="stupac celija">{{polog2  }} kn</div>
-            <div class="stupac celija">{{  StanjeBlagajne}}</div>
-            <div class="stupac celija">{{ StanjeBlagajne*1+polog2*1 }}</div>
-          </div>
-        </div>
-
-
-
+   
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
 import Sidebar from "@/components/Sidebar";
-import { getDocs, collection, db  } from '@/firebase'
+import { getDocs, collection, db ,query, onSnapshot} from "@/firebase";
 import RedakIzvjestajaTablice from "@/components/RedakIzvjestajaTablice";
- import Natrag from "@/components/Natrag";
+import Natrag from "@/components/Natrag";
 export default {
-    name: 'Izvjestaji',
-    async mounted() {
-        await this.getIzvjestaje();
-     
-    },
-    data() { return {
-        izvjestaji: [],
-        polog2:0,
-        time2:Number,
-        StanjeBlagajne:0,
-        datum:Number
-  
-    }},
+  name: "Izvjestaji",
+  async mounted() {
+    await this.getIzvjestaje();
 
-    components:{Sidebar, RedakIzvjestajaTablice, Natrag},
-    methods: {
+  },
+  data() {
+    return {
+      izvjestaji: [],
+   
+      time2: Number,
+      StanjeBlagajne: 0,
+      datum: Number,
+      izvjetsjiID2:[]
+    };
+  },
 
-      FiltrirajDatum(){},
-      
-           async DohvatiDatum() {
+  components: { Sidebar, RedakIzvjestajaTablice, Natrag },
+  methods: {
+    FiltrirajDatum() {},
+
+    async DohvatiDatum() {
       let dateObj = new Date(this.time2);
       let month = String(dateObj.getMonth() + 1).padStart(2, "0");
       let day = String(dateObj.getDate()).padStart(2, "0");
@@ -81,30 +49,23 @@ export default {
       this.datum = day + "." + month + "." + year + ".";
     },
 
-        async getIzvjestaje() {
-            
-            const querySnapshot = await getDocs(collection(db, "Izvjestaj"));
-            let newArr = []
-  
-            querySnapshot.forEach( async (doc) => {
-              let stavke = doc.data()?.stavke     
-              if(stavke) {
-                newArr.push(doc.id,doc.data())
-                this.polog2=doc.data().polog
-                this.time2=doc.data().time
-                stavke.forEach( async (doc) => {this.StanjeBlagajne+=doc.ukupnaCijena})
-              }
-              
-              
-               
-              }
-            );
-            this.izvjestaji = newArr
-            this.DohvatiDatum()
-        },
+    async getIzvjestaje() {
+      const querySnapshot = await getDocs(collection(db, "Izvjestaj"));
+      let newArr = [];
 
-    }
-}
+      querySnapshot.forEach(async (doc) => {
+        let stavke = doc.data()?.stavke;
+        if (stavke) {
+          newArr.push({id: doc.id, ...doc.data()});
+       
+        }
+      });
+      this.izvjestaji = newArr;
+      this.DohvatiDatum();
+    },
+
+  },
+};
 </script>
 
 <style scoped>
@@ -149,8 +110,6 @@ export default {
   font-weight: bold;
 }
 
-
-
 .tablica,
 .tablicaUkupno {
   min-width: 17.5rem;
@@ -182,12 +141,7 @@ export default {
   border-bottom: 1px rgb(255, 255, 255) solid;
 }
 
-.ZadnjiRed {
-  padding-top: 0.4rem;
-  font-size: 1px;
-  height: 1.7rem;
-  font-size: 16px;
-}
+
 
 .celija {
   display: flex;
@@ -222,14 +176,5 @@ export default {
   align-items: center;
 }
 
-.PrviRedUkupno {
-  display: flex;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
-  min-height: 2rem;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px rgb(255, 255, 255) solid;
-}
 
 </style>

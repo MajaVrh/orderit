@@ -1,5 +1,5 @@
 <template>
- <div class="sidebar">
+  <div class="sidebar">
     <div class="naslov"><b>COFFE SHOP CENTRAL PERK</b></div>
     <ul class="gore">
       <li v-if="store.admin">
@@ -7,15 +7,31 @@
           >Uređivanje ponude</router-link
         >
       </li>
-      <li v-if="store.admin || !store.admin" ><router-link :to="{ name: 'Izvjestaj' }">Izvještaj</router-link></li>
-      <li v-if="store.admin"><router-link :to="{ name: 'Stolovi' }">Stolovi</router-link></li>
-      <li v-if="store.admin || !store.admin"><router-link :to="{ name: 'Narudzbe' }"> Narudžbe</router-link></li>
-      <li v-if="store.admin"><router-link :to="{ name: 'Konobari' }"> Konobari</router-link></li>
-      <li v-if="store.admin "><router-link :to="{ name: 'Info' }">Info </router-link></li>
+      <li v-if="store.admin || !store.admin">
+        <router-link :to="{ name: 'Izvjestaj' }">Izvještaj</router-link>
+      </li>
+      <li v-if="store.admin">
+        <router-link :to="{ name: 'Stolovi' }">Stolovi</router-link>
+      </li>
+      <li v-if="store.admin || !store.admin">
+        <router-link :to="{ name: 'Narudzbe' }"> Narudžbe</router-link>
+      </li>
+      <li v-if="store.admin">
+        <router-link :to="{ name: 'Konobari' }"> Konobari</router-link>
+      </li>
+      <li v-if="store.admin">
+        <router-link :to="{ name: 'Info' }">Info </router-link>
+      </li>
     </ul>
     <ul class="dole">
-      <li v-if="store.admin"> <a href="#" @click="logout()"><i class="fas fa-sign-out-alt"></i>  </a></li>
-       <li v-if="!store.admin"><router-link :to="{ name: 'Home' }"><i class="fas fa-arrow-circle-left odjava"></i> </router-link></li>
+      <li v-if="store.admin">
+        <a href="#" @click="logout()"><i class="fas fa-sign-out-alt"></i> </a>
+      </li>
+      <li v-if="!store.admin">
+        <router-link :to="{ name: 'Home' }"
+          ><i class="fas fa-arrow-circle-left odjava"></i>
+        </router-link>
+      </li>
 
       <img
         style="width: 310px; margin: 2rem auto 2rem auto"
@@ -28,23 +44,21 @@
 
 <script>
 import { auth, signOut } from "@/firebase";
-import store from "@/store/index"
+import store from "@/store/index";
 
 export default {
   name: "sidebar",
   data() {
-    
     return {
-      store
+      store,
     };
   },
   methods: {
     logout() {
       signOut(auth)
         .then(() => {
-          console.log("Korisnik je odjvaljen")
+          console.log("Korisnik je odjvaljen");
           this.$router.push({ name: "Home" });
-          
         })
         .catch((error) => {
           console.log(error);
@@ -65,7 +79,6 @@ export default {
   padding-top: 1rem;
   padding-bottom: 1rem;
   position: fixed;
-
 }
 
 a {
@@ -80,14 +93,16 @@ a {
     color: #ffffff;
     width: 100% !important;
     display: flex;
-    background-color: #ffffff50;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
 
     justify-content: center;
   }
 }
 
-a:hover{cursor: pointer;
-
+a:hover {
+  cursor: pointer;
+  background-color: #ffffff50;
 }
 
 .naslov {
@@ -100,16 +115,13 @@ a:hover{cursor: pointer;
   margin-top: auto;
 }
 
-img{max-width: 90%;
-justify-content: center;}
-
-i{color: #ffffff;
-font-size: 2rem;
-
-
+img {
+  max-width: 90%;
+  justify-content: center;
 }
 
-
-
-
+i {
+  color: #ffffff;
+  font-size: 2rem;
+}
 </style>

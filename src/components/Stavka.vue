@@ -12,7 +12,7 @@
         {{ Stavke.Naziv }}
       </div>
       <div class="desno">
-        {{ Stavke.Cijena }}
+        {{ Stavke.Cijena }} kn
         <i class="fas fa-info-circle" @click="Vidljiv = !Vidljiv"></i>
         <br />
       </div>

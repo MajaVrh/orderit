@@ -106,6 +106,7 @@ export default new Vuex.Store({
           })
           for (var elem in P) {
             let element = {
+           
               naziv: P[elem].naziv,
               kolicina: P[elem].kolicina,
               cijenaArtikla: P[elem].cijenaArtikla,

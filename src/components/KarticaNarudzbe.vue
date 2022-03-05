@@ -269,6 +269,7 @@ export default {
   width: 7rem;
   position: relative;
   margin-top: 1.5rem;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .IzdajRacun:hover {
   background-color: #aa6b88e3;
@@ -283,6 +284,7 @@ export default {
   margin-bottom: 1.5rem;
   position: absolute;
   bottom: 0px;
+
 }
 
 .scr {
