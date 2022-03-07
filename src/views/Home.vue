@@ -21,9 +21,12 @@
 </template>
 
 <script>
+import {signOut, auth} from '@/firebase'
 export default {
   name: "Home",
- 
+  async mounted() {
+    await signOut(auth)
+  }
 };
 </script>
 

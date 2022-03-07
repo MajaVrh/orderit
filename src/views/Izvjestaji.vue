@@ -5,65 +5,95 @@
     <div class="sredina">
       <h1 class="naslovStranice">PREGLED IZVJEŠTAJA</h1>
       <div class="raspored">
-        <div class="tablica" v-for="izvjestaj in izvjestaji" :key="izvjestaj.id">
-              <RedakIzvjestajaTablice :stavke="izvjestaj.stavke" :datum="izvjestaj.time" :polog="izvjestaj.polog"/>
-        </div>
-
-   
+        <div class="stupac">
+          <div class="red">
+            <p class="tekst">Odaberte datum koji želite prikazati:</p>
+            <input
+              class="date"
+              type="date"
+              data-date-inline-picker="true"
+              value="d"
+              v-model="UpisaniDatum"
+            />
+          </div>
+          <button class="pretrazi" @click="PrilagodiFormat()">Pretraži</button>
+</div>
+          <div
+            class="tablica"
+            v-for="izvjestaj in izvjestaji"
+            :key="izvjestaj.id"
+          >
+            <div
+              v-if="
+                new Date(izvjestaj.time).getFullYear() == godina &&
+                new Date(izvjestaj.time).getMonth() + 1 == mjesec &&
+                new Date(izvjestaj.time).getDate() == dan
+              "
+            >
+              <RedakIzvjestajaTablice
+                :stavke="izvjestaj.stavke"
+                :datum="izvjestaj.time"
+                :polog="izvjestaj.polog"
+              />
+            </div>
+          </div>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+moment.locale("hr");
 import Sidebar from "@/components/Sidebar";
-import { getDocs, collection, db ,query, onSnapshot} from "@/firebase";
+import { getDocs, collection, db, query, onSnapshot } from "@/firebase";
 import RedakIzvjestajaTablice from "@/components/RedakIzvjestajaTablice";
 import Natrag from "@/components/Natrag";
 export default {
   name: "Izvjestaji",
   async mounted() {
     await this.getIzvjestaje();
-
   },
   data() {
     return {
       izvjestaji: [],
-   
-      time2: Number,
+
       StanjeBlagajne: 0,
-      datum: Number,
-      izvjetsjiID2:[]
+
+      izvjetsjiID2: [],
+      UpisaniDatum: "",
+      dan: "",
+      mjesec: "",
+      godina: "",
     };
   },
 
   components: { Sidebar, RedakIzvjestajaTablice, Natrag },
+
   methods: {
-    FiltrirajDatum() {},
-
-    async DohvatiDatum() {
-      let dateObj = new Date(this.time2);
-      let month = String(dateObj.getMonth() + 1).padStart(2, "0");
-      let day = String(dateObj.getDate()).padStart(2, "0");
-      let year = dateObj.getFullYear();
-      this.datum = day + "." + month + "." + year + ".";
+    PrilagodiFormat() {
+      let g = this.UpisaniDatum.substring(0, 4);
+      let m = this.UpisaniDatum.substring(5, 7);
+      let d = this.UpisaniDatum.substring(8, 10);
+      this.godina = g;
+      this.mjesec = m;
+      this.dan = d;
+      console.log(this.UpisaniDatum);
     },
-
     async getIzvjestaje() {
       const querySnapshot = await getDocs(collection(db, "Izvjestaj"));
       let newArr = [];
 
       querySnapshot.forEach(async (doc) => {
         let stavke = doc.data()?.stavke;
+
         if (stavke) {
-          newArr.push({id: doc.id, ...doc.data()});
-       
+          newArr.push({ id: doc.id, ...doc.data() });
         }
       });
       this.izvjestaji = newArr;
-      this.DohvatiDatum();
     },
-
   },
 };
 </script>
@@ -86,7 +116,7 @@ export default {
   max-width: 140vh;
   width: 120vh;
 
-  padding-left: 25%;
+  padding-left: 28%;
 }
 
 .raspored {
@@ -110,10 +140,14 @@ export default {
   font-weight: bold;
 }
 
-.tablica,
-.tablicaUkupno {
-  min-width: 17.5rem;
+.stupac {
+  margin: 0;
   width: 100%;
+}
+
+.tablica {
+  min-width: 17.5rem;
+  width: 80%;
   color: white;
   background-color: #731642;
   border-radius: 10px;
@@ -140,8 +174,6 @@ export default {
   align-items: center;
   border-bottom: 1px rgb(255, 255, 255) solid;
 }
-
-
 
 .celija {
   display: flex;
@@ -176,5 +208,37 @@ export default {
   align-items: center;
 }
 
+.date {
+  border: 1.5px solid #731642;
+  border-radius: 7px;
+  padding: 0.4rem;
 
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  margin-top: 0.2rem;
+  min-width: 7.5rem !important;
+  margin-left: -1rem;
+}
+
+.pretrazi {
+  padding: 0.6rem;
+  min-width: 7rem;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  background-color: #731642;
+  color: white;
+  font-size: 16px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tekst {
+  font-size: 18px;
+  color: black;
+}
+
+.pretrazi:hover {
+  cursor: pointer;
+  background-color: #721741d5;
+}
 </style>

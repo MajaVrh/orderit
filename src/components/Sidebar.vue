@@ -93,9 +93,9 @@ a {
     color: #ffffff;
     width: 100% !important;
     display: flex;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+  background-color: #ffffff50;
     justify-content: center;
   }
 }

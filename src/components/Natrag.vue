@@ -14,9 +14,8 @@ export default {
 .natrag {
   color: #731642;
   font-size: 45px;
-  padding-left: 30%;
+  margin-left: 30%;
   margin-top: 52vh;
-  height: 100%;
   position: fixed;
 }
 

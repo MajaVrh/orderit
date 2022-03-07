@@ -35,7 +35,6 @@
 
 <script>
 import moment from "moment";
-import { getDocs, collection, db, query, onSnapshot } from "@/firebase";
 moment.locale("hr");
 
 export default {
