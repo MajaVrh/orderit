@@ -59,7 +59,6 @@ export default {
     removeItem() {
       const newAmount = this.item.amount - 1;
       const ukupno = this.item.cijena * 1;
-      console.log(ukupno)
       this.removePrice(ukupno)
       this.setItemToCart({
         item: {

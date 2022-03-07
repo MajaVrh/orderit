@@ -1,6 +1,6 @@
 <template>
   <div>
-      <p>HVALA NA KUPNJI!</p>
+      <p>HVALA NA NARUDŽBI!</p>
   </div>
 </template>
 

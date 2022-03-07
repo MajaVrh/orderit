@@ -13,7 +13,7 @@
         <p class="head">Opis</p>
         <p style="margin-bottom: 10px">{{ description }}</p>
         <p class="head">Količina</p>
-        <div class="increment" style="margin-bottom: 10px"><span @click="() => amount - 1 < 0 ? amount = 0: amount--"><i class="fas fa-minus"></i></span><span>{{amount}}</span><span @click="() => amount++" id="increment"><i class="fas fa-plus"></i></span></div>
+        <div class="increment" style="margin-bottom: 10px"><span @click="() => amount - 1 < 1 ? amount = 1: amount--"><i class="fas fa-minus"></i></span><span>{{amount}}</span><span @click="() => amount++" id="increment"><i class="fas fa-plus"></i></span></div>
         <p class="head" >Cijena</p>
         <p style="margin-bottom: 10px">{{ cijena }} kn</p>
         <div class="button" @click="cartAdd(), isModalVisible = !isModalVisible">Dodaj</div>
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       isModalVisible: false,
-      amount: 0,
+      amount: 1,
       item: {
         id: this.id,
         ime: this.ime,

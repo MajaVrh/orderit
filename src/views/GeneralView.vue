@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="podkategorije.length > 0">
+  <!-- <div v-if="podkategorije.length > 0"> -->
     <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" />
     <sub-bar
       v-for="podkategorija in podkategorije"
@@ -9,12 +9,12 @@
       :id="podkategorija.id"
       :katID="kategorija && kategorija.id"
     />
-  </div>
-  <div v-else>
-    <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" />
-    <pica-cards v-for="ponuda in ponude" :key="ponuda.id" :id="ponuda.id" :ime="ponuda.Naziv" :description="ponuda.Info" :cijena="ponuda.Cijena"/>
-  </div>
-  <order-button v-if="OrderShow"/>
+  <!-- </div> -->
+  <!-- <div v-else> -->
+    <!-- <image-frame v-if="kategorija" :imageURL="kategorija.imageURL ? kategorija.imageURL : ''" :ime="kategorija.Ime" /> -->
+    <div style="margin-top: 1rem"><pica-cards v-for="ponuda in ponude" :key="ponuda.id" :id="ponuda.id" :ime="ponuda.Naziv" :description="ponuda.Info" :cijena="ponuda.Cijena"/> </div>
+  <!-- </div> -->
+   <order-button /><!-- v-if="OrderShow" -->
  </div>
 </template>
 
@@ -51,6 +51,7 @@ export default {
 
       }
     },
+    
     async fetchFirebaseData() {
       const id = this.$route.params.id;
       const potkategorija = await getDocs(collection(doc(collection(db, 'Kategorija'), id), 'Potkategorija'))
@@ -62,18 +63,20 @@ export default {
       await this.PonudaExist();
 
     },
+
     async PonudaExist(){
       const id = this.$route.params.id;
-      if(this.podkategorije.length > 0){
-        this.OrderShow = 0;
-        return;
-      }
+      // if(this.podkategorije.length > 0){
+      //   this.OrderShow = 0;
+      //   return;
+      // }
       const Stavka = await getDocs(collection(doc(collection(db, 'Kategorija'), id), 'Stavka'))
       let newArr = []
       Stavka.forEach(doc => {
         newArr.push({ id: doc.id,... doc.data()})
       })
       this.ponude = newArr;
+      
     }
   
   },
