@@ -1,27 +1,21 @@
 <template>
   <div class="container">
     <sidebar />
-           <div class="PozicijaNatrag"> <router-link :to="{ name: 'Konobari' }"><Natrag/> </router-link></div>
+           <div class="PozicijaNatrag"> <router-link :to="{ name: 'Stolovi' }"><Natrag/> </router-link></div>
     <div class="sredina">
      
-      <h1 class="podnaslov">DODAVANJE KONOBARA</h1>
-      <p class="forme">Upišite ime korisnika</p>
+      <h1 class="podnaslov">DODAVANJE STOLA</h1>
+    
+      <p class="forme">Upišite naziv stola</p>
       <input
         class="styleForme"
-        v-model="ImeKonobara"
-        name="Ime korsnika"
-        type="text"
-        placeholder="ime korisnika"
-      />
-      <p class="forme">Upišite prezime konobara</p>
-      <input
-        class="styleForme"
-        v-model="PrezimeKonobara"
+        v-model="OznakaStola"
         name="Prezime korsnika"
         type="text"
-        placeholder="prezime korisnika"
+        placeholder="Naziv stola"
       />
-      <button @click="DodajKonobara" class="btn">Potvrdi</button>
+            <p class="opis">Klikom na "Potvrdi" kreira se novi stol i njegov QR kod</p>
+      <button @click="DodajStol" class="btn">Potvrdi</button>
 
       <div class="raspored"></div>
     </div>
@@ -31,37 +25,28 @@
 <script>
 import Sidebar from "@/components/Sidebar";
 import Natrag from "@/components/Natrag";
-import { db, collection, addDoc } from "@/firebase";
+import { db, collection, addDoc } from "@/firebase";;
 
 export default {
   name: "Konobari",
   data: function () {
     return {
-      ImeKonobara: "",
-      PrezimeKonobara: "",
+     OznakaStola: ""
     };
   },
   methods: {
-    async DodajKonobara() {
+     async DodajStol() {
       try {
-        console.log(
-          "DODAVANJE KONOBARA:",
-          this.ImeKonobara,
-          this.PrezimeKonobara
-        );
-        const ImePrezimeKonobara = {
-          ImeKonobara: this.ImeKonobara,
-          PrezimeKonobara: this.PrezimeKonobara,
-        };
+        console.log("DODAVANJE STOLA:", this.OznakaStola);
+
         // Add a new document with a generated id.
-        const docRef = await addDoc(
-          collection(db, "PopisKonobara"),
-          ImePrezimeKonobara
-        );
-        alert("Dodan je konobar");
-        console.log("Document written with ID: ", docRef.id);
-        this.ImeKonobara="",
-        this.PrezimeKonobara=""
+        const docRef = await addDoc(collection(db, "Stolovi"), {
+          oznaka: this.OznakaStola,
+        });
+        console.log("Dodan je stol: ", docRef.id);
+        this.Vidljiv = !this.Vidljiv;
+        this.OznakaStola = "";
+         alert("Dodan je stol");
       } catch (error) {
         console.log(error);
       }
@@ -136,6 +121,14 @@ padding-left: 25%;
 .forme {
   color: black;
   margin-bottom: 0.4rem;
+}
+
+.opis {
+  color: black;
+  margin-bottom: 0.8rem;
+  font-size: 14px;
+
+
 }
 
 .btn:hover {

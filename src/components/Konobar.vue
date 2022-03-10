@@ -87,8 +87,7 @@ i {
   border: 0.22rem solid #731641;
   padding: 0.5rem;
   margin: 1rem;
-  filter: drop-shadow(1px 1px 1px #00000054);
-  box-shadow: 2px 2px 5px rgba(170, 170, 170, 0.733);
+
   margin-right: 1rem;
 }
 

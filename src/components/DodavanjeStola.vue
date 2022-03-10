@@ -1,53 +1,28 @@
 <template>
+<router-link :to="{ name: 'DodajStol' }">
   <div>
     <div
-      v-if="!Vidljiv"
       class="dodavanje vidljivo krug"
-      @click="Vidljiv = !Vidljiv"
+     
     >
       <i class="fas fa-plus pluss"></i>
       <p>Dodaj stol</p>
     </div>
-    <div v-if="Vidljiv" class="dodavanje nevidljivo">
-      <input
-        class="InputDodaj"
-        placeholder="Ime stola"
-        v-model="OznakaStola"
-        type="text"
-      />
-
-      <button class="potvrdi" v-if="Vidljiv" @click="DodajStol">Potvrdi</button>
-      <i class="fas fa-times" @click="Vidljiv = !Vidljiv"></i>
-    </div>
+  
   </div>
+  </router-link>
 </template>
 
 <script>
-import { db, collection, addDoc } from "@/firebase";
+
 
 export default {
   name: "dodavanjeStola",
   data() {
-    return { OznakaStola: "", Vidljiv: false };
+    return { };
   },
 
-  methods: {
-    async DodajStol() {
-      try {
-        console.log("DODAVANJE STOLA:", this.OznakaStola);
 
-        // Add a new document with a generated id.
-        const docRef = await addDoc(collection(db, "Stolovi"), {
-          oznaka: this.OznakaStola,
-        });
-        console.log("Dodan je stol: ", docRef.id);
-        this.Vidljiv = !this.Vidljiv;
-        this.OznakaStola = "";
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
 };
 </script>
 
@@ -66,8 +41,6 @@ export default {
   color: white;
   font-size: 16px;
   font-weight: bold;
-  filter: drop-shadow(1px 1px 1px #0000007a);
-  box-shadow: 2px 2px 0 rgba(170, 170, 170, 0.733);
   margin-right: 1rem;
   margin-left: 1rem;
 }
@@ -134,6 +107,7 @@ a {
 .krug:hover {
   cursor: pointer;
    background-color: #721741d5;
+   border: 3.5px solid #72174100;
   color: #ffffff;
 
   

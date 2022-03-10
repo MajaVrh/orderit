@@ -81,7 +81,8 @@ export default {
   flex-grow: 1;
 height: 100%;
 
-padding: 4rem;
+padding: 3rem;
+margin-top: 3rem;
  
 }
 
@@ -105,7 +106,9 @@ padding-left: 50%;
   justify-content: center;
   align-items: center;
   min-height: 100%;
-   max-width: 120vh;
+  justify-content: center;
+  margin: auto ;
+
   
   
 

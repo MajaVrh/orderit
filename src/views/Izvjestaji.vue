@@ -8,16 +8,20 @@
         <div class="stupac">
           <div class="red">
             <p class="tekst">Odaberte datum koji želite prikazati:</p>
-            <input
+          <div   @click="promjeniNatpis()">  <input
               class="date"
               type="date"
               data-date-inline-picker="true"
-              value="d"
+            
               v-model="UpisaniDatum"
-            />
+
+
+            /></div>
           </div>
           <button class="pretrazi" @click="PrilagodiFormat()">Pretraži</button>
 </div>
+<div class="tekst2" v-if="!vidljiv">{{natpis}}</div>
+
           <div
             class="tablica"
             v-for="izvjestaj in izvjestaji"
@@ -29,6 +33,7 @@
                 new Date(izvjestaj.time).getMonth() + 1 == mjesec &&
                 new Date(izvjestaj.time).getDate() == dan
               "
+             
             >
               <RedakIzvjestajaTablice
                 :stavke="izvjestaj.stavke"
@@ -58,9 +63,9 @@ export default {
   data() {
     return {
       izvjestaji: [],
-
+      natpis:"Molimo Vas da odaberete datum!",
       StanjeBlagajne: 0,
-
+      vidljiv:false,
       izvjetsjiID2: [],
       UpisaniDatum: "",
       dan: "",
@@ -80,6 +85,8 @@ export default {
       this.mjesec = m;
       this.dan = d;
       console.log(this.UpisaniDatum);
+      if(g>2020*1){
+    this.natpis="Prikaz izvještaja za datum: "+d+"." +m+ "."+g+"." }
     },
     async getIzvjestaje() {
       const querySnapshot = await getDocs(collection(db, "Izvjestaj"));
@@ -94,6 +101,15 @@ export default {
       });
       this.izvjestaji = newArr;
     },
+    
+promjeniNatpis(){
+  this.natpis= "Molimo Vas da odaberete datum!"
+  this.dan=""
+  this.godina=""
+  this.mjesec=""
+}
+,
+
   },
 };
 </script>
@@ -103,10 +119,13 @@ export default {
   margin: 0;
   padding: 0;
 }
+.date-reset-button {opacity: 100;}
+
 
 .container {
   display: flex;
 }
+
 
 .sredina {
   display: flex;
@@ -128,7 +147,6 @@ export default {
   margin-top: 2rem;
   margin-left: 3rem;
   margin-right: 3rem;
-  gap: 2rem;
 
   width: 90%;
 }
@@ -151,6 +169,7 @@ export default {
   color: white;
   background-color: #731642;
   border-radius: 10px;
+ margin-top: 0.5rem;
 }
 
 .red {
@@ -159,6 +178,7 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 2rem;
+ 
 }
 
 .PrviRed {
@@ -210,7 +230,7 @@ export default {
 
 .date {
   border: 1.5px solid #731642;
-  border-radius: 7px;
+  border-radius: 30px;
   padding: 0.4rem;
 
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -229,16 +249,21 @@ export default {
   color: white;
   font-size: 16px;
   margin-top: 0.5rem;
-  margin-bottom: 1rem;
+ margin-bottom: 0.75rem;
 }
 
 .tekst {
   font-size: 18px;
   color: black;
+  
 }
 
 .pretrazi:hover {
   cursor: pointer;
   background-color: #721741d5;
+}
+.tekst2{color: black;
+font-size: 18px;
+margin-bottom: 0.5rem;
 }
 </style>

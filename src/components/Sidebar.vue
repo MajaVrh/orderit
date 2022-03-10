@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <div class="naslov"><b>COFFE SHOP CENTRAL PERK</b></div>
+    <div class="naslov"><b>{{nazivObjekta}}</b></div>
     <ul class="gore">
       <li v-if="store.admin">
         <router-link :to="{ name: 'UredjivanjePonude' }"
@@ -34,8 +34,8 @@
       </li>
 
       <img
-        style="width: 310px; margin: 2rem auto 2rem auto"
-        src="@/assets/kafic.png"
+        style="width: 150px; margin: 2rem auto 4rem auto"
+        src="@/assets/l.png"
         alt=""
       />
     </ul>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { auth, signOut } from "@/firebase";
+import { auth, signOut, doc, db, onSnapshot } from "@/firebase";
 import store from "@/store/index";
 
 export default {
@@ -51,8 +51,10 @@ export default {
   data() {
     return {
       store,
+      nazivObjekta:"",
     };
   },
+  mounted(){this.UcitavanjeNaziva()},
   methods: {
     logout() {
       signOut(auth)
@@ -64,7 +66,14 @@ export default {
           console.log(error);
         });
     },
-  },
+ 
+      async UcitavanjeNaziva() {
+      onSnapshot(doc(db, "Info", "nazivObjekta"), (doc) => {
+        this.nazivObjekta = doc.data().naziv;
+
+        console.log("Current data: ", doc.data());
+      }); },
+    },
 };
 </script>
 
@@ -93,16 +102,14 @@ a {
     color: #ffffff;
     width: 100% !important;
     display: flex;
-    border-top: 2px solid white;
-    border-bottom: 2px solid white;
-  background-color: #ffffff50;
+  background-color: #aa6b88f3;
     justify-content: center;
   }
 }
 
 a:hover {
   cursor: pointer;
-  background-color: #ffffff50;
+  background-color: #ffffff2a;
 }
 
 .naslov {

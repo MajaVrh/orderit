@@ -77,7 +77,7 @@ export default {
   color: white;
   margin-top: 1rem;
   font-size: 20px;
-    filter: drop-shadow(2px 2px 2px #000000a9)
+
 }
 
 .btn:hover {

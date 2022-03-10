@@ -55,9 +55,9 @@
           </div>
            <div>U cijenu je uračunat PDV</div>
           <br>
-           <div>VL. Domink Ružić</div>
+           <div>VL. {{VlasnikObj}}</div>
            <br>
-           <div> <b>COFFE SHOP CENTRAL PERK </b> </div>
+           <div> <b>{{nazivObj}} </b> </div>
       
         </section>
       </VueHtml2pdf>
@@ -118,7 +118,12 @@ export default {
   props: ["NarudzbaStola"],
 
   data() {
-    return { datum: "", StavkeRacuna: [] };
+    return { datum: "", 
+    StavkeRacuna: [] ,
+    VlasnikObj:"",
+    nazivObj:"",
+
+    };
   },
   computed: {
     ...mapGetters({konobar: "konobar"}), // konobarL-naziv  ----- getter hvata podatke iz index.js-a ( store ), string predstavlja ime funckije u store-u
@@ -126,8 +131,25 @@ export default {
   mounted() {
     this.postedFromNow(),  this.prikaziStavkeNarudzbe();
     console.log(this.konobar)
+     this.UcitavanjeImenaVl();
+      this.UcitavanjeNaziva();
   },
   methods: {
+   async UcitavanjeNaziva() {
+      onSnapshot(doc(db, "Info", "nazivObjekta"), (doc) => {
+        this.nazivObj = doc.data().naziv;
+
+        console.log("Current data: ", doc.data());
+      }); },
+      async UcitavanjeImenaVl() {
+      onSnapshot(doc(db, "Info", "vlasnik"), (doc) => {
+        this.VlasnikObj = doc.data().ImeVlasnika;
+
+        console.log("Current data: ", doc.data());
+      });
+    },
+
+
     postedFromNow() {
       this.datum = moment(this.NarudzbaStola.createdAt).format(
         "DD.MM.YYYY hh:mm"
@@ -155,6 +177,7 @@ export default {
       }
     },
     async generateReport() {
+     
       this.$refs.html2Pdf.generatePdf();    
           //tu je pozovemo
         
@@ -296,7 +319,7 @@ div.scr {
 }
 
 .scr::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 .scr::-webkit-scrollbar-track {

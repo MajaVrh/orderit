@@ -201,11 +201,10 @@ export default {
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
-  margin-left: 3rem;
-  margin-right: 3rem;
+
   gap: 2rem;
 
-  width: 90%;
+  width: 98%;
 }
 
 .naslovStranice {

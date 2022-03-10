@@ -113,6 +113,14 @@ const routes = [
       needsUser: true,
     },
   },
+  {
+    path: "/dodajstol",
+    name: "DodajStol",
+    component: () => import("../views/DodajStol.vue"), 
+    meta: {
+      needsUser: true,
+    },
+  },
 ];
 
 const router = new VueRouter({
