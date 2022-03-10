@@ -2,7 +2,7 @@
   <div>
     <image-frame-info />
     <div class="WrapperInfo">
-      <p class="title">Central Perk Coffe Shop</p>
+      <p class="title">{{nazivObjekta}}</p>
       <div class="align">
         <i class="fas fa-map-marker-alt"></i>
         <p>Lokacija</p>
@@ -60,6 +60,8 @@ export default {
     this.UcitavanjeRadnogVremena();
     this.UcitavanjeKontakta();
     this.UcitavanjeAdrese();
+    this.UcitavanjeNaslova()
+
     },
    methods: {
     async UcitavanjeRadnogVremena() {
@@ -86,6 +88,15 @@ export default {
 
       });
     },
+
+    async UcitavanjeNaslova() {
+      onSnapshot(doc(db, "Info", "nazivObjekta"), (doc) => {
+        this.nazivObjekta = doc.data().naziv;
+
+      });
+    },
+
+
    },
   data() {
     return {
@@ -98,6 +109,7 @@ export default {
       ned: "",
       br: "",
       adr: "",
+      nazivObjekta: "",
     };
     
   },
@@ -112,14 +124,17 @@ export default {
   color: white;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.733);
 }
+
 .title {
   font-size: 30px;
   font-weight: bold;
 }
+
 .align > i,
 .align > span {
   margin-right: 1rem;
 }
+
 .align {
   display: flex;
   justify-content: center;
