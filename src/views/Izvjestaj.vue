@@ -136,9 +136,8 @@ export default {
   methods: {
     async generateReport() {
       this.$refs.html2Pdf.generatePdf();
-      setTimeout(() => {
-        this.$router.go(0);
-      }, 1000);
+   
+
     },
 
     async DohvatiDatum() {
