@@ -18,7 +18,7 @@
       <p></p>
       <p>{{ukupnaCijena}} kn</p>
     </div>
-    <div :class="!isOrderProcessing ? 'tipka' : 'tipka-disabled'" @click="!isOrderProcessing ? newOrder() : 'function:void(0)'">{{!isOrderProcessing ? "Potvrdi narudžbu" : "Kreiranje narudžbe"}}</div>
+    <div v-if="velicinaCarta > 0" :class="!isOrderProcessing ? 'tipka' : 'tipka-disabled'" @click="!isOrderProcessing ? newOrder() : 'function:void(0)'">{{!isOrderProcessing ? "Potvrdi narudžbu" : "Kreiranje narudžbe"}}</div>
   </div>
 </template>
 
@@ -39,7 +39,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ proizvodi: "getCart", ukupnaCijena: 'getTotalPrice', stol: 'getTable' }),
+    ...mapGetters({ proizvodi: "getCart", ukupnaCijena: 'getTotalPrice', stol: 'getTable', velicinaCarta: 'getCartSize' }),
   },
   
   methods: {

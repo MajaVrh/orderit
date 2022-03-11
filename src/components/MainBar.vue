@@ -50,8 +50,9 @@ a {
   margin-left: auto;
 }
 img{
-  height: 8rem;
-  width: 8rem;
+  height: 6rem;
+  width: auto;
+  object-fit: contain;
 
 }
 </style>

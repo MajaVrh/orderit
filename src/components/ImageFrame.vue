@@ -33,7 +33,9 @@ export default {
   margin-bottom: 1rem;
 }
 img {
-  height: 8rem;
+  height: 6rem;
+  width: auto;
+  object-fit: contain;
   margin-bottom: 10px;
 }
 p {
