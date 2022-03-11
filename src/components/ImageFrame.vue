@@ -22,6 +22,7 @@ export default {
 .wrapper {
   display: grid;
   justify-content: center;
+  align-self: center;
   margin: 0 auto;
   position: relative;
   background-color: rgba(0, 0, 0, 0.65);
@@ -33,12 +34,15 @@ export default {
   margin-bottom: 1rem;
 }
 img {
+  display: flex;
+  margin: 0 auto;
   height: 6rem;
   width: auto;
   object-fit: contain;
   margin-bottom: 10px;
 }
 p {
+  margin-top: -0.6rem;
   text-decoration: none;
   color: white;
   font-family: "Amatic SC", cursive;
