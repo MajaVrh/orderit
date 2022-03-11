@@ -18,7 +18,7 @@
 
       </div>
 
-      <p>{{ item.cijena * item.amount }} kn</p>
+      <p>{{ (item.cijena * item.amount).toFixed(2) }} kn</p>
 
     </div>
     <hr>

@@ -16,7 +16,7 @@
     <div class="wrapper2">
       <p>Ukupno</p>
       <p></p>
-      <p>{{ukupnaCijena}} kn</p>
+      <p>{{ukupnaCijena.toFixed(2)}} kn</p>
     </div>
     <div v-if="velicinaCarta > 0" :class="!isOrderProcessing ? 'tipka' : 'tipka-disabled'" @click="!isOrderProcessing ? newOrder() : 'function:void(0)'">{{!isOrderProcessing ? "Potvrdi narudžbu" : "Kreiranje narudžbe"}}</div>
   </div>
@@ -41,7 +41,7 @@ export default {
   computed: {
     ...mapGetters({ proizvodi: "getCart", ukupnaCijena: 'getTotalPrice', stol: 'getTable', velicinaCarta: 'getCartSize' }),
   },
-  
+
   methods: {
     ...mapActions({ setItemToCart: "setItemToCart" }),
     async newOrder() {
@@ -69,7 +69,8 @@ export default {
         console.log(error)
       }
 
-    }
+    },
+
   },
 };
 </script>
