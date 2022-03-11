@@ -25,7 +25,7 @@
     </ul>
     <ul class="dole">
       <li v-if="store.admin">
-        <a href="#" @click="logout()"><i class="fas fa-sign-out-alt"></i> </a>
+        <a href="#" @click="logout()"><i class="fas fa-sign-out-alt "></i> </a>
       </li>
       <li v-if="!store.admin">
         <router-link :to="{ name: 'Home' }"
@@ -131,4 +131,6 @@ i {
   color: #ffffff;
   font-size: 2rem;
 }
+
+
 </style>

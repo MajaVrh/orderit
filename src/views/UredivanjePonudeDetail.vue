@@ -73,7 +73,7 @@
           <div class="SlikaDodaj">
             <div class="ButtoniSlike">
               <label for="files" v-if="!Vidljiv" class="ButtonSlike1"
-                >Odaberi sliku</label
+                >Odabir slike</label
               >
               <input
                 id="files"
@@ -102,17 +102,17 @@
           </div>
         </div>
 
-        <div>
+        <div class="velicina" v-if="categoryImage">
           <img
             class="slikaKategorija"
-            v-if="categoryImage"
+            
             :src="categoryImage"
             alt=""
           />
           <i
             class="fas fa-times-circle SlikaX"
             @click="BrisnjeSlike"
-            v-if="categoryImage"
+            
           ></i>
         </div>
       </div>
@@ -369,12 +369,13 @@ export default {
 }
 
 .slikaKategorija {
-  width: 11rem;
-  height: 11rem;
+  width: 100%;
+  height: 100%;
   margin-right: 1rem;
   margin-left: 1rem;
   border: 4px solid #731642;
   border-radius: 7px;
+  object-fit: contain;
 }
 
 .ButtonSlike2 {
@@ -402,8 +403,8 @@ export default {
   font-weight: bold;
   outline: none;
   cursor: pointer;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 2.3rem;
+  padding-right: 2.3rem;
   padding-top: 0.9rem;
   padding-bottom: 0.9rem;
 }
@@ -457,7 +458,7 @@ export default {
   flex-direction: column;
   font-weight: bold;
   align-items: center;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
 .top {
@@ -465,7 +466,7 @@ export default {
   flex-direction: row;
   gap: 1rem;
   justify-content: center;
-  padding-left: 1rem;
+  margin-right: 1rem;
 }
 
 .t {
@@ -476,8 +477,9 @@ export default {
 .SlikaX {
   color: #731642;
   position: absolute;
-  margin-left: -2.6rem;
-  padding-top: 10rem;
+  margin-left: 5.2rem;
+  margin-top: -2rem;
+
   z-index: 999;
   font-size: 18px;
   border-radius: 100%;
@@ -521,4 +523,8 @@ i {
   gap: 0.5rem;
 }
 
+.velicina{
+  width: 11rem; 
+  height: 11rem;
+}
 </style>

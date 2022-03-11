@@ -45,15 +45,11 @@
         type="text"
       />
       <div class="buttonipotvrdi">
-        
-         <button class="potvrdi jedan" v-if="VidljivUredi"  @click="UrediStavku" >
-        Potvrdi
-      </button>
 
-       
-         <button class="potvrdi dva" v-if="VidljivUredi"  @click="VidljivUredi=!VidljivUredi" >
-        Odustani
-      </button>
+        
+        
+       <div v-if="VidljivUredi"  @click="UrediStavku"><potvrdi /></div>
+       <div v-if="VidljivUredi"  @click="VidljivUredi=!VidljivUredi"><odustani /></div>
     
       </div>
    
@@ -64,7 +60,10 @@
 
 <script>
 import { doc, deleteDoc, db, collection, getDoc,updateDoc } from "@/firebase";
+import potvrdi from './potvrdi.vue';
+import odustani from './odustani.vue';
 export default {
+  components: { potvrdi, odustani },
   data() {
     return {
       Vidljiv: false,
@@ -171,28 +170,6 @@ gap: 0.3rem}
   font-size: 14px;
   border: 1.5px solid #731642;
   padding: 0.2rem;
-}
-
-.potvrdi {
-  background-color: #ffffff;
-  color: #731642;
-border-radius: 7px;
-  margin-top: 0.3rem;
-padding-top: 0.5rem;
-padding-bottom: 0.5rem;
-  border: none;
-  font-weight: bold;
-  outline: none;
-  min-width: 5.5rem;
-  max-width: 5.5rem;
-
-}
-
-.potvrdi:hover {
-  cursor: pointer;
-  background-color: #721741d5;
-  color: #ffffff;
-  
 }
 
 .UpisiStavkuInfo {
