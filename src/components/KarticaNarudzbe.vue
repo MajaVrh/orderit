@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="kartica">
@@ -92,7 +93,7 @@
           <div class="Ukupno"><b> Ukupno </b></div>
 
           <div class="UkupnaCijena">
-            <b> {{ NarudzbaStola.ukupnaCijena }} kn</b>
+            <b> {{ (NarudzbaStola.ukupnaCijena).toFixed(2) }} kn</b>
           </div>
         </div>
       </section>
@@ -130,7 +131,6 @@ export default {
   },
   mounted() {
     this.postedFromNow(),  this.prikaziStavkeNarudzbe();
-    console.log(this.konobar)
      this.UcitavanjeImenaVl();
       this.UcitavanjeNaziva();
   },
@@ -139,13 +139,11 @@ export default {
       onSnapshot(doc(db, "Info", "nazivObjekta"), (doc) => {
         this.nazivObj = doc.data().naziv;
 
-        console.log("Current data: ", doc.data());
       }); },
       async UcitavanjeImenaVl() {
       onSnapshot(doc(db, "Info", "vlasnik"), (doc) => {
         this.VlasnikObj = doc.data().ImeVlasnika;
 
-        console.log("Current data: ", doc.data());
       });
     },
 
@@ -170,7 +168,6 @@ export default {
             CitajStavke.push({ id: doc.id, ...doc.data() });
           });
           this.StavkeRacuna = CitajStavke;
-          console.log("Stavke racuna:", this.StavkeRacuna);
         });
       } catch (error) {
         console.log("Učitavanje stavki računa nije uspijelo");

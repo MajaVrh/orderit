@@ -207,7 +207,6 @@ export default {
           Ime: this.NaslovNovi,
         });
         this.PrikazNaslova();
-        console.log("PROMJENA NA POTKATEGORIJI");
         this.VidljivPromjena = !this.VidljivPromjena;
       } catch (error) {
         console.log("GREŠKA PROMJENE POTKATEGORIJE");
@@ -220,7 +219,6 @@ export default {
         await deleteDoc(doc(collection(db, "Kategorija"), ID));
         this.$router.push({ name: "UredjivanjePonude" });
         alert("Obrisana je kategorija");
-        console.log("BRISANJE KATEGORIJE");
       } catch (error) {
         console.log("GREŠKA BRISANJA KATEGORIJE");
       }
@@ -234,7 +232,6 @@ export default {
         this.categoryImage = null;
         const KategorijaDocRef = doc(db, "Kategorija", ID);
         await updateDoc(KategorijaDocRef, { imageURL: "" });
-        console.log("BRISANJE SLIKE");
       } catch (error) {
         console.log("GREŠKA BRISANJA SLIKE");
       }
@@ -265,7 +262,6 @@ export default {
 
         querySnapshot.forEach((doc) => {
           PotkategorijaIme.push({ id: doc.id, ...doc.data() });
-          console.log(doc.id);
         });
         this.KarticePotkategorija = PotkategorijaIme;
       });
@@ -291,7 +287,6 @@ export default {
 
       if (docSnap.exists()) {
         this.Naslov = docSnap.data().Ime;
-        console.log( docSnap.data());
         this.NaslovNovi = this.Naslov;
       } else {
         // doc.data() will be undefined in this case

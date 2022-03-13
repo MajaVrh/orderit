@@ -98,7 +98,6 @@ export default {
         await updateDoc(PromjenaNaziva, {
           oznaka: this.NazivStola,
         });
-        console.log("PROMJENA NAZIVA STOLA");
         this.PrikazOznakeStola();
         this.Vidljiv = !this.Vidljiv;
       } catch (error) {
@@ -112,7 +111,6 @@ export default {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         this.OznakaStola = docSnap.data().oznaka;
-        console.log("PROMJENA NAZIVA STOLA");
         this.NazivStola = this.OznakaStola;
       } else {
         console.log("GREŠKA KOD PROMJENE NAZIVA STOLA");
@@ -123,7 +121,6 @@ export default {
       const ID = this.$route.params.id;
       await deleteDoc(doc(db, "Stolovi", ID));
       this.$router.push({ name: "Stolovi" });
-      console.log("BRISANJE");
     },
 
     async generateReport() {

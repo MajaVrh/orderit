@@ -51,12 +51,12 @@ export default {
   methods: {
     async brisanje() {
       await deleteDoc(doc(db, "Stolovi", this.id));
-      console.log("BRISANJE");
+    
     },
 
     spojiLink() {
       this.linkStola = "https://m-orderit.netlify.app/new_order/" + this.id;
-      console.log(this.linkStola);
+
     },
   },
 };

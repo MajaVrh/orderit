@@ -88,7 +88,7 @@ export default {
           Info: this.NoveInfoStavke,
         }
       );
-      console.log("PROMJENA NA STAVCI");
+  
       this.VidljivUredi = !this.VidljivUredi;
     },
     async brisanjeStavke() {
@@ -98,7 +98,6 @@ export default {
         collection(doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), 
         "Potkategorija"),this.$route.params.idPodkategorije),"Stavke"), this.idStavka)
       );
-      console.log("BRISANJE STAVKE");
     },
   },
 };

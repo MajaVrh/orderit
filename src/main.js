@@ -11,11 +11,9 @@ onAuthStateChanged(auth, (user) => {
   const currentRoute=router.currentRoute; 
   if (user) {
   store.admin = user.email;
-  console.log("Status-prijavljen admin")
   const uid = user.uid;
 
   } else {
-  console.log("Status-Nije prijavljen admin"); 
   store.admin=null;
   if(currentRoute.meta.needsUser){router.push({name:"Home"})}
   }

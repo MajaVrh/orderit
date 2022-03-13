@@ -129,8 +129,7 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  console.log("Stara ruta", from.name, "->", to.name, "korisnik", store.admin);
+router.beforeEach((to, from, next) => { 
   const noUser = store.admin === null; //pogledamo ako uopće imamo postavljenog usera (postavlja se fa u app.vue)
   // ako ga imamo -> f
   if (noUser && to.meta.needsUser) {

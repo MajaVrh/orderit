@@ -89,7 +89,7 @@ export default {
           Info: this.NoveInfoStavke,
         }
       );
-      console.log("PROMJENA NA STAVCI");
+
       this.VidljivUredi = !this.VidljivUredi;
     },
     async brisanjeStavke() {
@@ -97,7 +97,7 @@ export default {
       await deleteDoc(
         doc(collection(doc(db, "Kategorija", ID), "Stavka"), this.idStavka)
       );
-      console.log("BRISANJE STAVKE");
+
     },
   },
 };

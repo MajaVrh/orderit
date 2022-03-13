@@ -58,10 +58,7 @@ export default {
   methods: {
     logout() {
       signOut(auth)
-        .then(() => {
-          console.log("Korisnik je odjvaljen");
-          this.$router.push({ name: "Home" });
-        })
+        .then()
         .catch((error) => {
           console.log(error);
         });
@@ -70,8 +67,6 @@ export default {
       async UcitavanjeNaziva() {
       onSnapshot(doc(db, "Info", "nazivObjekta"), (doc) => {
         this.nazivObjekta = doc.data().naziv;
-
-        console.log("Current data: ", doc.data());
       }); },
     },
 };

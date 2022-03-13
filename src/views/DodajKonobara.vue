@@ -44,11 +44,7 @@ export default {
   methods: {
     async DodajKonobara() {
       try {
-        console.log(
-          "DODAVANJE KONOBARA:",
-          this.ImeKonobara,
-          this.PrezimeKonobara
-        );
+        
         const ImePrezimeKonobara = {
           ImeKonobara: this.ImeKonobara,
           PrezimeKonobara: this.PrezimeKonobara,
@@ -59,7 +55,6 @@ export default {
           ImePrezimeKonobara
         );
         alert("Dodan je konobar");
-        console.log("Document written with ID: ", docRef.id);
         this.ImeKonobara="",
         this.PrezimeKonobara=""
       } catch (error) {

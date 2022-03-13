@@ -22,7 +22,7 @@
             />
             <div class="sredinaGumba" @click="PostaviPolog()"><potvrdi /></div>
           </div>
-          <div @click="SpremiDan(), generateReport()" class="IzvjestajGumb">
+          <div @click="zatvoriDan" class="IzvjestajGumb">
             Zatvaranje radnog dana
           </div>
           <router-link :to="{ name: 'Izvjestaji' }"
@@ -50,8 +50,8 @@
           </div>
           <div class="DrugiRedUkupno">
             <div class="stupac celija">{{ Polog }} kn</div>
-            <div class="stupac celija">{{ kasa }}</div>
-            <div class="stupac celija">{{ uKasi }}</div>
+            <div class="stupac celija">{{ kasa }} kn</div>
+            <div class="stupac celija">{{ uKasi }} kn</div>
           </div>
         </div>
 
@@ -59,7 +59,7 @@
           :show-layout="false"
           :float-layout="true"
           :enable-download="true"
-          :preview-modal="true"
+          :preview-modal="false"
           :filename="`Izvještaj dana`"
           :pdf-quality="2"
           :paginate-elements-by-height="999999999999999999999"
@@ -92,8 +92,8 @@
               </div>
               <div class="DrugiRedUkupno">
                 <div class="stupac celija">{{ Polog }} kn</div>
-                <div class="stupac celija">{{ kasa }}</div>
-                <div class="stupac celija">{{ uKasi }}</div>
+                <div class="stupac celija">{{ kasa }} kn</div>
+                <div class="stupac celija">{{ uKasi }} kn</div>
               </div>
             </div>
           </section>
@@ -121,7 +121,6 @@ export default {
       Vidljiv: false,
       Polog: 0,
       uKasi: 0,
-      OtvoriDan: false,
     };
   },
 
@@ -138,8 +137,20 @@ export default {
       this.$refs.html2Pdf.generatePdf();
    
 
+   
+
+    },
+    async zatvoriDan() {
+      await this.SpremiDan()
+      await this.generateReport()
+      await this.izbrisi()
+   setTimeout(() => {
+       this.$router.go('izvjestaj')
+        }, 1000);
+      
     },
 
+    
     async DohvatiDatum() {
       let dateObj = new Date();
       let month = String(dateObj.getMonth() + 1).padStart(2, "0");
@@ -147,7 +158,7 @@ export default {
       let year = dateObj.getFullYear();
       this.datum = day + "." + month + "." + year + ".";
     },
-    ...mapActions({ dohvatiStavke: "dohvatiStavke", SpremiDan: "SpremiDan" }),
+    ...mapActions({ dohvatiStavke: "dohvatiStavke", izbrisi: 'izbrisi', SpremiDan: "SpremiDan" }),
 
     async PostaviPolog() {
       try {

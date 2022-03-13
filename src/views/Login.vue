@@ -42,14 +42,12 @@ export default {
   components:{Natrag},
   methods: {
     login() {
-      console.log("prijava");
       
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           this.$router.push({ name: "UredjivanjePonude" });
-          console.log("Prijavljen je korisnik:" ,this.email);
         
         })
         .catch((error) => {

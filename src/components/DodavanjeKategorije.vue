@@ -38,7 +38,6 @@ export default {
   methods: {
     async DodajGlavnuKategoriju() {
       try {
-        console.log("DODAVANJE KATEGORIJE:", this.KategorijaIme);
         const KategorijaDodaj = { Ime: this.KategorijaIme };
         // Add a new document with a generated id.
         const docRef = await addDoc(
@@ -46,8 +45,6 @@ export default {
           KategorijaDodaj
         );
         this.Vidljiv = !this.Vidljiv;
-
-        console.log("Document written with ID: ", docRef.id);
         this.KategorijaIme = "";
       } catch (error) {
         console.log(error);

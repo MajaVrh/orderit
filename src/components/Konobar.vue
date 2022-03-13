@@ -31,7 +31,6 @@ export default {
   methods: {
     ...mapMutations({ postaviKonobara: "setKonobar" }), //setkonobar je u index.js-u (store)
     odaberiKonbobara() {
-      console.log("RadiM");
       this.postaviKonobara(
         `${this.info.ImeKonobara} ${this.info.PrezimeKonobara[0]}`
       ); //info preko propsa
@@ -39,7 +38,6 @@ export default {
     },
     async brisanje() {
       await deleteDoc(doc(db, "PopisKonobara", this.id));
-      console.log("BRISANJE");
     },
   },
 };

@@ -198,7 +198,6 @@ try {
        Ime: this.NaslovNovi
       });
       this.PrikazNaslova();
-      console.log("PROMJENA NA POTKATEGORIJI");
     this.VidljivPromjena = !this.VidljivPromjena
     }catch (error) {
         console.log("GREŠKA PROMJENE POTKATEGORIJE");
@@ -210,7 +209,6 @@ try {
         await deleteDoc( doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije));
         this.$router.push({ name: "UredjivanjePonude" });
         alert("Obrisana je potkategorija");
-        console.log("BRISANJE POTKATEGORIJE");
       } catch (error) {
         console.log("GREŠKA BRISANJA POTKATEGORIJE");
       }
@@ -225,7 +223,6 @@ try {
         this.categoryImage = null;
         const KategorijaDocRef =  doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije);
         await updateDoc(KategorijaDocRef, { imageURL: "" });
-        console.log("BRISANJE SLIKE");
       } catch (error) {
         console.log("GREŠKA BRISANJA SLIKE");
       }
@@ -270,7 +267,6 @@ try {
 
       if (docSnap.exists()) {
         this.Naslov = docSnap.data().Ime;
-        console.log("Document data:", docSnap.data());
         this.NaslovNovi = this.Naslov;
       } else {
         // doc.data() will be undefined in this case

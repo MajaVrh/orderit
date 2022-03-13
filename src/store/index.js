@@ -49,6 +49,17 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    async izbrisi() {
+      const qNarudzbe = await getDocs(query(collection(db, "Narudzbe")));
+      qNarudzbe.forEach(async (elem) => {
+        if (elem.data().jePlaceno) {
+          deleteDoc(doc(collection(db, "Narudzbe"), elem.id));
+        }
+     
+       
+      });
+     
+    },
     async dohvatiStavke(context) {
       const qNarudzbe = await getDocs(query(collection(db, "Narudzbe")));
       let stavke;
@@ -65,8 +76,9 @@ export default new Vuex.Store({
             PohranaArr.push({ id: stavka.id, ...stavka.data() });
           });
 
-          deleteDoc(doc(collection(db, "Narudzbe"), elem.id));
+          
         }
+       
       });
 
       setTimeout(() => {
@@ -116,15 +128,16 @@ export default new Vuex.Store({
             updateDoc(izvjRef, {
               stavke: arrayUnion(element)
             })
-            
+       
           }
 
-          console.log("SPEREMI DAN");
+       
         });
       } catch (error) {
        
         console.log(error);
       }
+      
     },
   },
   modules: {},

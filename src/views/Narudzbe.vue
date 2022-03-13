@@ -36,7 +36,6 @@ export default {
          
         });
         this.Narudzba = CitajNarudzbu;
-        console.log(this.Narudzba)
       });}catch (error) {
         console.log("Učitavanje narudžba nije uspijelo");
       }

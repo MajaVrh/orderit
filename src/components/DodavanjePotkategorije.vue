@@ -44,7 +44,6 @@ export default {
       );
       this.Vidljiv = !this.Vidljiv;
       this.PotkategorijaIme = "";
-      console.log("Dodana je potkategorija");
     },
   },
 };

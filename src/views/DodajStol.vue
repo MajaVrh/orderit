@@ -37,13 +37,11 @@ export default {
   methods: {
      async DodajStol() {
       try {
-        console.log("DODAVANJE STOLA:", this.OznakaStola);
 
         // Add a new document with a generated id.
         const docRef = await addDoc(collection(db, "Stolovi"), {
           oznaka: this.OznakaStola,
         });
-        console.log("Dodan je stol: ", docRef.id);
         this.Vidljiv = !this.Vidljiv;
         this.OznakaStola = "";
          alert("Dodan je stol");

@@ -89,7 +89,6 @@ export default {
         this.NazivStavke = "";
         this.CijenaStavke = "";
         this.InfoStavka = "";
-        console.log("DODANA STAVKA");
       } catch (error) {
         console.log(error);
       }
