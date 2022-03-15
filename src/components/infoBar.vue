@@ -1,15 +1,8 @@
 <template>
     <div>
-    <router-link :to="{name:'Info'}" v-if="IsLeft" class="left"
+    <router-link :to="{name:'Info'}"  class="left"
       ><div class="elements">
-        <img src="@/assets/kafic.png" /> 
         <span>Info</span>
-      </div>
-    </router-link>
-    <router-link :to="{name:'Info'}"  v-else class="right"
-      ><div class="elements">
-        <span>Info</span
-        ><img src="@/assets/kafic.png" alt="" />
       </div>
     </router-link>
   </div>
@@ -20,7 +13,6 @@ export default {
 name: "InfoBars",
   props: {
     id: String,
-    IsLeft: Boolean,
 
   },
 }
@@ -30,6 +22,7 @@ name: "InfoBars",
 .elements {
   display: flex;
   background-color: rgba(0, 0, 0, 0.65);
+  justify-content: center;
   padding: 1rem;
   align-items: center;
   margin-top: 1rem;
@@ -41,20 +34,7 @@ a {
   text-decoration: none;
   color: white;
   font-family: "Amatic SC", cursive;
-  font-size: 3rem;
-}
-.left > .elements > span {
-  margin-left: auto;
-}
-.right > .elements > img {
-  margin-left: auto;
-}
-img{
-  width: 12rem;
-  height: auto;
-  object-fit: contain;
-  
-
+  font-size: 3.5rem;
 }
 
 </style>

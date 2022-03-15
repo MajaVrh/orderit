@@ -41,7 +41,7 @@ a {
   text-decoration: none;
   color: white;
   font-family: "Amatic SC", cursive;
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 .left > .elements > span {
   margin-left: auto;
