@@ -49,9 +49,9 @@
             <div class="stupac celija">U kasi</div>
           </div>
           <div class="DrugiRedUkupno">
-            <div class="stupac celija">{{ Polog }} kn</div>
-            <div class="stupac celija">{{ kasa }} kn</div>
-            <div class="stupac celija">{{ uKasi }} kn</div>
+            <div class="stupac celija">{{ Polog.toFixed(2) }} kn</div>
+            <div class="stupac celija">{{ kasa.toFixed(2) }} kn</div>
+            <div class="stupac celija">{{ uKasi.toFixed(2) }} kn</div>
           </div>
         </div>
 
@@ -91,9 +91,9 @@
                 <div class="stupac celija">U kasi</div>
               </div>
               <div class="DrugiRedUkupno">
-                <div class="stupac celija">{{ Polog }} kn</div>
-                <div class="stupac celija">{{ kasa }} kn</div>
-                <div class="stupac celija">{{ uKasi }} kn</div>
+                <div class="stupac celija">{{ Polog.toFixed(2) }} kn</div>
+                <div class="stupac celija">{{ kasa.toFixed(2) }} kn</div>
+                <div class="stupac celija">{{ uKasi.toFixed(2) }} kn</div>
               </div>
             </div>
           </section>

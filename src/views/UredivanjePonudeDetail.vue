@@ -1,13 +1,9 @@
 <template>
   <div class="container">
     <sidebar />
-    <router-link :to="{ name: 'UredjivanjePonude' }"
-          ><Natrag/>
-        </router-link>
+    <router-link :to="{ name: 'UredjivanjePonude' }"><Natrag /> </router-link>
     <div class="sredina">
-      <div class="PozicijaNatrag">
-        
-      </div>
+      <div class="PozicijaNatrag"></div>
       <h1 class="naslovStranice">{{ Naslov }}</h1>
       <div class="top">
         <div class="promjena">
@@ -19,12 +15,8 @@
             Brisanje kategorije
           </div>
 
-          <div
-            class="Drugo"
-            v-if="VidljivBrisanje"
-       
-          >
-           Obriši trenutnu kategoriju  
+          <div class="Drugo" v-if="VidljivBrisanje">
+            Obriši trenutnu kategoriju
 
             <div class="red">
               <div v-if="VidljivBrisanje" @click="BrisanjeKategorije">
@@ -56,7 +48,7 @@
               type="text"
             />
 
-  <div class="red">
+            <div class="red">
               <div v-if="VidljivPromjena" @click="PromjenaNazivaPotkategorije">
                 <potvrdi />
               </div>
@@ -67,7 +59,6 @@
                 <odustani />
               </div>
             </div>
-           
           </div>
 
           <div class="SlikaDodaj">
@@ -103,17 +94,8 @@
         </div>
 
         <div class="velicina" v-if="categoryImage">
-          <img
-            class="slikaKategorija"
-            
-            :src="categoryImage"
-            alt=""
-          />
-          <i
-            class="fas fa-times-circle SlikaX"
-            @click="BrisnjeSlike"
-            
-          ></i>
+          <img class="slikaKategorija" :src="categoryImage" alt="" />
+          <i class="fas fa-times-circle SlikaX" @click="BrisnjeSlike"></i>
         </div>
       </div>
       <div class="Podnaslov">Kategorije</div>
@@ -470,11 +452,10 @@ export default {
 }
 
 .SlikaX {
-  color: #731642;
+   color: #731642;
   position: absolute;
-  margin-left: 5.2rem;
-  margin-top: -2rem;
-
+  right: -12px;
+  top: 10px;
   z-index: 999;
   font-size: 18px;
   border-radius: 100%;
@@ -519,7 +500,8 @@ i {
 }
 
 .velicina{
-  width: 11rem; 
+  position: relative;
+  width: 11rem;
   height: 11rem;
 }
 </style>

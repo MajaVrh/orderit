@@ -344,6 +344,7 @@ try {
 }
 
 .slikaKategorija {
+  position: relative;
   width: 100%;
   height: 100%;
   margin-right: 1rem;
@@ -351,6 +352,7 @@ try {
   border: 4px solid #731642;
   border-radius: 7px;
   object-fit: contain;
+  
 }
 
 .ButtonSlike2 {
@@ -461,9 +463,9 @@ background-color: #ffffff;
 
 .SlikaX {
   color: #731642;
-  position: absolute;
-  margin-left: 5.2rem;
-  margin-top: -2rem;
+position: absolute;
+right: -12px;
+top: 10px;
   z-index: 999;
   font-size: 18px;
   border-radius: 100%;
@@ -509,6 +511,7 @@ i {
 .velicina{
   width: 11rem; 
   height: 11rem;
+  position: relative;
 }
 
 </style>
