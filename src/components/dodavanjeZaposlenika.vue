@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'DodajKonobara' }">
     <div class="dodavanje">
       <img
-      class="slika"
+        class="slika"
         style="width: 80px; margin: 0.8rem auto auto auto"
         src="@/assets/dodajZaposlenika.png"
         alt="slika"
@@ -16,13 +16,10 @@
 <script>
 export default {
   name: "dodavanjeZaposlenika",
- 
 };
 </script>
 
 <style>
-
-
 .dodavanje {
   height: 8.8rem;
   width: 8.8rem;
@@ -32,24 +29,19 @@ export default {
   background-color: #731641;
   color: white;
   font-size: 16px;
-  font-weight:bold;
+  font-weight: bold;
 
-    margin-right: 1rem;
-    margin-left: 1rem;
-  
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
-
-
-
 
 a {
   text-decoration: none;
 }
 .dodavanje:hover {
   cursor: pointer;
-   background-color: #721741d5;
-   border: 3.5px solid #72174100 ;
-  color: #ffffff;}
-  
-
+  background-color: #721741d5;
+  border: 3.5px solid #72174100;
+  color: #ffffff;
+}
 </style>

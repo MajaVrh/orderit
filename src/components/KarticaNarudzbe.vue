@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="kartica">
@@ -24,8 +23,8 @@
           <div class="poravnanjeL">
             <div class="marg">Šifra: {{ NarudzbaStola.id }}</div>
             <div class="marg">Vrijeme narudžbe: {{ datum }}</div>
-            <div>Konobar: {{konobar}}</div>
-            <br>
+            <div>Konobar: {{ konobar }}</div>
+            <br />
           </div>
           <div class="stupci">
             <div class="Naz"><b> Naziv </b></div>
@@ -33,33 +32,30 @@
             <div class="Cije"><b>Cijena</b></div>
           </div>
 
-       
-            <StavkaNarudzbe
-              v-for="StavkaR in StavkeRacuna"
-              :key="StavkaR.id"
-              :Naziv="StavkaR.ime"
-              :Kolicina="StavkaR.kolicina"
-              :Cijena="StavkaR.cijena"
-            />
-            
-        
+          <StavkaNarudzbe
+            v-for="StavkaR in StavkeRacuna"
+            :key="StavkaR.id"
+            :Naziv="StavkaR.ime"
+            :Kolicina="StavkaR.kolicina"
+            :Cijena="StavkaR.cijena.toFixed(2)"
+          />
 
           <div class="linija"></div>
 
           <div class="stavka">
             <div class="Ukupno"><b> Ukupno </b></div>
-           
+
             <div class="UkupnaCijena">
-              
-              <b> {{ NarudzbaStola.ukupnaCijena }} kn</b>
+              <b> {{ NarudzbaStola.ukupnaCijena.toFixed(2)   }} kn</b>
             </div>
           </div>
-           <div>U cijenu je uračunat PDV</div>
-          <br>
-           <div>VL. {{VlasnikObj}}</div>
-           <br>
-           <div> <b>{{nazivObj}} </b> </div>
-      
+          <div>U cijenu je uračunat PDV</div>
+          <br />
+          <div>VL. {{ VlasnikObj }}</div>
+          <br />
+          <div>
+            <b>{{ nazivObj }} </b>
+          </div>
         </section>
       </VueHtml2pdf>
       <section slot="pdf-content">
@@ -83,7 +79,7 @@
             :key="StavkaR.id"
             :Naziv="StavkaR.ime"
             :Kolicina="StavkaR.kolicina"
-            :Cijena="StavkaR.cijena"
+            :Cijena="StavkaR.cijena.toFixed(2)"
           />
         </div>
 
@@ -93,25 +89,24 @@
           <div class="Ukupno"><b> Ukupno </b></div>
 
           <div class="UkupnaCijena">
-            <b> {{ (NarudzbaStola.ukupnaCijena).toFixed(2) }} kn</b>
+            <b> {{ NarudzbaStola.ukupnaCijena.toFixed(2) }} kn</b>
           </div>
         </div>
       </section>
       <div class="buttonRacun">
-        <button class="IzdajRacun" @click="generateReport" >Izdaj račun</button>
+        <button class="IzdajRacun" @click="generateReport">Izdaj račun</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import VueHtml2pdf from "vue-html2pdf";
 
 import { db, collection, query, onSnapshot, doc, updateDoc } from "@/firebase";
 import moment from "moment";
 import StavkaNarudzbe from "./StavkaNarudzba.vue";
-import { mapGetters } from "vuex"
+import { mapGetters } from "vuex";
 
 export default {
   name: "KarticaNarudzbe",
@@ -119,40 +114,32 @@ export default {
   props: ["NarudzbaStola"],
 
   data() {
-    return { datum: "", 
-    StavkeRacuna: [] ,
-    VlasnikObj:"",
-    nazivObj:"",
-
-    };
+    return { datum: "", StavkeRacuna: [], VlasnikObj: "", nazivObj: "" };
   },
   computed: {
-    ...mapGetters({konobar: "konobar"}), // konobarL-naziv  ----- getter hvata podatke iz index.js-a ( store ), string predstavlja ime funckije u store-u
+    ...mapGetters({ konobar: "konobar" }), // konobarL-naziv  ----- getter hvata podatke iz index.js-a ( store ), string predstavlja ime funckije u store-u
   },
   mounted() {
-    this.postedFromNow(),  this.prikaziStavkeNarudzbe();
-     this.UcitavanjeImenaVl();
-      this.UcitavanjeNaziva();
+    this.postedFromNow(), this.prikaziStavkeNarudzbe();
+    this.UcitavanjeImenaVl();
+    this.UcitavanjeNaziva();
   },
   methods: {
-   async UcitavanjeNaziva() {
+    async UcitavanjeNaziva() {
       onSnapshot(doc(db, "Info", "nazivObjekta"), (doc) => {
         this.nazivObj = doc.data().naziv;
-
-      }); },
-      async UcitavanjeImenaVl() {
-      onSnapshot(doc(db, "Info", "vlasnik"), (doc) => {
-        this.VlasnikObj = doc.data().ImeVlasnika;
-
       });
     },
-
+    async UcitavanjeImenaVl() {
+      onSnapshot(doc(db, "Info", "vlasnik"), (doc) => {
+        this.VlasnikObj = doc.data().ImeVlasnika;
+      });
+    },
 
     postedFromNow() {
       this.datum = moment(this.NarudzbaStola.createdAt).format(
         "DD.MM.YYYY hh:mm"
       );
-    
     },
     async prikaziStavkeNarudzbe() {
       const q = query(
@@ -174,17 +161,13 @@ export default {
       }
     },
     async generateReport() {
-     
-      this.$refs.html2Pdf.generatePdf();    
-          //tu je pozovemo
-        
-          await updateDoc(doc(db, "Narudzbe",this.NarudzbaStola.id ), {
-            
-          jePlaceno:true
-        });
-    },
+      this.$refs.html2Pdf.generatePdf();
+      //tu je pozovemo
 
- 
+      await updateDoc(doc(db, "Narudzbe", this.NarudzbaStola.id), {
+        jePlaceno: true,
+      });
+    },
   },
 };
 </script>
@@ -289,11 +272,11 @@ export default {
   width: 7rem;
   position: relative;
   margin-top: 1.5rem;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .IzdajRacun:hover {
   background-color: #aa6b88e3;
-    cursor: pointer;
+  cursor: pointer;
   color: #ffffff;
 }
 .buttonRacun {
@@ -304,7 +287,6 @@ export default {
   margin-bottom: 1.5rem;
   position: absolute;
   bottom: 0px;
-
 }
 
 .scr {
@@ -331,8 +313,7 @@ div.scr {
 }
 
 .RacunPDF {
-
-  padding-right:28rem ;
+  padding-right: 28rem;
   padding-left: 3rem;
 
   .linija {

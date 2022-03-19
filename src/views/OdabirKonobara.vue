@@ -3,37 +3,35 @@
     <div class="lijevo">
       <div class="sredina">
         <img src="@/assets/l.png" alt="" />
-
       </div>
-      
     </div>
     <div class="desno">
-      <div class="natrag"> <router-link :to="{ name: 'Home' }"> <Natrag /></router-link></div>
-      <div class="sredina">
-    
-        <div class="rasporedKonobara">
-               
-          <konobar class="konob" v-for="K in KarticaKonobara" :key="K.id" :id="K.id" :info="K"  />
-        </div>
-        
-        
+      <div class="natrag">
+        <router-link :to="{ name: 'Home' }"> <Natrag /></router-link>
       </div>
-   
-      
-      
+      <div class="sredina">
+        <div class="rasporedKonobara">
+          <konobar
+            class="konob"
+            v-for="K in KarticaKonobara"
+            :key="K.id"
+            :id="K.id"
+            :info="K"
+          />
+        </div>
+      </div>
     </div>
-  
   </div>
 </template>
 
 <script>
-import Konobar from '@/components/Konobar'
-import Natrag from '@/components/Natrag'
+import Konobar from "@/components/Konobar";
+import Natrag from "@/components/Natrag";
 
-import { db, collection, query, onSnapshot,   } from "@/firebase";
+import { db, collection, query, onSnapshot } from "@/firebase";
 export default {
   name: "OdabirKonobara",
-   data: function () {
+  data: function () {
     return {
       KarticaKonobara: [],
       ImeKonobara: "",
@@ -56,7 +54,7 @@ export default {
       });
     },
   },
-  components: {Konobar, Natrag}
+  components: { Konobar, Natrag },
 };
 </script>
 
@@ -72,18 +70,15 @@ export default {
   height: 100vh;
 }
 
-
-
 .rasporedKonobara {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   flex-grow: 1;
-height: 100%;
+  height: 100%;
 
-padding: 3rem;
-margin-top: 3rem;
- 
+  padding: 3rem;
+  margin-top: 3rem;
 }
 
 .lijevo {
@@ -97,8 +92,7 @@ margin-top: 3rem;
   width: 50%;
   height: 100%;
   background-color: rgb(255, 255, 255);
-
-padding-left: 50%;
+  padding-left: 50%;
 }
 
 .sredina {
@@ -107,12 +101,7 @@ padding-left: 50%;
   align-items: center;
   min-height: 100%;
   justify-content: center;
-  margin: auto ;
-
-  
-  
-
-
+  margin: auto;
 }
 
 .btn {
@@ -129,10 +118,10 @@ padding-left: 50%;
 
 .btn:hover {
   cursor: pointer;
-  background-color: rgba(117, 12, 59, .9);
+  background-color: rgba(117, 12, 59, 0.9);
 }
 
-.natrag{margin-left: -56%;}
-
-
+.natrag {
+  margin-left: -56%;
+}
 </style>

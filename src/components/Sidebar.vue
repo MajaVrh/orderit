@@ -24,8 +24,9 @@
       </li>
     </ul>
     <ul class="dole">
-      <li v-if="store.admin">
-        <a href="#" @click="logout()"><i class="fas fa-sign-out-alt "></i> </a>
+      <li v-if="store.admin" @click="logout()">
+        <router-link  :to="{ name: 'Home' }"
+          ><i  class="fas fa-sign-out-alt "></i> </router-link>
       </li>
       <li v-if="!store.admin">
         <router-link :to="{ name: 'Home' }"
@@ -57,8 +58,11 @@ export default {
   mounted(){this.UcitavanjeNaziva()},
   methods: {
     logout() {
+        
       signOut(auth)
+      
         .then()
+        
         .catch((error) => {
           console.log(error);
         });

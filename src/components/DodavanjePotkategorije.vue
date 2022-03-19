@@ -13,16 +13,17 @@
         type="text"
       />
 
-<div @click="DodajGlavnuKategoriju" v-if="Vidljiv">
-         <potvrdi /></div>
-      
+      <div @click="DodajGlavnuKategoriju" v-if="Vidljiv">
+        <potvrdi />
+      </div>
+
       <i class="fas fa-times odustani" @click="Vidljiv = !Vidljiv"></i>
     </button>
   </div>
 </template>
 
 <script>
-import potvrdi from './potvrdi.vue';
+import potvrdi from "./potvrdi.vue";
 import { db, collection, addDoc, doc } from "@/firebase";
 export default {
   data() {
@@ -32,7 +33,7 @@ export default {
     };
   },
   name: "DodavanjePotkategorije",
-   components: { potvrdi},
+  components: { potvrdi },
   methods: {
     async DodajGlavnuKategoriju() {
       const ID = this.$route.params.id;
@@ -98,7 +99,6 @@ export default {
   align-items: center;
 }
 
-
 .UpisiKategoriju {
   border-radius: 7px;
   font-size: 14px;
@@ -111,11 +111,9 @@ export default {
 .fa-plus {
   margin-right: 0.5rem;
   color: #ffffff;
- 
 }
 
-
-
-.odustani{margin-top: 0.2rem;}
-
+.odustani {
+  margin-top: 0.2rem;
+}
 </style>

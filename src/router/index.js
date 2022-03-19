@@ -52,7 +52,7 @@ const routes = [
     name: "Izvjestaji",
     component: () => import("../views/Izvjestaji.vue"),
     meta: {
-      needsUser: true,
+      needsUser: false,
     },
   },
   {

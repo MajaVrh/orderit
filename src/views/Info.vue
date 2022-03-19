@@ -2,7 +2,7 @@
   <div class="container">
     <sidebar />
     <div class="sredina">
-   <h1 class="naslovStranice">{{NazivObjekta}}</h1>     
+      <h1 class="naslovStranice">{{ NazivObjekta }}</h1>
       <div class="raspored-info">
         <div class="stupac">
           <div class="red">
@@ -60,7 +60,9 @@
           </div>
 
           <div>
-            <div class="RadnoVrijeme razmak poravnaj">  <h2>RADNO VRIJME</h2>   </div>
+            <div class="RadnoVrijeme razmak poravnaj">
+              <h2>RADNO VRIJME</h2>
+            </div>
             <div class="RadnoVrijeme razmak poravnaj">
               <div class="dantjedana">
                 <div class="dan">Ponedjeljak:</div>
@@ -142,17 +144,15 @@
               </div>
             </div>
             <div class="poravnaj">
-            <button v-if="!Vidljiv" class="btn2" @click="Vidljiv = !Vidljiv">
-          Izmjeni podatke
-        </button>
-        <button v-if="Vidljiv" class="btn2" @click="IzmjenaPodataka">
-          Potvrdi izmjene
-        </button></div>
+              <button v-if="!Vidljiv" class="btn2" @click="Vidljiv = !Vidljiv">
+                Izmjeni podatke
+              </button>
+              <button v-if="Vidljiv" class="btn2" @click="IzmjenaPodataka">
+                Potvrdi izmjene
+              </button>
+            </div>
           </div>
-             
-        
         </div>
-     
 
         <div class="karta razmak">
           <!--   <iframe
@@ -202,7 +202,6 @@ export default {
     async UcitavanjeImenaVl() {
       onSnapshot(doc(db, "Info", "vlasnik"), (doc) => {
         this.VlasnikObj = doc.data().ImeVlasnika;
-
       });
     },
 
@@ -220,21 +219,18 @@ export default {
     async UcitavanjeKontakta() {
       onSnapshot(doc(db, "Info", "broj"), (doc) => {
         this.br = doc.data().broj;
-
       });
     },
 
     async UcitavanjeAdrese() {
       onSnapshot(doc(db, "Info", "adresa"), (doc) => {
         this.adr = doc.data().adresa;
-
       });
     },
 
     async UcitavanjeNaziva() {
       onSnapshot(doc(db, "Info", "nazivObjekta"), (doc) => {
         this.NazivObjekta = doc.data().naziv;
-
       });
     },
 
@@ -325,13 +321,14 @@ export default {
   margin: 3rem auto;
   max-width: 140vh;
   width: 120vh;
-
-  padding-left: 30%;
+  padding-left: 25%;
 }
 
-.red{ display: flex;
+.red {
+  display: flex;
   flex-direction: row;
-  justify-content: center;}
+  justify-content: center;
+}
 
 .raspored-info {
   display: flex;
@@ -341,12 +338,13 @@ export default {
   justify-content: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  
 }
 
 .naslovStranice {
-width: 100%;
-display: flex;
-justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   font-family: "Amatic SC", cursive;
   font-size: 60px;
   color: #731642;
@@ -376,8 +374,10 @@ h2 {
   color: black;
 }
 
-.poravnaj{display: flex;
-justify-content: center;}
+.poravnaj {
+  display: flex;
+  justify-content: center;
+}
 
 .stupac {
   display: flex;
@@ -396,7 +396,6 @@ justify-content: center;}
   color: white;
   margin-top: 1rem;
   font-size: 15px;
-  
 }
 
 .btn2:hover {
@@ -409,7 +408,6 @@ justify-content: center;}
   justify-content: center;
   margin-bottom: 0.5rem;
   display: flex;
- 
 }
 
 .vrijemedan {
@@ -423,9 +421,7 @@ justify-content: center;}
 .vrijemeforma {
   display: flex;
   flex-direction: column;
-margin-top: 0.2rem;
- 
-
+  margin-top: 0.2rem;
 }
 
 .dantjedana {
@@ -444,14 +440,13 @@ margin-top: 0.2rem;
   border: 1.5px solid #731642;
   padding: 0.1rem;
   width: 6rem;
-     margin-left: 1rem;
-     margin-bottom:0.78rem ;
+  margin-left: 1rem;
+  margin-bottom: 0.78rem;
 }
 
 .inp[value] {
   text-align: center;
   color: rgb(109, 109, 109);
-  
 }
 
 .inp2 {
@@ -461,7 +456,6 @@ margin-top: 0.2rem;
   padding: 0.2rem;
   width: 13rem;
   margin-top: 0.5rem;
- 
 }
 .inp2[value] {
   text-align: center;

@@ -4,45 +4,50 @@
     <div class="sredina">
       <h1 class="naslovStranice">NARUDŽBE</h1>
       <div class="raspored" v-if="Narudzba.length > 0">
-        <KarticaNarudzbe v-for="KN in Narudzba" :key="KN.id" :NarudzbaStola="KN" />
+        <KarticaNarudzbe
+          v-for="KN in Narudzba"
+          :key="KN.id"
+          :NarudzbaStola="KN"
+        />
       </div>
-      <div v-else>
-          Nema novih narudžbi😜
-      </div>
+      <div v-else>Nema novih narudžbi😜</div>
     </div>
   </div>
 </template>
 <script>
-import Sidebar from '@/components/Sidebar'
-import KarticaNarudzbe from '@/components/KarticaNarudzbe'
-import { db, collection, query, onSnapshot,   } from "@/firebase";
+import Sidebar from "@/components/Sidebar";
+import KarticaNarudzbe from "@/components/KarticaNarudzbe";
+import { db, collection, query, onSnapshot } from "@/firebase";
 export default {
   name: "Narudzbe",
   data() {
     return {
-      Narudzba:[],
+      Narudzba: [],
     };
   },
-  mounted() {this.PrikazNarudzbe()},
-  
+  mounted() {
+    this.PrikazNarudzbe();
+  },
+
   methods: {
-  async PrikazNarudzbe() {
+    async PrikazNarudzbe() {
       const q = query(collection(db, "Narudzbe"));
-      try{
-      onSnapshot(q, (querySnapshot) => {
-        const CitajNarudzbu = [];
-        querySnapshot.forEach((doc) => {
-          if(!doc.data().jePlaceno){ CitajNarudzbu.push({ id: doc.id, ...doc.data() });}
-         
+      try {
+        onSnapshot(q, (querySnapshot) => {
+          const CitajNarudzbu = [];
+          querySnapshot.forEach((doc) => {
+            if (!doc.data().jePlaceno) {
+              CitajNarudzbu.push({ id: doc.id, ...doc.data() });
+            }
+          });
+          this.Narudzba = CitajNarudzbu;
         });
-        this.Narudzba = CitajNarudzbu;
-      });}catch (error) {
+      } catch (error) {
         console.log("Učitavanje narudžba nije uspijelo");
       }
     },
-
   },
-  components: { KarticaNarudzbe,Sidebar },
+  components: { KarticaNarudzbe, Sidebar },
 };
 </script>
 
@@ -62,8 +67,7 @@ export default {
   align-items: center;
   margin: 3rem auto;
   max-width: 140vh;
-  width: 130vh;
-
+  width: 120vh;
   padding-left: 25%;
 }
 
@@ -73,7 +77,7 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  padding: 2rem;
 
   gap: 2rem;
 }

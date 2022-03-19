@@ -28,23 +28,22 @@
         type="text"
       />
 
-        <div class="buttonipotvrdi">
-        
-         <div @click="Dodaj">
-         <potvrdi /></div>
- <div  @click="Vidljiv=!Vidljiv">
-         <odustani /></div>
-     
+      <div class="buttonipotvrdi">
+        <div @click="Dodaj">
+          <potvrdi />
+        </div>
+        <div @click="Vidljiv = !Vidljiv">
+          <odustani />
+        </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import potvrdi from './potvrdi.vue';
-import odustani from './odustani.vue';
-import { db, collection, addDoc ,doc} from "@/firebase";
+import potvrdi from "./potvrdi.vue";
+import odustani from "./odustani.vue";
+import { db, collection, addDoc, doc } from "@/firebase";
 
 export default {
   components: { potvrdi, odustani },
@@ -58,24 +57,27 @@ export default {
   },
   name: "DodavanjeStavke",
   methods: {
-    async Dodaj() {try{
-      const ID = this.$route.params.id;
-    await addDoc(
-            collection(doc(collection(db, 'Kategorija'),ID), 'Stavka'),
-        {
-          
-          Naziv: this.NazivStavke,
-          Cijena: this.CijenaStavke,
-          Info: this.InfoStavka,
-        }
-      );
-      this.Vidljiv = !this.Vidljiv;
-         this.NazivStavke= ""
-      this.CijenaStavke= ""
-      this.InfoStavka= ""
-    }catch (error) {
-        console.log(error);}}},}
-
+    async Dodaj() {
+      try {
+        const ID = this.$route.params.id;
+        await addDoc(
+          collection(doc(collection(db, "Kategorija"), ID), "Stavka"),
+          {
+            Naziv: this.NazivStavke,
+            Cijena: this.CijenaStavke,
+            Info: this.InfoStavka,
+          }
+        );
+        this.Vidljiv = !this.Vidljiv;
+        this.NazivStavke = "";
+        this.CijenaStavke = "";
+        this.InfoStavka = "";
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+};
 </script>
 <style scoped>
 .Stavka {
@@ -97,7 +99,7 @@ export default {
   padding: 1rem;
   width: 100%;
   height: 100%;
-   color: white !important;
+  color: white !important;
 }
 
 .ButtonDodajVidljiv:hover {
@@ -113,7 +115,6 @@ export default {
   padding: 1rem;
   width: 100%;
   height: 100%;
- 
 }
 
 .UpisiStavku {
@@ -157,11 +158,12 @@ export default {
   max-width: 88%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
-.buttonipotvrdi{display: flex;
-flex-direction: row;
-justify-content: center;
-gap: 0.3rem}
-
+.buttonipotvrdi {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.3rem;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -171,8 +173,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
-
 </style>

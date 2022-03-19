@@ -8,41 +8,38 @@
         <div class="stupac">
           <div class="red">
             <p class="tekst">Odaberte datum koji želite prikazati:</p>
-          <div   @click="promjeniNatpis()">  <input
-              class="date"
-              type="date"
-              data-date-inline-picker="true"
-            
-              v-model="UpisaniDatum"
-
-
-            /></div>
-          </div>
-          <button class="pretrazi" @click="PrilagodiFormat()">Pretraži</button>
-</div>
-<div class="tekst2" v-if="!vidljiv">{{natpis}}</div>
-
-          <div
-            class="tablica"
-            v-for="izvjestaj in izvjestaji"
-            :key="izvjestaj.id"
-          >
-            <div
-              v-if="
-                new Date(izvjestaj.time).getFullYear() == godina &&
-                new Date(izvjestaj.time).getMonth() + 1 == mjesec &&
-                new Date(izvjestaj.time).getDate() == dan
-              "
-             
-            >
-              <RedakIzvjestajaTablice
-                :stavke="izvjestaj.stavke"
-                :datum="izvjestaj.time"
-                :polog="izvjestaj.polog"
+            <div @click="promjeniNatpis()">
+              <input
+                class="date"
+                type="date"
+                data-date-inline-picker="true"
+                v-model="UpisaniDatum"
               />
             </div>
           </div>
-        
+          <button class="pretrazi" @click="PrilagodiFormat()">Pretraži</button>
+        </div>
+        <div class="tekst2" v-if="!vidljiv">{{ natpis }}</div>
+
+        <div
+          class="tablica"
+          v-for="izvjestaj in izvjestaji"
+          :key="izvjestaj.id"
+        >
+          <div
+            v-if="
+              new Date(izvjestaj.time).getFullYear() == godina &&
+              new Date(izvjestaj.time).getMonth() + 1 == mjesec &&
+              new Date(izvjestaj.time).getDate() == dan
+            "
+          >
+            <RedakIzvjestajaTablice
+              :stavke="izvjestaj.stavke"
+              :datum="izvjestaj.time"
+              :polog="izvjestaj.polog"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,9 +60,9 @@ export default {
   data() {
     return {
       izvjestaji: [],
-      natpis:"Molimo Vas da odaberete datum!",
+      natpis: "Molimo Vas da odaberete datum!",
       StanjeBlagajne: 0,
-      vidljiv:false,
+      vidljiv: false,
       izvjetsjiID2: [],
       UpisaniDatum: "",
       dan: "",
@@ -85,8 +82,10 @@ export default {
       this.mjesec = m;
       this.dan = d;
       console.log(this.UpisaniDatum);
-      if(g>2020*1){
-    this.natpis="Prikaz izvještaja za datum: "+d+"." +m+ "."+g+"." }
+      if (g > 2020 * 1) {
+        this.natpis =
+          "Prikaz izvještaja za datum: " + d + "." + m + "." + g + ".";
+      }
     },
     async getIzvjestaje() {
       const querySnapshot = await getDocs(collection(db, "Izvjestaj"));
@@ -101,15 +100,13 @@ export default {
       });
       this.izvjestaji = newArr;
     },
-    
-promjeniNatpis(){
-  this.natpis= "Molimo Vas da odaberete datum!"
-  this.dan=""
-  this.godina=""
-  this.mjesec=""
-}
-,
 
+    promjeniNatpis() {
+      this.natpis = "Molimo Vas da odaberete datum!";
+      this.dan = "";
+      this.godina = "";
+      this.mjesec = "";
+    },
   },
 };
 </script>
@@ -119,13 +116,13 @@ promjeniNatpis(){
   margin: 0;
   padding: 0;
 }
-.date-reset-button {opacity: 100;}
-
+.date-reset-button {
+  opacity: 100;
+}
 
 .container {
   display: flex;
 }
-
 
 .sredina {
   display: flex;
@@ -134,8 +131,7 @@ promjeniNatpis(){
   margin: 3rem auto;
   max-width: 140vh;
   width: 120vh;
-
-  padding-left: 28%;
+  padding-left: 25%;
 }
 
 .raspored {
@@ -169,7 +165,7 @@ promjeniNatpis(){
   color: white;
   background-color: #731642;
   border-radius: 10px;
- margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .red {
@@ -178,7 +174,6 @@ promjeniNatpis(){
   justify-content: center;
   align-items: center;
   gap: 2rem;
- 
 }
 
 .PrviRed {
@@ -249,21 +244,21 @@ promjeniNatpis(){
   color: white;
   font-size: 16px;
   margin-top: 0.5rem;
- margin-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .tekst {
   font-size: 18px;
   color: black;
-  
 }
 
 .pretrazi:hover {
   cursor: pointer;
   background-color: #721741d5;
 }
-.tekst2{color: black;
-font-size: 18px;
-margin-bottom: 0.5rem;
+.tekst2 {
+  color: black;
+  font-size: 18px;
+  margin-bottom: 0.5rem;
 }
 </style>

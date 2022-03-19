@@ -3,7 +3,6 @@
     <button class="gumb1" v-if="!Vidljiv" @click="Vidljiv = !Vidljiv">
       <div class="Dodaj" v-if="!Vidljiv"><i class="fas fa-plus"></i> Dodaj</div>
     </button>
-    
 
     <button class="gumb2" v-if="Vidljiv">
       <input
@@ -11,20 +10,18 @@
         v-model="KategorijaIme"
         v-if="Vidljiv"
         placeholder="   Ime kategorije"
-     
         type="text"
-       
       />
-      <div   v-if="Vidljiv"
-        @click="DodajGlavnuKategoriju">
-         <potvrdi /></div>
-            <i class="fas fa-times odustani" @click="Vidljiv=!Vidljiv"></i>
+      <div v-if="Vidljiv" @click="DodajGlavnuKategoriju">
+        <potvrdi />
+      </div>
+      <i class="fas fa-times odustani" @click="Vidljiv = !Vidljiv"></i>
     </button>
   </div>
 </template>
 
 <script>
-import potvrdi from './potvrdi.vue';
+import potvrdi from "./potvrdi.vue";
 import { db, collection, addDoc } from "@/firebase";
 export default {
   data() {
@@ -34,7 +31,7 @@ export default {
     };
   },
   name: "DodavanjeKategorije",
-  components: { potvrdi},
+  components: { potvrdi },
   methods: {
     async DodajGlavnuKategoriju() {
       try {
@@ -87,7 +84,6 @@ export default {
   min-height: 6.5rem;
   display: flex;
   flex-direction: column;
- 
 
   /*text-shadow: 1px 1px #7e7e7ea6;
     box-shadow: 1px 1px #7e7e7ea6; */
@@ -97,8 +93,8 @@ export default {
 
 .gumb1:hover {
   cursor: pointer;
- background-color: #721741d5;
-  
+  background-color: #721741d5;
+
   border: #721741d5;
   color: #ffffff !important;
 }
@@ -109,15 +105,15 @@ export default {
   border: 1.5px solid #731642;
   padding: 0.2rem;
   width: 8rem;
-   margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .fa-plus {
   margin-right: 0.5rem;
   color: #ffffff;
-
 }
 
-
-.odustani{margin-top: 0.2rem;}
+.odustani {
+  margin-top: 0.2rem;
+}
 </style>

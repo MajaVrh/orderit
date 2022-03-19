@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    
     <sidebar />
-    <router-link :to="{ name: 'UredivanjePonudeDetail' }"><Natrag/></router-link>
+    <router-link :to="{ name: 'UredivanjePonudeDetail' }"
+      ><Natrag
+    /></router-link>
     <div class="sredina">
-      
       <h1 class="naslovStranice">{{ Naslov }}</h1>
       <div class="top">
-       <div class="promjena">
-             <div
+        <div class="promjena">
+          <div
             class="Prvo ho"
             v-if="!VidljivBrisanje"
             @click="VidljivBrisanje = !VidljivBrisanje"
@@ -16,12 +16,8 @@
             Brisanje kategorije
           </div>
 
-          <div
-            class="Drugo"
-            v-if="VidljivBrisanje"
-       
-          >
-           Obriši trenutnu kategoriju  
+          <div class="Drugo" v-if="VidljivBrisanje">
+            Obriši trenutnu kategoriju
 
             <div class="red">
               <div v-if="VidljivBrisanje" @click="BrisanjePotkategorije">
@@ -53,7 +49,7 @@
               type="text"
             />
 
-  <div class="red">
+            <div class="red">
               <div v-if="VidljivPromjena" @click="PromjenaNazivaPotkategorije">
                 <potvrdi />
               </div>
@@ -64,9 +60,8 @@
                 <odustani />
               </div>
             </div>
-           
           </div>
-          
+
           <div class="SlikaDodaj">
             <div class="ButtoniSlike">
               <label for="files" v-if="!Vidljiv" class="ButtonSlike1"
@@ -100,23 +95,13 @@
         </div>
 
         <div class="velicina" v-if="categoryImage">
-          <img
-            class="slikaKategorija"
-            
-            :src="categoryImage"
-            alt=""
-          />
-          <i
-            class="fas fa-times-circle SlikaX"
-            @click="BrisnjeSlike"
-          ></i>
+          <img class="slikaKategorija" :src="categoryImage" alt="" />
+          <i class="fas fa-times-circle SlikaX" @click="BrisnjeSlike"></i>
         </div>
       </div>
-   
-      <div class="raspored">
-       
-      </div>
-      
+
+      <div class="raspored"></div>
+
       <div class="Podnaslov">Uredi ponudu</div>
       <div class="UrediPonudu">
         <DodavanjeStavkePotkategorija />
@@ -167,7 +152,6 @@ export default {
       VidljivBrisanje: false,
       VidljivPromjena: false,
       NaslovNovi: "",
-  
     };
   },
 
@@ -179,41 +163,54 @@ export default {
     Potkategorija,
     potvrdi,
     odustani,
-    Natrag
+    Natrag,
   },
   mounted() {
     //DAJE TOČNO TRENUTAK KAD DA SE DATOTRKA PRIKAŽE NA ERKRANU
-    
-      this.PrikazNaslova(),
-      this.PrikazStavke(),
-      this.getSlika();
+
+    this.PrikazNaslova(), this.PrikazStavke(), this.getSlika();
   },
   methods: {
     async PromjenaNazivaPotkategorije() {
       const ID = this.$route.params.id;
-      const PozkategorijaDocRef =  doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije)
-      
-try {
-      await updateDoc(PozkategorijaDocRef, {
-       Ime: this.NaslovNovi
-      });
-      this.PrikazNaslova();
-    this.VidljivPromjena = !this.VidljivPromjena
-    }catch (error) {
+      const PozkategorijaDocRef = doc(
+        collection(
+          doc(collection(db, "Kategorija"), this.$route.params.id),
+          "Potkategorija"
+        ),
+        this.$route.params.idPodkategorije
+      );
+
+      try {
+        await updateDoc(PozkategorijaDocRef, {
+          Ime: this.NaslovNovi,
+        });
+        this.PrikazNaslova();
+        this.VidljivPromjena = !this.VidljivPromjena;
+      } catch (error) {
         console.log("GREŠKA PROMJENE POTKATEGORIJE");
-      }},
+      }
+    },
 
     async BrisanjePotkategorije() {
       const ID = this.$route.params.id;
       try {
-        await deleteDoc( doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije));
+        await deleteDoc(
+          doc(
+            collection(
+              doc(collection(db, "Kategorija"), this.$route.params.id),
+              "Potkategorija"
+            ),
+            this.$route.params.idPodkategorije
+          )
+        );
         this.$router.push({ name: "UredjivanjePonude" });
         alert("Obrisana je potkategorija");
       } catch (error) {
         console.log("GREŠKA BRISANJA POTKATEGORIJE");
       }
     },
-   
+
     async BrisnjeSlike() {
       const ID = this.$route.params.id;
       // Create a reference to the file to delete
@@ -221,7 +218,13 @@ try {
       try {
         await deleteObject(desertRef);
         this.categoryImage = null;
-        const KategorijaDocRef =  doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije);
+        const KategorijaDocRef = doc(
+          collection(
+            doc(collection(db, "Kategorija"), this.$route.params.id),
+            "Potkategorija"
+          ),
+          this.$route.params.idPodkategorije
+        );
         await updateDoc(KategorijaDocRef, { imageURL: "" });
       } catch (error) {
         console.log("GREŠKA BRISANJA SLIKE");
@@ -237,20 +240,35 @@ try {
     async getSlika() {
       const ID = this.$route.params.id;
 
-      const categorySnap = await getDoc( doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije));
+      const categorySnap = await getDoc(
+        doc(
+          collection(
+            doc(collection(db, "Kategorija"), this.$route.params.id),
+            "Potkategorija"
+          ),
+          this.$route.params.idPodkategorije
+        )
+      );
 
       if (categorySnap.data().imageURL) {
         this.categoryImage = categorySnap.data().imageURL;
       }
     },
-   
 
     async PrikazStavke() {
       const ID = this.$route.params.id;
-      
+
       const q = query(
-        collection(doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije),"Stavke")
-      
+        collection(
+          doc(
+            collection(
+              doc(collection(db, "Kategorija"), this.$route.params.id),
+              "Potkategorija"
+            ),
+            this.$route.params.idPodkategorije
+          ),
+          "Stavke"
+        )
       );
       onSnapshot(q, (querySnapshot) => {
         const Stavke = [];
@@ -262,7 +280,13 @@ try {
     },
 
     async PrikazNaslova() {
-      const docRef =  doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije)
+      const docRef = doc(
+        collection(
+          doc(collection(db, "Kategorija"), this.$route.params.id),
+          "Potkategorija"
+        ),
+        this.$route.params.idPodkategorije
+      );
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -285,10 +309,18 @@ try {
       await uploadBytes(storageRef, this.Slika);
       const downloadURL = await getDownloadURL(storageRef);
 
-      updateDoc( doc(collection(doc(collection(db, "Kategorija"), this.$route.params.id), "Potkategorija"),this.$route.params.idPodkategorije)
-            , {
-        imageURL: downloadURL,
-      });
+      updateDoc(
+        doc(
+          collection(
+            doc(collection(db, "Kategorija"), this.$route.params.id),
+            "Potkategorija"
+          ),
+          this.$route.params.idPodkategorije
+        ),
+        {
+          imageURL: downloadURL,
+        }
+      );
       this.getSlika();
     },
   },
@@ -308,11 +340,9 @@ try {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin: 3rem auto;
   max-width: 140vh;
   width: 120vh;
-
   padding-left: 25%;
 }
 
@@ -352,7 +382,6 @@ try {
   border: 4px solid #731642;
   border-radius: 7px;
   object-fit: contain;
-  
 }
 
 .ButtonSlike2 {
@@ -372,7 +401,7 @@ try {
 }
 
 .ButtonSlike1 {
-background-color: #ffffff;
+  background-color: #ffffff;
   color: #731642;
   border: 3px solid #731642;
   border-radius: 10px;
@@ -393,9 +422,8 @@ background-color: #ffffff;
   margin-top: 1rem;
 }
 
-
 .Prvo {
-   display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #731642;
@@ -409,7 +437,7 @@ background-color: #ffffff;
   cursor: pointer;
 }
 
-.Drugo  {
+.Drugo {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -421,7 +449,7 @@ background-color: #ffffff;
   border: none;
   font-size: 15px;
   padding: 1rem;
-  gap:0.5rem;
+  gap: 0.5rem;
   outline: none;
   cursor: pointer;
   padding-bottom: 1.2rem;
@@ -439,21 +467,18 @@ background-color: #ffffff;
   gap: 1.1rem;
 }
 
-
 .top {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   justify-content: center;
   margin-right: 1rem;
-
 }
 
 .t {
   margin-top: -2rem;
   margin-bottom: 0.5rem;
 }
-
 
 .red {
   display: flex;
@@ -463,9 +488,9 @@ background-color: #ffffff;
 
 .SlikaX {
   color: #731642;
-position: absolute;
-right: -12px;
-top: 10px;
+  position: absolute;
+  right: -12px;
+  top: 10px;
   z-index: 999;
   font-size: 18px;
   border-radius: 100%;
@@ -484,7 +509,7 @@ top: 10px;
   font-size: 13px;
   border: 1.5px solid #731642;
   padding: 0.2rem;
-   width:92%;
+  width: 92%;
 }
 
 .ButtoniSlika {
@@ -502,16 +527,14 @@ i {
   color: #ffffff;
 }
 
-
 .potvrdi:hover {
   cursor: pointer;
-  background-color: #721741d5;
+  background-color: #aa6b88e3;
 }
 
-.velicina{
-  width: 11rem; 
+.velicina {
+  width: 11rem;
   height: 11rem;
   position: relative;
 }
-
 </style>

@@ -25,8 +25,8 @@
           <div @click="zatvoriDan" class="IzvjestajGumb">
             Zatvaranje radnog dana
           </div>
-          <router-link :to="{ name: 'Izvjestaji' }"
-            ><div class="IzvjestajGumb">Pregled izvještaja</div></router-link
+          <router-link  :to="{ name: 'Izvjestaji' }"
+            ><div v-if="store.admin"  class="IzvjestajGumb">Pregled izvještaja</div></router-link
           >
         </div>
 
@@ -49,7 +49,7 @@
             <div class="stupac celija">U kasi</div>
           </div>
           <div class="DrugiRedUkupno">
-            <div class="stupac celija">{{ Polog.toFixed(2) }} kn</div>
+            <div class="stupac celija">{{ Polog }} kn</div>
             <div class="stupac celija">{{ kasa.toFixed(2) }} kn</div>
             <div class="stupac celija">{{ uKasi.toFixed(2) }} kn</div>
           </div>
@@ -91,7 +91,7 @@
                 <div class="stupac celija">U kasi</div>
               </div>
               <div class="DrugiRedUkupno">
-                <div class="stupac celija">{{ Polog.toFixed(2) }} kn</div>
+                <div class="stupac celija">{{ Polog }} kn</div>
                 <div class="stupac celija">{{ kasa.toFixed(2) }} kn</div>
                 <div class="stupac celija">{{ uKasi.toFixed(2) }} kn</div>
               </div>
@@ -109,6 +109,9 @@ import { db, doc, onSnapshot, updateDoc } from "@/firebase";
 import potvrdi from "@/components/potvrdi";
 import Sidebar from "@/components/Sidebar";
 import RedakTablice from "@/components/RedakTablice";
+import store from "@/store/index";
+
+
 
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -116,6 +119,8 @@ export default {
   components: { Sidebar, RedakTablice, potvrdi, VueHtml2pdf },
   data() {
     return {
+
+      store,
       NarudzbaIDstavke: [],
       datum: "",
       Vidljiv: false,
@@ -135,22 +140,16 @@ export default {
   methods: {
     async generateReport() {
       this.$refs.html2Pdf.generatePdf();
-   
-
-   
-
     },
     async zatvoriDan() {
-      await this.SpremiDan()
-      await this.generateReport()
-      await this.izbrisi()
-   setTimeout(() => {
-       this.$router.go('izvjestaj')
-        }, 1000);
-      
+      await this.SpremiDan();
+      await this.generateReport();
+      await this.izbrisi();
+      setTimeout(() => {
+        this.$router.go("izvjestaj");
+      }, 1000);
     },
 
-    
     async DohvatiDatum() {
       let dateObj = new Date();
       let month = String(dateObj.getMonth() + 1).padStart(2, "0");
@@ -158,7 +157,11 @@ export default {
       let year = dateObj.getFullYear();
       this.datum = day + "." + month + "." + year + ".";
     },
-    ...mapActions({ dohvatiStavke: "dohvatiStavke", izbrisi: 'izbrisi', SpremiDan: "SpremiDan" }),
+    ...mapActions({
+      dohvatiStavke: "dohvatiStavke",
+      izbrisi: "izbrisi",
+      SpremiDan: "SpremiDan",
+    }),
 
     async PostaviPolog() {
       try {
@@ -200,7 +203,6 @@ export default {
   margin: 3rem auto;
   max-width: 140vh;
   width: 120vh;
-
   padding-left: 25%;
 }
 
@@ -211,7 +213,6 @@ export default {
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
-
   gap: 2rem;
 
   width: 98%;

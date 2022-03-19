@@ -1,28 +1,20 @@
 <template>
-<router-link :to="{ name: 'DodajStol' }">
-  <div>
-    <div
-      class="dodavanje vidljivo krug"
-     
-    >
-      <i class="fas fa-plus pluss"></i>
-      <p>Dodaj stol</p>
+  <router-link :to="{ name: 'DodajStol' }">
+    <div>
+      <div class="dodavanje vidljivo krug">
+        <i class="fas fa-plus pluss"></i>
+        <p>Dodaj stol</p>
+      </div>
     </div>
-  
-  </div>
   </router-link>
 </template>
 
 <script>
-
-
 export default {
   name: "dodavanjeStola",
   data() {
-    return { };
+    return {};
   },
-
-
 };
 </script>
 
@@ -106,12 +98,8 @@ a {
 
 .krug:hover {
   cursor: pointer;
-   background-color: #721741d5;
-   border: 3.5px solid #72174100;
+  background-color: #721741d5;
+  border: 3.5px solid #72174100;
   color: #ffffff;
-
-  
-
- 
 }
 </style>
