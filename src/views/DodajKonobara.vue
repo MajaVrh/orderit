@@ -44,7 +44,8 @@ export default {
   methods: {
     async DodajKonobara() {
       try {
-        
+
+if(this.ImeKonobara!="" || this.PrezimeKonobara!=""){
         const ImePrezimeKonobara = {
           ImeKonobara: this.ImeKonobara,
           PrezimeKonobara: this.PrezimeKonobara,
@@ -57,10 +58,14 @@ export default {
         alert("Dodan je konobar");
         this.ImeKonobara="",
         this.PrezimeKonobara=""
+      }
+      else  alert("Niste unijeli ime ili prezime konobara");
       } catch (error) {
         console.log(error);
+
       }
     },
+    
   },
   components: { Sidebar, Natrag },
 };

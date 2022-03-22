@@ -39,6 +39,7 @@ export default {
     async brisanje() {
       await deleteDoc(doc(db, "PopisKonobara", this.id));
     },
+    
   },
 };
 </script>
