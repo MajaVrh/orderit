@@ -238,7 +238,6 @@ export default {
       }
     },
     async getSlika() {
-      const ID = this.$route.params.id;
 
       const categorySnap = await getDoc(
         doc(
@@ -300,11 +299,11 @@ export default {
 
     async uploadImage() {
       this.Vidljiv = !this.Vidljiv;
-      const ID = this.$route.params.id;
+     
       if (!this.Slika) return;
 
       const imageName = uuid();
-      const storageRef = ref(storage, imageName);
+      const storageRef = ref(storage, imageName);  
 
       await uploadBytes(storageRef, this.Slika);
       const downloadURL = await getDownloadURL(storageRef);

@@ -60,6 +60,18 @@ export default {
     async Dodaj() {
       try {
         const ID = this.$route.params.id;
+        if (this.NazivStavke == "") {
+          this.NazivStavke = "Neimenovano";
+        }
+        if (this.CijenaStavke == "") {
+          this.CijenaStavke = 0;
+        }
+        if (this.CijenaStavke == "" || this.NazivStavke == "") {
+          alert("Niste definirali cijenu ili naziv dodane stavke");
+        }
+        if (this.InfoStavka == "") {
+          this.InfoStavka = "Nema informacija";
+        }
         await addDoc(
           collection(doc(collection(db, "Kategorija"), ID), "Stavka"),
           {

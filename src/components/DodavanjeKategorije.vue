@@ -35,6 +35,7 @@ export default {
   methods: {
     async DodajGlavnuKategoriju() {
       try {
+        if(this.KategorijaIme==""){this.KategorijaIme="Neimenovano"}
         const KategorijaDodaj = { Ime: this.KategorijaIme };
         // Add a new document with a generated id.
         const docRef = await addDoc(

@@ -1,8 +1,3 @@
-
-
-
-
-
 <template>
   <div class="Stavka">
     <div class="ButtonDodajVidljiv" v-if="!Vidljiv" @click="Vidljiv = !Vidljiv">
@@ -33,21 +28,21 @@
         type="text"
       />
 
-        <div class="buttonipotvrdi">
-        
-         <div @click="Dodaj">
-         <potvrdi /></div>
- <div  @click="Vidljiv=!Vidljiv">
-         <odustani /></div>
+      <div class="buttonipotvrdi">
+        <div @click="Dodaj">
+          <potvrdi />
+        </div>
+        <div @click="Vidljiv = !Vidljiv">
+          <odustani />
+        </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import potvrdi from './potvrdi.vue';
-import odustani from './odustani.vue';
+import potvrdi from "./potvrdi.vue";
+import odustani from "./odustani.vue";
 import { db, collection, addDoc, doc } from "@/firebase";
 export default {
   data() {
@@ -58,12 +53,22 @@ export default {
       InfoStavka: "",
     };
   },
-   components: { potvrdi, odustani },
+  components: { potvrdi, odustani },
   name: "DodavanjeStavkePotkategorija",
   methods: {
     async Dodaj() {
       try {
         const ID = this.$route.params.id;
+        if (this.NazivStavke == "") {
+          this.NazivStavke = "Neimenovano";
+        }
+        if (this.CijenaStavke == "") {
+          this.CijenaStavke = 0;
+         
+        }
+          if (this.CijenaStavke == "" || this.NazivStavke == "") {
+          alert("Niste definirali cijenu ili naziv dodane stavke");
+        }
         if (this.InfoStavka == "") {
           this.InfoStavka = "Nema informacija";
         }
@@ -116,7 +121,7 @@ export default {
   padding: 1rem;
   width: 100%;
   height: 100%;
-   color: white !important;
+  color: white !important;
 }
 
 .ButtonDodajVidljiv:hover {
@@ -132,7 +137,6 @@ export default {
   padding: 1rem;
   width: 100%;
   height: 100%;
- 
 }
 
 .UpisiStavku {
@@ -176,10 +180,12 @@ export default {
   max-width: 88%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
-.buttonipotvrdi{display: flex;
-flex-direction: row;
-justify-content: center;
-gap: 0.3rem}
+.buttonipotvrdi {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.3rem;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -189,8 +195,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
-
 </style>

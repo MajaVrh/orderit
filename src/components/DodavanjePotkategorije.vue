@@ -37,6 +37,7 @@ export default {
   methods: {
     async DodajGlavnuKategoriju() {
       const ID = this.$route.params.id;
+        if(this.PotkategorijaIme==""){this.PotkategorijaIme="Neimenovano"}
       await addDoc(
         collection(doc(collection(db, "Kategorija"), ID), "Potkategorija"),
         {
